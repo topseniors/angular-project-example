@@ -1,0 +1,20 @@
+<app-section sectionTitle="INTEGRATIONS.ALL" class="integrations-list-section">
+  <!-- Error Template -->
+  <div *ngIf="errorMessage else table">
+    <app-alert-panel type="error" [message]="errorMessage"></app-alert-panel>
+  </div>
+
+  <ng-template #table>
+    <div *ngIf="dataPopulated && totalRows === 0">
+      <app-alert-panel type="info" message="GENERAL.NO_DATA"></app-alert-panel>
+    </div>
+
+    <button mat-fab color="warn" class="btn-add-integration" (click)="openAddIntegrationModal()">+</button>
+
+    <div class="integrations-list-container" [ngClass]="{'hidden': dataPopulated && totalRows === 0}">
+      <super-table [refresh]="refresh" [data]="integrationsResult$" [columns]="columns" [rowDefs]="rowDefs"
+                   [trackBy]="trackBy" [linked]="linked" [filtering]="filtering" [paging]="paging">
+      </super-table>
+    </div>
+  </ng-template>
+</app-section>

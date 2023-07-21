@@ -1,0 +1,100 @@
+@import "../../../../styles/variables";
+@import "../../../../styles/effects.less";
+
+app-section.integrations-list-section {
+  display: block;
+  min-width: 1640px;
+}
+
+:host {
+  .btn-add-integration {
+    position: absolute;
+    right: 20px;
+    top: -30px;
+    font-size: 24px;
+    width: 50px;
+    height: 50px;
+
+    ::ng-deep .mat-button-wrapper {
+      padding: 13px 0;
+    }
+  }
+
+  ::ng-deep super-table {
+    margin: 30px 70px 0;
+
+    mat-table.mat-table {
+      min-width: 1500px;
+
+      mat-header-row.mat-header-row {
+        padding-left: 20px;
+
+        .mat-header-cell {
+          position: relative;
+        }
+      }
+      mat-row.mat-row {
+        padding-left: 20px;
+
+        .mat-cell {
+          color: @color-grey8;
+          font-size: 12px;
+        }
+      }
+
+      .mat-column-name {
+        flex: 0 0 250px;
+        -ms-flex: 0 0 230px;
+
+        div {
+          max-width: 230px;
+        }
+      }
+
+      .mat-column-type {
+        .cell-container {
+          effect-icon {
+            img {
+              height: 25px;
+            }
+          }
+        }
+      }
+
+      .mat-column-status {
+        .icon-success-fail-result {
+          display: inline-block;
+          width: 8px;
+          height: 8px;
+          border-radius: 4px;
+          margin-right: 10px;
+
+          &.icon-success {
+            background-color: @color-green0;
+          }
+          &.icon-fail {
+            background-color: @color-red0;
+          }
+        }
+      }
+
+      .mat-column-actions {
+        flex: 0 0 48px;
+        -ms-flex: 0 0 28px;
+        justify-content: center !important;
+
+        .mat-icon-button {
+          width: 28px;
+          height: 28px;
+          line-height: 28px;
+        }
+      }
+    }
+  }
+}
+
+@media (max-width: @xs_max) {
+  ::ng-deep .mat-table {
+    margin: 20px;
+  }
+}

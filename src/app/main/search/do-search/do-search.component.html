@@ -1,0 +1,135 @@
+<app-section sectionTitle="SEARCH.DO_SEARCH.NAME" class="do-search-section">
+  <!-- Error Template -->
+  <div *ngIf="errorMessage else table">
+    <app-alert-panel type="error" [message]="errorMessage"></app-alert-panel>
+  </div>
+
+  <!-- Table Template -->
+  <ng-template #table>
+    <!-- Search control -->
+    <mat-card class="search-top-bar no-box-shadow">
+      <mat-card-content>
+        <mat-form-field class="medium-form-field search-string-field" floatPlaceholder="never" [ngClass]="searchMode">
+          <input matInput [ngClass]="{'hidden': searchMode !== SEARCH_MODE_REGULAR}" [(ngModel)]="searchString"
+            aria-label="Search" [matAutocomplete]="searchAutoComplete" [formControl]="searchInputCtrl"
+            [errorStateMatcher]="matcher" (keyup.enter)="onSearchStringChanged()">
+          <ngx-codemirror class="dsl-search-code-mirror" *ngIf="searchMode === SEARCH_MODE_DSL"
+            [(ngModel)]="searchString" [config]="dslSearchCodeMirrorConfig" [ngClass]="{'active': dslSearchCodeMirrorFocused}"
+            (focus)="onDSLSearchCodeMirrorFocus()" (blur)="onDSLSearchCodeMirrorBlur()"></ngx-codemirror>
+          <div class="search-mode hidden" matSuffix>
+            <span class="mode-title" [mdePopoverTriggerFor]="searchModeSelection" mdePopoverTriggerOn="click" (click)="$event.stopPropagation()">
+              <span *ngIf="searchMode === SEARCH_MODE_REGULAR">{{'SEARCH.DO_SEARCH.SEARCH_MODE_REGULAR_KEY' | translate}}</span>
+              <span *ngIf="searchMode === SEARCH_MODE_DSL">{{'SEARCH.DO_SEARCH.SEARCH_MODE_DSL_KEY' | translate}}</span>
+            </span>
+            <mde-popover class="search-mode-selection" #searchModeSelection="mdePopover" [mdePopoverOverlapTrigger]="false">
+              <mat-card>
+                <mat-card-content>
+                  <div class="overlap-pane"></div>
+                  <div class="search-mode-header">
+                    <span>{{'SEARCH.DO_SEARCH.SEARCH_MODE' | translate}}</span>
+                  </div>
+                  <div class="search-mode-body">
+                    <button mat-menu-item [ngClass]="{'active': searchMode === SEARCH_MODE_REGULAR}" (click)="searchMode = SEARCH_MODE_REGULAR">
+                      <i class="icon-check"></i>
+                      <span>{{'SEARCH.DO_SEARCH.SEARCH_MODE_REGULAR_LABEL' | translate}}</span>
+                    </button>
+                    <button mat-menu-item [ngClass]="{'active': searchMode === SEARCH_MODE_DSL}" (click)="searchMode = SEARCH_MODE_DSL">
+                      <i class="icon-check"></i>
+                      <span>{{'SEARCH.DO_SEARCH.SEARCH_MODE_DSL_LABEL' | translate}}</span>
+                    </button>
+                  </div>
+                </mat-card-content>
+              </mat-card>
+            </mde-popover>
+          </div>
+          <mat-icon class="search-icon" matSuffix (click)="onSearchStringChanged()">search</mat-icon>
+          <mat-autocomplete #searchAutoComplete="matAutocomplete" (optionSelected)="onSearchStringChanged()">
+            <mat-option *ngFor="let keyword of searchKeywords$ | async" [value]="keyword">
+              <span>{{ keyword }}</span>
+            </mat-option>
+          </mat-autocomplete>
+          <mat-error *ngIf="searchInputCtrl.hasError('maxlength')">
+            {{'SEARCH.DO_SEARCH.SEARCH_STRING_MAX_LENGTH_512' | translate}}
+          </mat-error>
+        </mat-form-field>
+        <button mat-raised-button class="btn-search-filter" color="primary" [mdePopoverTriggerFor]="searchFilter"
+          mdePopoverTriggerOn="click" [ngClass]="{'hidden': filterShouldBeHidden()}">
+          <i class="fa fa-filter" aria-hidden="true"></i>
+          <span>{{'SEARCH.DO_SEARCH.FILTER' | translate}}</span>
+        </button>
+        <mde-popover #searchFilter="mdePopover" [mdePopoverOverlapTrigger]="false" [mdePopoverCloseOnClick]="false">
+          <mat-card>
+            <mat-card-content>
+              <div hidden>
+                <mat-form-field>
+                  <mat-select placeholder="{{ 'SEARCH.DO_SEARCH.SEARCH_TYPE' | translate }}" [(ngModel)]="searchType"
+                              name="type" (change)="onSearchTypeChanged()">
+                    <mat-option *ngFor="let searchTypeItem of searchTypes" [value]="searchTypeItem.value">
+                      {{searchTypeItem.label | translate}}
+                    </mat-option>
+                  </mat-select>
+                </mat-form-field>
+              </div>
+              <div *ngFor="let facet of facets">
+                <mat-form-field [ngClass]="{'hidden': facet.items.length <= 1}">
+                  <mat-select [placeholder]="facet.placeholder | translate" [(ngModel)]="facet.selectedValue"
+                              [name]="facet.name" (change)="onFacetSelectedValueChanged()">
+                    <mat-select-trigger>
+                      {{getUpdatedFacetLabel(facet)}}
+                    </mat-select-trigger>
+                    <mat-option *ngFor="let facetItem of facet.items"
+                                [value]="facetItem.value" [ngClass]="{'hidden': !facetItem.visible}">
+                      {{facetItem.label}}
+                    </mat-option>
+                  </mat-select>
+                </mat-form-field>
+              </div>
+            </mat-card-content>
+          </mat-card>
+        </mde-popover>
+
+        <button mat-raised-button color="warn" class="btn-save-search save-this-search" data-testid="btn-save-this-search" (click)="openSaveSearchModal()">
+          <span>{{'SEARCH.DO_SEARCH.SAVE_THIS_SEARCH' | translate}}</span>
+        </button>
+
+        <!-- Entity type tab group -->
+        <div class="mat-tab-group-container">
+          <div class="left-sub">
+            <mat-tab-group [selectedIndex]="entityTypeIndex" (selectedTabChange)="onEntityTypeChanged('displayed', $event)">
+              <mat-tab *ngFor="let displayedTabItem of displayedEntityTypeTabItems" [label]="displayedTabItem.plural | translate" [disabled]="entityTypeDataLoading">
+              </mat-tab>
+            </mat-tab-group>
+            <div class="mat-tab-more-label" *ngIf="collapsedEntityTypeTabItems.length > 0" [matMenuTriggerFor]="moreTabMenu">
+              {{'SEARCH.DO_SEARCH.ENTITY_LABELS.MORE' | translate}}
+            </div>
+            <mat-menu #moreTabMenu="matMenu" [overlapTrigger]="false">
+              <div *ngFor="let collapsedTabItem of collapsedEntityTypeTabItems">
+                <button [disabled]="entityTypeDataLoading" mat-menu-item (click)="onEntityTypeChanged('collapsed', collapsedTabItem)">
+                  {{collapsedTabItem.plural | translate}}
+                </button>
+              </div>
+            </mat-menu>
+          </div>
+          <div class="right-sub">
+            <div class="manage-saved-searches" data-testid="manage-saved-searches">
+              <a (click)="goToManageSavedSearches()">{{'SEARCH.DO_SEARCH.MANAGE_SAVED_SEARCHES' | translate}}</a>
+            </div>
+          </div>
+        </div>
+
+      </mat-card-content>
+    </mat-card>
+
+    <div *ngIf="dataPopulated && totalRows === 0">
+      <app-alert-panel type="info" message="SEARCH.NO_DATA"></app-alert-panel>
+    </div>
+
+    <div class="search-result-container" [ngClass]="{'hidden': dataPopulated && totalRows === 0, 'with-highlight': withHighlight}">
+      <div class="search-result-{{entityType}}">
+        <super-table [refresh]="refresh" [data]="searchResult$" [columns]="columns" [rowDefs]="rowDefs"
+          [trackBy]="trackBy" [linked]="linked" [filtering]="filtering" [paging]="paging">
+        </super-table>
+      </div>
+    </div>
+  </ng-template>
+</app-section>

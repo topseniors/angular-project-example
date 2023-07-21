@@ -1,0 +1,305 @@
+@import '../../../../styles/variables';
+
+:host {
+  .dashboard {
+    .nodes-relationships {
+      &.mat-card {
+        padding: 24px 30px;
+      }
+
+      .title {
+        font-size: 14px;
+        font-weight: 500;
+        margin-bottom: 50px;
+        color: @color-grey13;
+
+        .refresh-counts {
+          cursor: pointer;
+          border: none;
+          outline: none;
+          background-color: transparent;
+        }
+
+        .refresh-counts,
+        .loader {
+          width: 30px;
+          height: 30px;
+          padding: 0;
+
+          img {
+            width: 100%;
+            height: 100%;
+          }
+        }
+      }
+
+      .items {
+        .items-header,
+        .items-body .items-list .list-item,
+        .items-body .items-footer .info-row {
+          margin-left: -30px;
+          margin-right: -30px;
+        }
+
+        .items-header {
+          padding: 20px 25px;
+        }
+
+        .items-body .items-list .list-item {
+          padding: 30px 25px 30px 20px;
+          border-bottom: 1px solid @color-grey17;
+        }
+
+        .items-body .items-footer .info-row {
+          padding: 24px 25px 0;
+        }
+
+        .items-header {
+          color: @color-grey4;
+        }
+
+        .items-body {
+          color: @color-blue6;
+        }
+
+        .header-server,
+        .body-server {
+          text-align: left;
+        }
+
+        .header-nodes,
+        .body-nodes,
+        .header-relationships,
+        .body-relationships {
+          text-align: right;
+        }
+
+        .body-nodes,
+        .body-relationships {
+          font-size: 18px;
+        }
+
+        .items-body {
+          .items-list {
+            .row {
+              border-left: 5px solid transparent;
+            }
+
+            .row.OK {
+              border-left: 5px solid @color-green0;
+            }
+
+            .row.NotOK {
+              border-left: 5px solid @color-red1;
+            }
+
+            .row.AlmostOK {
+              border-left: 5px solid @color-orange;
+            }
+          }
+
+          .items-footer {
+            .info-row {
+              .col {
+                display: flex;
+                align-items: center;
+
+                .info-col {
+                  margin-right: 40px;
+                  display: flex;
+                  align-items: center;
+
+                  .info-icon {
+                    display: block;
+                    width: 8px;
+                    height: 8px;
+                    border-radius: 5px;
+                    margin-right: 10px;
+
+                    &.OK-icon {
+                      background-color: @color-green0;
+                    }
+
+                    &.NotOK-icon {
+                      background-color: @color-red1;
+                    }
+
+                    &.AlmostOK-icon {
+                      background-color: @color-orange;
+                    }
+                  }
+
+                  .info-text {
+                    color: @color-grey6;
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+
+    .messages-timechart {
+      &.mat-card {
+        padding: 24px 30px;
+      }
+
+      .title {
+        font-size: 14px;
+        font-weight: 500;
+        margin-bottom: 50px;
+        color: @color-grey13;
+      }
+
+      .chart-container {
+        height: 347px;
+
+        canvas {
+          height: 100%;
+        }
+      }
+
+      .chart-slider-legend {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+
+        .chart-slider {
+          flex: 1;
+          padding: 0 50px;
+
+          ::ng-deep .noUi-horizontal {
+            height: 5px;
+            box-shadow: inset 0 1px 3px rgba(0, 0, 0, .4);
+            border: 0;
+
+            .noUi-handle {
+              width: 17px;
+              height: 17px;
+              border-radius: 9px;
+              box-shadow: 0 2px 2px @color-grey4;
+              cursor: pointer;
+
+              &:focus {
+                outline: 0;
+              }
+
+              &:before {
+                display: none;
+              }
+              &:after {
+                display: none;
+              }
+            }
+          }
+
+          ::ng-deep .noUi-connect {
+            background: @color-blue6;
+          }
+        }
+
+        .chart-legend {
+          flex: 0 0 220px;
+          display: flex;
+          align-items: center;
+
+          .info-col {
+            margin-right: 30px;
+            display: flex;
+            align-items: center;
+
+            .info-icon {
+              display: block;
+              width: 8px;
+              height: 8px;
+              border-radius: 5px;
+              margin-right: 10px;
+
+              &.OK-icon {
+                background-color: @color-green0;
+              }
+
+              &.NotOK-icon {
+                background-color: @color-red1;
+              }
+            }
+
+            .info-text {
+              color: @color-grey6;
+            }
+          }
+        }
+      }
+    }
+
+    .gauge-section {
+      margin-top: 30px;
+
+      .gauge-panel {
+        &.mat-card {
+          padding: 24px 30px;
+        }
+
+        .title {
+          font-size: 14px;
+          font-weight: 500;
+          margin-bottom: 15px;
+          color: @color-grey13;
+        }
+
+        .gauge-value {
+          font-size: 26px;
+          font-weight: 400;
+          color: @color-grey13;
+        }
+
+        .gauge-label {
+          font-size: 14px;
+          font-weight: 300;
+          color: @color-grey4;
+        }
+
+        ::ng-deep mwl-gauge {
+          width: 120px;
+          height: 120px;
+          margin: -10px;
+          display: block;
+
+          & > .gauge {
+            & > .dial {
+              stroke: @color-green0;
+              stroke-width: 1;
+              fill: rgba(0,0,0,0);
+            }
+
+            & > .value {
+              stroke: @color-green0;
+              stroke-width: 6;
+              stroke-linecap: round;
+              fill: rgba(0,0,0,0);
+            }
+
+            & > .value-text {
+              display: none;
+            }
+          }
+        }
+
+        &.error-panel {
+          ::ng-deep mwl-gauge {
+            & > .gauge {
+              & > .dial {
+                stroke: @color-red1;
+              }
+
+              & > .value {
+                stroke: @color-red1;
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+}

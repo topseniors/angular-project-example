@@ -1,0 +1,62 @@
+<form [formGroup]="formGroup" (ngSubmit)="onSubmit()">
+  <h1 mat-dialog-title data-testid="edit-search-modal-title">
+    {{'SEARCH.MANAGE_SAVED_SEARCHES.EDIT_SEARCH' | translate}}
+  </h1>
+  <div mat-dialog-content>
+    <mat-form-field>
+      <input
+        matInput
+        data-testid="edit-search-name"
+        [placeholder]="'SEARCH.MANAGE_SAVED_SEARCHES.SEARCH_NAME' | translate"
+        [errorStateMatcher]="matcher"
+        [formControl]="searchNameFormControl"
+        [(ngModel)]="data.name" name="searchName"
+        (blur)="trimSearchName()"
+      >
+      <mat-error *ngIf="searchNameFormControl.hasError('required')" data-testid="edit-search-name-error required">
+        {{'SEARCH.MANAGE_SAVED_SEARCHES.SEARCH_NAME_REQUIRED' | translate}}
+      </mat-error>
+      <mat-error *ngIf="searchNameFormControl.hasError('maxlength')" data-testid="edit-search-name-error max-length">
+        {{'SEARCH.MANAGE_SAVED_SEARCHES.SEARCH_NAME_MAX_LENGTH_64' | translate}}
+      </mat-error>
+      <mat-error *ngIf="searchNameFormControl.hasError('pattern')" data-testid="edit-search-name-error pattern">
+        {{'SEARCH.MANAGE_SAVED_SEARCHES.SEARCH_NAME_NO_WHITE_SPACES_ONLY' | translate}}
+      </mat-error>
+    </mat-form-field>
+    <mat-form-field>
+      <input
+        matInput
+        data-testid="edit-search-description"
+        [placeholder]="'SEARCH.MANAGE_SAVED_SEARCHES.SEARCH_DESCRIPTION' | translate"
+        [errorStateMatcher]="matcher"
+        [formControl]="searchDescriptionFormControl"
+        [(ngModel)]="data.shortDescr"
+        name="searchDescription"
+      >
+      <mat-error *ngIf="searchDescriptionFormControl.hasError('maxlength')" data-testid="edit-search-description-error max-length">
+        {{'SEARCH.MANAGE_SAVED_SEARCHES.SEARCH_DESCRIPTION_MAX_LENGTH_256' | translate}}
+      </mat-error>
+    </mat-form-field>
+    <mat-form-field>
+      <input
+        matInput
+        data-testid="edit-search-term"
+        [placeholder]="'SEARCH.MANAGE_SAVED_SEARCHES.SEARCH_TERM' | translate"
+        [errorStateMatcher]="matcher"
+        [formControl]="searchTermFormControl"
+        [(ngModel)]="data.q"
+        name="searchTerm"
+      >
+      <mat-error *ngIf="searchTermFormControl.hasError('maxlength')" data-testid="edit-search-term-error max-length">
+        {{'SEARCH.MANAGE_SAVED_SEARCHES.SEARCH_TERM_MAX_LENGTH_256' | translate}}
+      </mat-error>
+      <mat-error *ngIf="searchTermFormControl.hasError('pattern')" data-testid="edit-search-term-error pattern">
+        {{'SEARCH.MANAGE_SAVED_SEARCHES.SEARCH_TERM_NO_WHITE_SPACES_ONLY' | translate}}
+      </mat-error>
+    </mat-form-field>
+  </div>
+  <div mat-dialog-actions>
+    <button data-testid="edit-search-cta secondary" type="button" mat-button (click)="onCancel()">{{'GENERAL.CANCEL' | translate}}</button>
+    <button data-testid="edit-search-cta primary" type="submit" mat-raised-button color="warn">{{'GENERAL.SUBMIT' | translate}}</button>
+  </div>
+</form>

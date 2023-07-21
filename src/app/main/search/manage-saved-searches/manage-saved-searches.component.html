@@ -1,0 +1,74 @@
+<div class="back">
+  <b data-testid="back-to-search" (click)="goBack()">
+    <i class="fa fa-angle-left bold-font"></i>
+    <span>&nbsp;&nbsp;{{ 'SEARCH.MANAGE_SAVED_SEARCHES.BACK_TO_SEARCH' | translate}}</span>
+  </b>
+</div>
+<mat-card>
+  <div class="manage-saved-searches-container">
+    <div class="left-sub sub manage-saved-searches__left-panel" data-testid="manage-saved-searches__left-panel">
+      <div class="top-bar">
+        <span class="link-folders" data-testid="left-panel__folders">
+          {{'SEARCH.MANAGE_SAVED_SEARCHES.FOLDERS' | translate | uppercase}} (<span data-testid="left-panel__folders-count">{{folders.length}}</span>)
+        </span>
+        <button type="button" data-testid="left-panel__add-folder" mat-raised-button color="warn" (click)="openAddFolderModal()">
+          {{'SEARCH.MANAGE_SAVED_SEARCHES.ADD_FOLDER' | translate}}
+        </button>
+      </div>
+      <mat-list class="folders-list" data-testid="folders-list">
+        <mat-list-item *ngFor="let folder of folders" class="folder-item" attr.data-testid="folder-item {{folder.name}}" [ngClass]="{'active': folder.active}">
+          <span class="folder">
+            <a (click)="selectFolder(folder)" class="link-folder" data-testid="link-folder">
+              <span class="folder-name" data-testid="folder-name">{{folder.name}}</span>
+              <span class="search-count" data-testid="folder-search-count">({{folder.dsRefs.length}})</span>
+            </a>
+          </span>
+          <span class="folder-operation" *ngIf="!isDefaultSavedFolder(folder)">
+            <a (click)="setEditedFolder(folder)" class="link-edit-folder" data-testid="edit-folder">
+              <i class="fa fa-pencil"></i>
+            </a>
+            <a (click)="deleteFolder(folder)" class="link-delete-folder" data-testid="delete-folder">
+              <i class="fa fa-trash"></i>
+            </a>
+          </span>
+        </mat-list-item>
+      </mat-list>
+    </div>
+    <div class="right-sub sub manage-saved-searches__table">
+      <div *ngIf="dataPopulated && totalRows === 0">
+        <app-alert-panel data-testid="table-no-results" class="table__no-results" type="info" message="SEARCH.NO_DATA"></app-alert-panel>
+      </div>
+      <div [ngClass]="{'hidden': dataPopulated && totalRows === 0}">
+        <div class="searches-list">
+          <div class="folder-search-actions-container" [ngClass]="{'invisible': selectedSearches.length === 0}">
+            <div class="folder-search-actions" data-testid="folder-search-actions">
+              <div class="left-sub">
+                <span class="selected-count child" data-testid="table-number-of-selected-items">{{selectedSearches.length}}</span>
+                <span class="child">{{'SEARCH.MANAGE_SAVED_SEARCHES.ITEMS_SELECTED' | translate}}</span>
+                <button data-testid="delete-selected-items" mat-button class="child" *ngIf="selectedFolder && selectedFolder.name !== 'System Searches'" (click)="deleteSearches()">
+                  <i class="fa fa-trash"></i>
+                  <span>{{'GENERAL.DELETE' | translate}}</span>
+                </button>
+              </div>
+              <div class="right-sub">
+                <button data-testid="clear-selected-items" type="button" mat-button class="child" (click)="clearSearchesSelection()">
+                  {{'SEARCH.MANAGE_SAVED_SEARCHES.CLEAR_SELECTION' | translate}}
+                </button>
+              </div>
+            </div>
+          </div>
+          <super-table
+            [refresh]="refresh"
+            [data]="selectedFolderSearches$"
+            [columns]="columns"
+            [trackBy]="trackBy"
+            [rowDefs]="rowDefs"
+            [linked]="linked"
+            [filtering]="filtering"
+            [paging]="paging"
+          ></super-table>
+        </div>
+      </div>
+    </div>
+  </div>
+</mat-card>

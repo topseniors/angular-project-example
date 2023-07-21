@@ -1,0 +1,143 @@
+.input() {
+  input {
+    width: 100%;
+    font-weight: 400;
+    color: @color-pr-blue;
+    font-size: 18px;
+    border: 0px;
+    border-bottom: 1px solid @color-pr-orange;
+    outline-width: 0;
+    padding-bottom: 4px;
+    margin-bottom: 25px;
+    padding-right: 10px;
+    text-overflow: ellipsis;
+
+    &:focus {
+      border-bottom: 3px solid @color-pr-orange;
+      padding-bottom: 2px;
+    }
+
+    &.ng-invalid.ng-dirty {
+      border-bottom: 1px solid @color-pr-red;
+
+      &:focus {
+        border-bottom: 3px solid @color-pr-red;
+        padding-bottom: 2px;
+      }
+    }
+
+    .ng-submitted & {
+      &.ng-invalid {
+        border-bottom: 1px solid @color-pr-red;
+
+        &:focus {
+          border-bottom: 3px solid @color-pr-red;
+          padding-bottom: 2px;
+        }
+      }
+    }
+  }
+}
+
+.input-label() {
+  .input-label {
+    display: block;
+    font-size: 13px;
+    padding-left: 1px;
+    margin-bottom: 2px;
+    color: @color-pr-grey4;
+    font-weight: 300;
+    text-transform: capitalize;
+  }
+}
+
+.ng-messages() {
+  [ng-messages] {
+    position: relative;
+    color: @color-pr-red;
+    font-size:  12px;
+    bottom: 25px;
+    [ng-message] {
+      position: absolute;
+      overflow: hidden;
+      width: 100%;
+      white-space: nowrap;
+      text-overflow: ellipsis;
+    }
+  }
+}
+
+.placeholder(@color: @color-pr-grey2) {
+  ::-webkit-input-placeholder {
+    color: @color;
+  }
+  ::-moz-placeholder {
+    color: @color;
+  }
+  :-ms-input-placeholder {
+    color: @color;
+  }
+  :-moz-placeholder {
+    color: @color;
+  }
+}
+
+.dropdown-menu(@marginTop) {
+  .dropdown-menu {
+    overflow-x: hidden;
+    overflow-y: auto;
+    position: absolute;
+    top: 100%;
+    margin-top: @marginTop;
+    width: 100%;
+    min-width: 150px;
+
+    .option {
+      padding: 13px;
+      color: @color-pr-blue10;
+      cursor: pointer;
+      transition: all .3s ease-out;
+
+      &:hover {
+        background-color: @color-pr-blue2;
+      }
+    }
+  }
+}
+
+.fa-caret-down() {
+  .fa-caret-down {
+    display: flex;
+    color: @color-pr-grey7;
+    position: absolute;
+    top: 31px;
+    right: 3px;
+  }
+}
+
+.disabled() {
+  [disabled] &{
+    input {
+      cursor: not-allowed;
+      color: @color-pr-grey1;
+      border-color: @color-pr-grey1;
+    }
+
+    .fa-caret-down {
+      color: @color-pr-grey1;
+    }
+
+    .input-label {
+      color: @color-pr-grey1;
+    }
+
+    .placeholder(@color-pr-grey1);
+
+    .chip-wrap {
+      border-color: @color-pr-grey1;
+      .placeholder {
+        color: @color-pr-grey1;
+      }
+    }
+  }
+}

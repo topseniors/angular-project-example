@@ -1,0 +1,16 @@
+<mat-grid-list cols="4" rowHeight="240px">
+    <mat-grid-tile *ngFor="let card of cards" colspan="1" rowspan="1">
+      <mat-card>
+        <mat-card-title>{{card.title}}</mat-card-title>
+        <mat-card-subtitle>Last updated: ? hours ago</mat-card-subtitle>
+        <mat-card-content>{{card.value | number}}</mat-card-content>
+        <mat-card-subtitle>Total records</mat-card-subtitle>
+        <mat-card-actions>
+          <button mat-button>EXPORT</button>
+          <button mat-button routerLink="{{card.route}}" [disabled]="!card.route">
+            VIEW<mat-icon fontSet="fa" fontIcon="fa-angle-right"></mat-icon>
+          </button>
+        </mat-card-actions>
+      </mat-card>
+    </mat-grid-tile>
+  </mat-grid-list>

@@ -1,0 +1,28 @@
+<span class="progress-pct">{{ pct }}%</span>
+<div class="progress-container">
+  <svg #svg [mdePopoverTriggerFor]="progressPopover" [mdePopoverTriggerOn]="hover" [attr.width]="width"
+    [attr.height]="height" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <rect class="background" [attr.width]="width" [attr.height]="height"></rect>
+    <g class="data"></g>
+  </svg>
+  <mde-popover #progressPopover="mdePopover" [mdePopoverOverlapTrigger]="false">
+    <div class="mat-menu-panel">
+      <div class="mat-menu-content">
+        <button class="progress-tooltip" (click)="onTooltipItemClicked()" mat-menu-item>
+          <div class="legend-name">
+            <div class="Total legend"></div>
+            <span class="name">{{ 'Total IPs' | translate }}</span>
+          </div>
+          <span class="count">{{ _data?.total || 0 }}</span>
+        </button>
+        <button class="progress-tooltip" (click)="onTooltipItemClicked()" *ngFor="let channel of _data?.channels" mat-menu-item>
+          <div class="legend-name">
+            <div class="{{channel.key}} legend"></div>
+            <span class="name">{{ channel.name | translate }}</span>
+          </div>
+          <span class="count">{{ channel.count }}</span>
+        </button>
+      </div>
+    </div>
+  </mde-popover>
+</div>

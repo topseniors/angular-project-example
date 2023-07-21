@@ -1,0 +1,27 @@
+<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="32" height="32" viewBox="0 0 32 32">
+  <defs>
+    <rect id="-app-component-application-component-a" width="31.626" height="31.624" rx="15.812"/>
+    <filter id="-app-component-application-component-b" width="221.4%" height="241.7%" x="-60.7%" y="-54.2%" filterUnits="objectBoundingBox">
+      <feOffset dy="2" in="SourceAlpha" result="shadowOffsetOuter1"/>
+      <feGaussianBlur in="shadowOffsetOuter1" result="shadowBlurOuter1" stdDeviation="2.5"/>
+      <feColorMatrix in="shadowBlurOuter1" result="shadowMatrixOuter1" values="0 0 0 0 0   0 0 0 0 0   0 0 0 0 0  0 0 0 0.2 0"/>
+      <feMerge>
+        <feMergeNode in="shadowMatrixOuter1"/>
+        <feMergeNode in="SourceGraphic"/>
+      </feMerge>
+    </filter>
+    <polygon id="-app-component-application-component-c" points="0 11 13.401 11 13.401 .273 0 .273"/>
+  </defs>
+  <g fill="none" fill-rule="evenodd">
+    <use fill="#61C3FF" xlink:href="#-app-component-application-component-a"/>
+    <g filter="url(#-app-component-application-component-b)" transform="translate(9 10)">
+      <g transform="translate(0 .727)">
+        <mask id="-app-component-application-component-d" fill="#fff">
+          <use xlink:href="#-app-component-application-component-c"/>
+        </mask>
+        <path fill="#FFF" d="M0.9634,1.2734 L1.0004,10.0374 L12.4384,10.0004 L12.4014,1.2734 L0.9634,1.2734 Z M12.4384,11.0004 L0.9634,11.0004 C0.4324,11.0004 0.0004,10.5684 0.0004,10.0374 L0.0004,1.2364 C0.0004,0.7054 0.4324,0.2734 0.9634,0.2734 L12.4384,0.2734 C12.9694,0.2734 13.4014,0.7054 13.4014,1.2364 L13.4014,10.0374 C13.4014,10.5684 12.9694,11.0004 12.4384,11.0004 Z" mask="url(#-app-component-application-component-d)"/>
+      </g>
+      <path fill="#FFF" d="M11.1265,4.2422 C10.7665,4.2422 10.4745,3.9502 10.4745,3.5902 C10.4745,3.2302 10.7665,2.9382 11.1265,2.9382 C11.4865,2.9382 11.7775,3.2302 11.7775,3.5902 C11.7775,3.9502 11.4865,4.2422 11.1265,4.2422 M9.4345,4.2362 C9.0765,4.2362 8.7875,3.9472 8.7875,3.5902 C8.7875,3.2332 9.0765,2.9442 9.4345,2.9442 C9.7905,2.9442 10.0795,3.2332 10.0795,3.5902 C10.0795,3.9472 9.7905,4.2362 9.4345,4.2362 M7.7405,4.2412 C7.3815,4.2412 7.0905,3.9492 7.0905,3.5902 C7.0905,3.2302 7.3815,2.9392 7.7405,2.9392 C8.1005,2.9392 8.3925,3.2302 8.3925,3.5902 C8.3925,3.9492 8.1005,4.2412 7.7405,4.2412 M12.4395,1.5002 L0.9615,1.5002 C0.7065,1.5002 0.5005,1.7072 0.5005,1.9622 L0.5005,5.5912 L12.9015,5.5912 L12.9015,1.9622 C12.9015,1.7072 12.6945,1.5002 12.4395,1.5002"/>
+    </g>
+  </g>
+</svg>

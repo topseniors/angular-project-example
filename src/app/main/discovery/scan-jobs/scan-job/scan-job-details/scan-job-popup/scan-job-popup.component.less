@@ -1,0 +1,230 @@
+@import "../../../../../../../styles/variables";
+
+::ng-deep .scanjobdetails-popup {
+  width: 1200px;
+  height: auto;
+  max-height: calc(~'100vh - 270px');
+
+  @media (max-width: @xs_max) {
+    width: 80%;
+  }
+
+  @media (max-width: @sm_max) and (min-width: @sm_min) {
+    width: 750px;
+  }
+
+  .mat-dialog-container {
+    padding: 40px 0 20px !important;
+    max-height: calc(~'100vh - 270px');
+    max-width: 100%;
+
+    .mat-dialog-content {
+      position: relative;
+      margin: 0;
+      padding: 0;
+      max-height: calc(~'100vh - 330px');
+
+      .close {
+        position: absolute;
+        font-weight: 400;
+        top: 8px;
+        right: 40px;
+        z-index: 1000;
+      }
+
+      .mat-tab-group {
+        max-height: calc(~'100vh - 330px');
+
+        .mat-tab-header {
+          border-bottom-width: 0;
+          margin: 0 40px 15px;
+
+          .mat-tab-label {
+            min-width: auto;
+            height: auto;
+            padding: 8px;
+            margin-right: 16px;
+            opacity: 1;
+            color: @color-blue6;
+            font-weight: normal;
+
+            &:focus {
+              background-color: transparent;
+            }
+          }
+          .mat-tab-label-active {
+            color: @color-red0;
+          }
+          .mat-ink-bar {
+            background-color: @color-red0;
+            height: 5px;
+          }
+        }
+
+        .mat-tab-body {
+          .middle-table super-table {
+            margin: 0;
+
+            mat-table.mat-table {
+              min-width: 1000px;
+
+              .mat-header-row,
+              .mat-row {
+                padding: 0 35px;
+              }
+
+              .mat-row {
+                &:last-child {
+                  box-shadow: none;
+                  border-bottom-color: @color-grey15;
+                }
+
+                &:before {
+                  box-shadow: none;
+                  display: none;
+                }
+                &:after {
+                  box-shadow: none;
+                  display: none;
+                }
+
+                &:hover {
+                  background-color: @white;
+                  cursor: default;
+                }
+
+                .mat-cell {
+                  font-size: 12px;
+
+                  &.mat-column-totalDevices,
+                  &.mat-column-scannedIPsScopeSize {
+                    color: @color-blue6;
+                    font-weight: bold;
+                  }
+                }
+              }
+
+              .mat-column-status {
+                flex: 0 0 58px;
+                -ms-flex: 0 0 38px;
+                justify-content: center !important;
+
+                img {
+                  width: 38px;
+                  height: 38px;
+                }
+              }
+              .mat-column-started {
+                flex: 0 0 120px;
+                -ms-flex: 0 0 100px;
+              }
+              .mat-column-duration {
+                flex: 0 0 150px;
+                -ms-flex: 0 0 130px;
+              }
+              .mat-column-progress {
+                flex: 0 0 280px;
+                -ms-flex: 0 0 260px;
+              }
+              .mat-column-totalDevices {
+                flex: 0 0 120px;
+                -ms-flex: 0 0 100px;
+                justify-content: flex-end !important;
+              }
+              .mat-column-scannedIPsScopeSize {
+                flex: 0 0 220px;
+                -ms-flex: 0 0 200px;
+                justify-content: flex-end !important;
+              }
+            }
+          }
+
+          scan-job-result,
+          scan-job-log {
+            super-table {
+              margin: 20px 40px 0;
+
+              mat-table.mat-table {
+                min-width: 920px;
+              }
+              mat-paginator.mat-paginator {
+                min-width: 920px;
+              }
+
+              .\#777777 {
+                color: #777777;
+              }
+              .\#88c780 {
+                color: #88c780;
+              }
+              .\#f84a4a {
+                color: #f84a4a;
+              }
+              .\#61c3ff {
+                color: #61c3ff;
+              }
+              .\#ff840b {
+                color: #ff840b;
+              }
+
+              .mat-row {
+                .mat-cell {
+                  font-size: 12px;
+
+                  &.mat-column-name,
+                  &.mat-column-changeType {
+                    font-weight: 600;
+                  }
+                }
+              }
+
+              .mat-column-entityType {
+                flex: 0 0 48px;
+                -ms-flex: 0 0 28px;
+                justify-content: center !important;
+
+                img {
+                  width: 28px;
+                  height: 28px;
+                }
+              }
+              .mat-column-name {
+                flex: 1 0 120px;
+                -ms-flex: 1 0 100px;
+              }
+              .mat-column-tickbox {
+                flex: 0 0 40px;
+                -ms-flex: 0 0 20px;
+              }
+              .mat-column-time {
+                flex: 1 0 100px;
+                -ms-flex: 1 0 80px;
+              }
+              .mat-column-ip {
+                flex: 1 0 100px;
+                -ms-flex: 1 0 80px;
+              }
+              .mat-column-changeType {
+                flex: 1 0 80px;
+                -ms-flex: 1 0 60px;
+              }
+              .mat-column-status {
+                flex: 1 0 100px;
+                -ms-flex: 1 0 80px;
+              }
+              .mat-column-duration {
+                flex: 1 0 100px;
+                -ms-flex: 1 0 80px;
+              }
+              .mat-column-info {
+                flex: 2 0 150px;
+                -ms-flex: 2 0 130px;
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+}
+

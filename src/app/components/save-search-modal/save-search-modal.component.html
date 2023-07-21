@@ -1,0 +1,103 @@
+<form [formGroup]="formGroup" (ngSubmit)="onSubmit()">
+  <h1 mat-dialog-title class="save-search__title" data-testid="save-search__title">
+    {{'SEARCH.DO_SEARCH.SAVE_SEARCH_TERM' | translate}} <span class="save-search-term save-search__term" data-testid="save-search__term">"{{data.searchString}}"</span>
+  </h1>
+  <div mat-dialog-content class="save-search__content" data-testid="save-search__content">
+    <mat-form-field>
+      <input
+        class="save-search__name"
+        data-testid="save-search__name"
+        matInput
+        [placeholder]="'SEARCH.DO_SEARCH.SAVED_SEARCH_NAME' | translate"
+        [formControl]="nameFormControl"
+        [errorStateMatcher]="matcher" name="name"
+        [(ngModel)]="output.name"
+        (blur)="trimName()"
+      >
+      <mat-error
+        class="save-search__name__error required"
+        data-testid="save-search__name__error required" *ngIf="nameFormControl.hasError('required')"
+      >
+        {{'SEARCH.DO_SEARCH.SAVED_SEARCH_NAME_REQUIRED' | translate}}
+      </mat-error>
+      <mat-error
+        class="save-search__name__error max-length"
+        data-testid="save-search__name__error max-length" *ngIf="nameFormControl.hasError('maxlength')"
+      >
+        {{'SEARCH.DO_SEARCH.SAVED_SEARCH_NAME_MAX_LENGTH_64' | translate}}
+      </mat-error>
+      <mat-error
+        class="save-search__name__error pattern"
+        data-testid="save-search__name__error pattern" *ngIf="nameFormControl.hasError('pattern')"
+      >
+        {{'SEARCH.DO_SEARCH.SAVED_SEARCH_NAME_NO_WHITE_SPACES_ONLY' | translate}}
+      </mat-error>
+    </mat-form-field>
+
+    <mat-form-field>
+      <input
+        class="save-search__description"
+        data-testid="save-search__description"
+        matInput
+        [placeholder]="'SEARCH.DO_SEARCH.SAVED_SEARCH_DESCRIPTION' | translate"
+        [formControl]="descriptionFormControl"
+        name="description"
+        [(ngModel)]="output.description"
+      >
+      <mat-error
+        class="save-search__description__error max-length"
+        data-testid="save-search__description__error max-length"
+        *ngIf="descriptionFormControl.hasError('maxlength')"
+      >
+        {{'SEARCH.DO_SEARCH.SAVED_SEARCH_DESCRIPTION_MAX_LENGTH_256' | translate}}
+      </mat-error>
+    </mat-form-field>
+
+    <mat-form-field class="select-folder" data-testid="select-folder">
+      <mat-select
+        class="save-search__folder"
+        data-testid="save-search__folder"
+        #folderSelect
+        [placeholder]="'SEARCH.DO_SEARCH.SEARCH_FOLDER' | translate"
+        [formControl]="folderFormControl"
+        [errorStateMatcher]="matcher"
+        name="folder"
+        [(ngModel)]="output.selectedFolder"
+      >
+        <mat-option
+          class="save-search__folder__option"
+          *ngFor="let folder of folders"
+          [value]="folder.id"
+        >
+          <span attr.data-testid="save-search__folder__option {{folder.id}} {{folder.name}}">{{folder.name}}</span>
+        </mat-option>
+      </mat-select>
+      <mat-hint>{{'SEARCH.DO_SEARCH.SEARCH_FOLDER_HINT' | translate}}</mat-hint>
+      <mat-error
+        class="save-search__folder__error required"
+        data-testid="save-search__folder__error required"
+        *ngIf="folderSelect.errorState && folderFormControl.hasError('required')"
+      >
+        {{'SEARCH.DO_SEARCH.SEARCH_FOLDER_REQUIRED' | translate}}
+      </mat-error>
+    </mat-form-field>
+  </div>
+  <div mat-dialog-actions>
+    <button
+      class="save-search__cta secondary"
+      data-testid="save-search__cta secondary"
+      mat-button
+      type="button"
+      (click)="onCancel()"
+    >{{'GENERAL.CANCEL' | translate}}</button>
+    <button
+      class="save-search__cta primary"
+      data-testid="save-search__cta primary"
+      mat-button
+      mat-raised-button
+      cdkFocusInitial
+      color="warn"
+      type="submit"
+    >{{'SEARCH.DO_SEARCH.SAVE_THIS_SEARCH' | translate}}</button>
+  </div>
+</form>

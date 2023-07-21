@@ -1,0 +1,123 @@
+<form [formGroup]="formGroup" (ngSubmit)="onSubmit()">
+  <h1 mat-dialog-title>
+    <span *ngIf="data.mode === 'NEW'">{{'GENERAL.NEW' | translate}}</span>
+    <span *ngIf="data.mode === 'EDIT'">{{'GENERAL.EDIT' | translate}}</span>
+    <span>&nbsp;{{'INTEGRATIONS.INTEGRATION' | translate}}</span>
+  </h1>
+  <div mat-dialog-content>
+    <div class="left-sub sub">
+      <mat-form-field>
+        <mat-select #integrationTypeSelect [placeholder]="'INTEGRATIONS.INTEGRATION_TYPE' | translate" [formControl]="integrationTypeFormControl"
+          [errorStateMatcher]="matcher" name="integrationType" [(ngModel)]="data.syncSystem.systemType">
+          <mat-option *ngFor="let integrationType of integrationTypes" [value]="integrationType.value">{{integrationType.label | translate}}</mat-option>
+        </mat-select>
+        <mat-error *ngIf="integrationTypeSelect.errorState && integrationTypeFormControl.hasError('required')">
+          {{'INTEGRATIONS.INTEGRATION_TYPE_REQUIRED' | translate}}
+        </mat-error>
+      </mat-form-field>
+      <mat-form-field>
+        <input matInput [placeholder]="'INTEGRATIONS.INTEGRATION_NAME' | translate" [formControl]="integrationNameFormControl" [errorStateMatcher]="matcher"
+          name="integrationName" [(ngModel)]="data.syncSystem.name" (blur)="trimField('name')">
+        <mat-error *ngIf="integrationNameFormControl.hasError('required')">
+          {{'INTEGRATIONS.INTEGRATION_NAME_REQUIRED' | translate}}
+        </mat-error>
+        <mat-error *ngIf="integrationNameFormControl.hasError('maxlength')">
+          {{'INTEGRATIONS.INTEGRATION_NAME_MAX_LENGTH_64' | translate}}
+        </mat-error>
+      </mat-form-field>
+      <mat-slide-toggle class="realtime-sync-toggle" color="primary" [labelPosition]="'before'" [(ngModel)]="data.realtimeSync"
+        [formControl]="realtimeSyncFormControl" name="realtimeSync">
+        {{'INTEGRATIONS.ENABLE_REALTIME_SYNCHRONIZATION' | translate}}
+      </mat-slide-toggle>
+      <mat-form-field>
+        <input matInput [placeholder]="'INTEGRATIONS.SERVER_URL' | translate" [formControl]="serverUrlFormControl" [errorStateMatcher]="matcher"
+          name="serverUrl" [(ngModel)]="data.syncSystem.host" (blur)="trimField('serverUrl')">
+        <mat-error *ngIf="serverUrlFormControl.hasError('required')">
+          {{'INTEGRATIONS.SERVER_URL_REQUIRED' | translate}}
+        </mat-error>
+        <mat-error *ngIf="serverUrlFormControl.hasError('maxlength')">
+          {{'INTEGRATIONS.SERVER_URL_MAX_LENGTH_1024' | translate}}
+        </mat-error>
+      </mat-form-field>
+      <mat-form-field>
+        <input matInput [placeholder]="'INTEGRATIONS.PORT' | translate" [formControl]="portFormControl" [errorStateMatcher]="matcher"
+          name="port" [(ngModel)]="data.syncSystem.port" (blur)="trimField('port')">
+        <mat-error *ngIf="portFormControl.hasError('required')">
+          {{'INTEGRATIONS.PORT_REQUIRED' | translate}}
+        </mat-error>
+        <mat-error *ngIf="portFormControl.hasError('min')">
+          {{'INTEGRATIONS.PORT_MIN_0' | translate}}
+        </mat-error>
+        <mat-error *ngIf="portFormControl.hasError('max')">
+          {{'INTEGRATIONS.PORT_MAX_65535' | translate}}
+        </mat-error>
+        <mat-error *ngIf="portFormControl.hasError('pattern')">
+          {{'INTEGRATIONS.PORT_ONLY_DIGITS' | translate}}
+        </mat-error>
+      </mat-form-field>
+      <mat-form-field>
+        <input matInput [placeholder]="'INTEGRATIONS.LOGIN' | translate" [formControl]="loginFormControl" [errorStateMatcher]="matcher"
+          name="login" [(ngModel)]="data.syncSystem.login.user" (blur)="trimField('login')">
+        <mat-error *ngIf="loginFormControl.hasError('required')">
+          {{'INTEGRATIONS.LOGIN_REQUIRED' | translate}}
+        </mat-error>
+        <mat-error *ngIf="loginFormControl.hasError('maxlength')">
+          {{'INTEGRATIONS.LOGIN_MAX_LENGTH_64' | translate}}
+        </mat-error>
+      </mat-form-field>
+      <mat-form-field>
+        <input type="password" matInput [placeholder]="'INTEGRATIONS.PASSWORD' | translate" [formControl]="passwordFormControl" [errorStateMatcher]="matcher"
+          name="password" [(ngModel)]="data.syncSystem.login.password">
+        <mat-error *ngIf="passwordFormControl.hasError('required')">
+          {{'INTEGRATIONS.PASSWORD_REQUIRED' | translate}}
+        </mat-error>
+        <mat-error *ngIf="passwordFormControl.hasError('maxlength')">
+          {{'INTEGRATIONS.PASSWORD_MAX_LENGTH_64' | translate}}
+        </mat-error>
+      </mat-form-field>
+      <mat-form-field>
+        <input type="password" matInput [placeholder]="'INTEGRATIONS.CONFIRM_PASSWORD' | translate" [formControl]="confirmPasswordFormControl"
+          [errorStateMatcher]="matcher" name="confirmPassword" [(ngModel)]="data.syncSystem.login.confirmPassword">
+        <mat-error *ngIf="confirmPasswordFormControl.hasError('required')">
+          {{'INTEGRATIONS.CONFIRM_PASSWORD_REQUIRED' | translate}}
+        </mat-error>
+        <mat-error *ngIf="confirmPasswordFormControl.hasError('matchpair')">
+          {{'INTEGRATIONS.CONFIRM_PASSWORD_NO_MATCH_PASSWORD' | translate}}
+        </mat-error>
+      </mat-form-field>
+      <div class="additional-actions">
+        <span class="child">
+          <i class="fa fa-signal"></i>
+          <a *ngIf="testing" class="testing-status">{{'INTEGRATIONS.TESTING_CONNECTION' | translate}}</a>
+          <a *ngIf="!testing" class="test-link" (click)="testConnection()">{{'INTEGRATIONS.TEST_CONNECTION' | translate}}</a>
+        </span>
+        <span class="child">
+          <mat-icon class="test-result-icon fail" *ngIf="!testing && testResultSuccess === false" fontSet="fa" fontIcon="fa-times-circle" [title]="'INTEGRATIONS.TESTING_RESULT_FAILED' | translate"></mat-icon>
+          <mat-icon class="test-result-icon success" *ngIf="!testing && testResultSuccess" fontSet="fa" fontIcon="fa-check-circle" [title]="'INTEGRATIONS.TESTING_RESULT_SUCCESSFUL' | translate"></mat-icon>
+        </span>
+      </div>
+    </div>
+    <div class="right-sub sub" *ngIf="isAdvancedView">
+      <label class="json-label">{{'INTEGRATIONS.JSON_CONFIGURATION' | translate}}</label>
+      <json-editor class="json-editor" [options]="jsonEditorOptions" [data]="data.syncSystem"></json-editor>
+      <div class="json-actions">
+        <button mat-button type="button" (click)="cancelJson()">{{'INTEGRATIONS.CANCEL_JSON' | translate}}</button>
+        <button mat-button type="button" (click)="saveJson()">{{'INTEGRATIONS.SAVE_JSON' | translate}}</button>
+      </div>
+      <div *ngIf="data.mode === 'EDIT' && (currentJsonEditorMode === 'code' || currentJsonEditorMode === 'text')">
+        <app-alert-panel type="info" message="INTEGRATIONS.CONTENT_UPDATE_HINT"></app-alert-panel>
+      </div>
+    </div>
+  </div>
+  <div mat-dialog-actions>
+    <button mat-button type="button" (click)="onCancel()">{{'GENERAL.CANCEL' | translate}}</button>
+    <button mat-raised-button color="warn" type="submit">
+      <span *ngIf="data.mode === 'NEW'">{{'INTEGRATIONS.ADD_INTEGRATION' | translate}}</span>
+      <span *ngIf="data.mode === 'EDIT'">{{'INTEGRATIONS.UPDATE_INTEGRATION' | translate}}</span>
+    </button>
+    <div class="advanced-actions" *ngIf="!isAdvancedView">
+      <span class="advanced-actions-label">{{'INTEGRATIONS.NEED_TO_CONFIGURE_MORE' | translate}}</span>
+      <a class="advanced-actions-link" (click)="toggleAdvancedView()">{{'INTEGRATIONS.OPEN_ADVANCED_VIEW' | translate}}</a>
+    </div>
+  </div>
+</form>

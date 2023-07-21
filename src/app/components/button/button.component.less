@@ -1,0 +1,47 @@
+@import '../../../styles/variables';
+
+.app-button {
+  display         : flex;
+  align-items     : center;
+  justify-content : center;
+
+  height  : 40px;
+  width   : 100%;
+  padding : 0 5px;
+  margin  : 0;
+
+  user-select      : none;
+  font-size        : 16px;
+  font-weight      : 400;
+  color            : @white;
+  background-color : @color-red1;
+  border-radius    : 1px;
+  white-space      : nowrap;
+  border           : none;
+  cursor           : pointer;
+  transition       : all 0.3s ease-out;
+  box-shadow       : 0 2px 5px 0 rgba(0, 0, 0, 0.2);
+
+  &:hover {
+    background : @color-red;
+  }
+
+  &:active {
+    transition : all 0s;
+  }
+
+  .fa {
+    top          : 2px;
+    padding-left : 5px;
+  }
+
+  .button-text {
+    padding-right : 10px;
+  }
+
+  &.disabled {
+    background-color : @color-grey2;
+    pointer-events   : none;
+    color            : @color-grey5;
+  }
+}

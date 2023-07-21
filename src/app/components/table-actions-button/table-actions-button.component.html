@@ -1,0 +1,11 @@
+<button mat-icon-button class="app-table-actions-button" [ngClass]="{'hidden': menuItems.length === 0}" [matMenuTriggerFor]="appMenu" (click)="$event.stopPropagation()">
+  <mat-icon fontSet="fa" fontIcon="fa-ellipsis-v"></mat-icon>
+</button>
+
+<mat-menu #appMenu="matMenu" [ngClass]="{'hidden': menuItems.length === 0}">
+  <button *ngFor="let menuItem of menuItems"
+          (click)="menuItem.events.next({ e: $event, key: menuItem.key, rowData: rowData })"
+          mat-menu-item>
+    {{ menuItem.title | translate | uppercase }}
+  </button>
+</mat-menu>

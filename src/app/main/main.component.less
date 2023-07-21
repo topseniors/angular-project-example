@@ -1,0 +1,30 @@
+@import '../../styles/variables';
+
+::ng-deep ng-sidebar {
+  .ng-sidebar--opened {
+    width: 240px;
+
+    ::ng-deep app-menu {
+      width: 100%;
+    }
+  }
+}
+
+.app-main {
+  margin-top : 50px;
+  transition : all 0.3s;
+}
+
+.iframe-container {
+  width      : 100%;
+  border     : none;
+  height     : 0;
+  overflow   : hidden;
+  visibility : hidden;
+
+  &--visible {
+    height     : calc(~"100vh - 100px");
+    overflow   : auto;
+    visibility : visible;
+  }
+}

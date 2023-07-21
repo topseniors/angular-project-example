@@ -1,0 +1,42 @@
+<article class="login">
+  <net-anim class="login__animation" [animation]="animation"></net-anim>
+
+  <form class="login__card" #loginForm="ngForm" (ngSubmit)="onLogin(loginForm)" novalidate>
+    <header class="card__header">
+      <img class="card__header__logo" src="../../assets/images/logo.svg" width="160">
+    </header>
+
+    <section class="card__content">
+      <mat-form-field class="full-width bottom-space" *ngIf="showOrg">
+        <input matInput [(ngModel)]="organization" name="organization" type="text" placeholder="{{'LOGIN.ORGANIZATION' | translate}}">
+      </mat-form-field>
+
+      <mat-form-field class="full-width bottom-space">
+        <input matInput [(ngModel)]="username" name="username" type="text" placeholder="{{'LOGIN.USERNAME' | translate}}">
+      </mat-form-field>
+
+      <mat-form-field class="full-width">
+        <input matInput [(ngModel)]="password" name="password" type="password" placeholder="{{'LOGIN.PASSWORD' | translate}}">
+      </mat-form-field>
+    </section>
+
+    <footer class="card__footer">
+      <mat-checkbox color="primary" name="checked" [(ngModel)]="checked" ngDefaultControl>
+        {{'LOGIN.REMEMBER_ME' | translate}}
+      </mat-checkbox>
+
+      <app-button [disabled]="processingLogin"
+                  btnLabel="{{'LOGIN.BTN' | translate}}">
+      </app-button>
+    </footer>
+  </form>
+
+  <p class="card__error" [ngClass]="{'card__error__visible' : showError}">
+    {{ ('LOGIN.ERROR.' + error) | translate }}
+  </p>
+
+  <p class="login__support">Forgot your credentials? <a href="http://iquate.com/contact" target="_blank">Contact us!</a></p>
+</article>
+<div class="footer">
+  iQuate | Maple House, South County Business Park, Leopardstown Dublin | © 2018 iQuate
+</div>

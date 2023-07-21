@@ -1,0 +1,65 @@
+@import '../../../styles/variables';
+
+.top-nav {
+  position: fixed;
+  top: 0;
+  right: 0;
+  left: 0;
+  height: 50px;
+  z-index: 999;
+  background-color: @white;
+  border-bottom: 1px solid @color-grey1;
+  border-radius: 0;
+  overflow: hidden;
+  margin-bottom: 0;
+
+  .nav-links {
+    position: absolute;
+    right: 10px;
+    top: 0;
+    height: 50px;
+    display: flex;
+    align-items: center;
+    font-size: 12px;
+
+    & > .nav-link-item {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100%;
+      color: @color-grey13;
+      text-decoration: none;
+      padding: 10px 30px;
+      cursor: pointer;
+
+      &.fa-bell {
+        font-size: 14px;
+      }
+
+      &.user-profile {
+        border-left: 1px solid rgba(223, 223, 223, 0.5);
+
+        .profile-text {
+          margin-right: 25px;
+          text-align: right;
+
+          .user-name {
+            font-weight: 600;
+            margin-bottom: 1px;
+          }
+          .org-oid {
+            color: @color-grey4;
+          }
+        }
+
+        .popup-indicator {
+          font-size: 16px;
+        }
+      }
+    }
+  }
+
+  /deep/.breadcrumb {
+    margin: 8px 0 0 58px;
+  }
+}

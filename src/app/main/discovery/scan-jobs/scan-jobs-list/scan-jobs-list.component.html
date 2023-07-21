@@ -1,0 +1,13 @@
+<app-section sectionTitle="DISCOVERY.SCAN_JOBS.ALL" class="scan-jobs-list-section" [subTitle]="subTitleInfo$ | async">
+  <button mat-fab color="warn" class="btn-add-scan" (click)="goToAddScanJob()">+</button>
+  <super-table
+    [refresh]="refresh"
+    [data]="polling$"
+    [columns]="columns"
+    [trackBy]="trackBy"
+    [rowDefs]="rowDefs"
+    [linked]="linked"
+    [filtering]="filtering"
+    [paging]="paging"
+  ></super-table>
+</app-section>

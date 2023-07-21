@@ -1,0 +1,141 @@
+<div class="events">
+  <div class="event-blocks">
+    <mat-card class="events-panel" [ngStyle]="{'height': desirableContentPanelHeight + 'px'}">
+      <mat-card-header>
+        <mat-card-title>
+          <span class="events-title-label">{{'AUDIT.EVENTS.NAME' | translate}}</span>
+          <span class="events-title-value">{{auditCIsOriginalLength}}</span>
+        </mat-card-title>
+      </mat-card-header>
+      <mat-card-content>
+        <div class="events-list">
+          <div class="events-list-header">
+            <div class="event-column ingestion">
+              <span class="event-label ingestion-label">{{'AUDIT.EVENTS.INGESTION' | translate}}</span>
+              <span class="event-value ingestion-value">{{ingestionCounts}}</span>
+            </div>
+            <div class="event-column elastic">
+              <span class="event-label elastic-label">{{'AUDIT.EVENTS.ELASTIC' | translate}}</span>
+              <span class="event-value elastic-value">{{elasticCounts}}</span>
+            </div>
+            <div class="event-column orient">
+              <span class="event-label orient-label">{{'AUDIT.EVENTS.ORIENT' | translate}}</span>
+              <span class="event-value orient-value">{{orientCounts}}</span>
+            </div>
+          </div>
+          <div class="events-list-body" [ngClass]="{'audit-ci-selected':auditCISelected}">
+            <div *ngFor="let auditCI of auditCIs" (click)="select(auditCI)" class="clickable-audit-ci events-list-item">
+              <div class="event-list-item-content">
+                <div *ngFor="let change of auditCI.changes()" class="event-column" [ngClass]="getClassForChange(change)">
+                  <span class="infix-content">{{getAuditChangeTargetLabel(change.target)}}</span>
+                  <span class="suffix-content" *ngIf="isSuffixPlus(change)">+</span>
+                  <span class="suffix-content" *ngIf="isSuffixO(change)">o</span>
+                  <span class="suffix-content" *ngIf="isSuffixMinus(change)">-</span>
+                </div>
+              </div>
+            </div>
+            <div *ngIf="auditCIsOriginalLength > auditCIs.length" class="content-ellipsis">
+              <span>......</span>
+            </div>
+          </div>
+          <div class="events-list-footer">
+            <div class="info-col">
+              <span class="plus-sign info-sign">+</span>
+              <span class="info-text">{{'AUDIT.EVENTS.NEW' | translate}}</span>
+            </div>
+            <div class="info-col">
+              <span class="minus-sign info-sign">-</span>
+              <span class="info-text">{{'AUDIT.EVENTS.DELETE' | translate}}</span>
+            </div>
+            <div class="info-col">
+              <span class="o-sign info-sign">o</span>
+              <span class="info-text">{{'AUDIT.EVENTS.UPDATE_MERGE' | translate}}</span>
+            </div>
+          </div>
+        </div>
+      </mat-card-content>
+    </mat-card>
+  </div>
+  <div class="details-log">
+    <mat-card class="details-panel" *ngIf="auditCI" [ngStyle]="{'height': getRightSubPanelHeight() + 'px'}">
+      <mat-card-header>
+        <mat-card-title>
+          <div class="details-title-label">{{auditCI.className}}:{{auditCI.oid}}</div>
+          <div class="details-title-icon">
+            <i class="fa fa-close" (click)="closeSelectedAuditCIInfo()"></i>
+          </div>
+        </mat-card-title>
+      </mat-card-header>
+      <mat-card-content>
+        <div class="text-center copy-button">
+          <button class="btn btn-default" type="button"
+            ngxClipboard [cbContent]="auditCI | json" (cbOnSuccess)="isCopied = true">
+            Copy
+          </button>
+        </div>
+        <div class="json-panel">
+          <pre contenteditable="false">{{auditCI | json}}</pre>
+        </div>
+      </mat-card-content>
+    </mat-card>
+    <mat-card class="log-panel" [ngStyle]="{'height': getRightSubPanelHeight() + 'px'}">
+      <mat-card-header>
+        <mat-card-title>
+          <div class="log-title-label">{{'AUDIT.EVENTS.CONSOLE' | translate}}</div>
+          <div class="log-title-icon">
+            <span class="ellipsis-icon" [matMenuTriggerFor]="logActionsMenu">
+              <img src="/assets/images/ellipsis.svg">
+            </span>
+            <mat-menu class="log-actions" #logActionsMenu="matMenu" [overlapTrigger]="false">
+              <button mat-menu-item (click)="toggleShowOnlyErrors()" class="log-action">
+                <span [ngClass]="{'invisible': !showOnlyErrors}" style="margin-right: 10px;"><i class="fa fa-check"></i></span>
+                <span>{{'AUDIT.EVENTS.ERRORS_ONLY' | translate}}</span>
+              </button>
+              <button mat-menu-item (click)="toggleTail()" class="log-action">
+                <span [ngClass]="{'invisible': !tailOn}" style="margin-right: 10px;"><i class="fa fa-check"></i></span>
+                <span>{{'AUDIT.EVENTS.FOLLOW_LOGS' | translate}}</span>
+              </button>
+              <button mat-menu-item (click)="clearAll()" class="log-action">
+                <span style="margin-left: 27px;">{{'AUDIT.EVENTS.DELETE_LOG' | translate}}</span>
+              </button>
+            </mat-menu>
+          </div>
+        </mat-card-title>
+      </mat-card-header>
+      <mat-card-content>
+        <div class="console-log">
+          <div *ngFor="let event of events; index as lineNumber" class="log-event">
+            <div *ngIf="isAuditChange(event) && (event.isError() || !showOnlyErrors)">
+              <div *ngIf="isAuditChange(event)" (click)="select(event)" class="log-event-content">
+                <div class="index-cell">
+                  <span>{{lineNumber + 1}}</span>
+                </div>
+                <div class="info-cell">
+                  <span class="log-time">{{ timestamp(event.timestamp) }}</span>
+                  <span>{{event.className}}:{{event.oid}}</span>
+                  <span>{{event.changeType}}</span>
+                  <span *ngIf="event.isSuccess()" class="log-success">on: {{event.target}}
+                    <span *ngIf="event.reason">msg: {{event.reason}} </span>
+                  </span>
+                  <span *ngIf="event.isError()" class="log-error"> on {{event.target}} error: {{event.reason}}
+                    <i class="fa fa-exclamation-circle"></i>
+                  </span>
+                </div>
+              </div>
+            </div>
+
+            <div *ngIf="!isAuditChange(event) &&!showOnlyErrors" class="log-event-content">
+              <div class="index-cell">
+                <span>{{lineNumber + 1}}</span>
+              </div>
+              <div class="info-cell">
+                <span class="log-success">{{event}}</span>
+                <i class="fa fa-check log-success"></i>
+              </div>
+            </div>
+          </div>
+        </div>
+      </mat-card-content>
+    </mat-card>
+  </div>
+</div>

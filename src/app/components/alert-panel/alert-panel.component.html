@@ -1,0 +1,8 @@
+<div class="alert-panel">
+  <div *ngIf="isInfo()" class="alert alert-info info-panel" role="alert">
+    {{message | translate}}
+  </div>
+  <div *ngIf="isError()" class="alert alert-danger error-panel" role="alert">
+    {{message | translate}}
+  </div>
+</div>

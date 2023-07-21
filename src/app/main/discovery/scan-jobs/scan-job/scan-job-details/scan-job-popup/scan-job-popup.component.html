@@ -1,0 +1,20 @@
+<div mat-dialog-content>
+  <mat-icon class="close" matSuffix (click)="close()">close</mat-icon>
+  <mat-tab-group [selectedIndex]="activeTabIndex" (selectedTabChange)="onTabChanged($event.index)">
+    <mat-tab label="Scan results">
+      <ng-container *ngTemplateOutlet="middle"></ng-container>
+      <scan-job-result [scanJobRunId]="scanJobRunId" [closePopup]="close"></scan-job-result>
+    </mat-tab>
+    <mat-tab label="Scan log">
+      <ng-container *ngTemplateOutlet="middle"></ng-container>
+      <scan-job-log [scanJobRunId]="scanJobRunId" [scanJobId]="scanJobId"></scan-job-log>
+    </mat-tab>
+  </mat-tab-group>
+</div>
+
+<ng-template #middle>
+  <div class="middle-table">
+    <super-table [data]="_scanJobRun$" [trackBy]="trackBy"
+      [rowDefs]="rowDefs" [columns]="columns"></super-table>
+  </div>
+</ng-template>

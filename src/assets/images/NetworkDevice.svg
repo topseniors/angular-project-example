@@ -1,0 +1,25 @@
+<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="32" height="32" viewBox="0 0 32 32">
+  <defs>
+    <rect id="-network-network-device-a" width="31.626" height="31.624" rx="15.812"/>
+    <filter id="-network-network-device-b" width="270%" height="270%" x="-85%" y="-65%" filterUnits="objectBoundingBox">
+      <feOffset dy="2" in="SourceAlpha" result="shadowOffsetOuter1"/>
+      <feGaussianBlur in="shadowOffsetOuter1" result="shadowBlurOuter1" stdDeviation="2.5"/>
+      <feColorMatrix in="shadowBlurOuter1" result="shadowMatrixOuter1" values="0 0 0 0 0   0 0 0 0 0   0 0 0 0 0  0 0 0 0.2 0"/>
+      <feMerge>
+        <feMergeNode in="shadowMatrixOuter1"/>
+        <feMergeNode in="SourceGraphic"/>
+      </feMerge>
+    </filter>
+  </defs>
+  <g fill="none" fill-rule="evenodd">
+    <use fill="#2C52BB" xlink:href="#-network-network-device-a"/>
+    <g fill="#FFF" filter="url(#-network-network-device-b)" transform="translate(11 11)">
+      <polygon points="3.116 3.334 6.45 3.334 6.45 0 3.116 0"/>
+      <polygon points="3.551 9.774 6.099 9.774 6.099 7.228 3.551 7.228"/>
+      <polygon points="0 9.774 2.547 9.774 2.547 7.228 0 7.228"/>
+      <polygon points="7.101 9.774 9.648 9.774 9.648 7.228 7.101 7.228"/>
+      <polygon points=".524 4.829 .524 8.501 2.024 8.501 2.024 6.328 7.624 6.328 7.624 8.501 9.124 8.501 9.124 4.829"/>
+      <polygon points="4.075 8.501 5.575 8.501 5.575 1.667 4.075 1.667"/>
+    </g>
+  </g>
+</svg>

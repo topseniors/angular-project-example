@@ -1,0 +1,71 @@
+<mat-card>
+  <span class="back" (click)="back()"><b> <  Back to {{ scanJob?.name }}</b></span>
+  <app-section [sectionTitle]="scanJob?.name" subTitle="DISCOVERY.SCAN_JOBS.CONFIG" blueHeader="true">
+
+    <div class="config-controls">
+      <button (click)="save()" mat-button>{{ 'GENERAL.SAVE' | translate | uppercase }}</button>
+      <button (click)="cancel()" mat-button>{{ 'GENERAL.CANCEL' | translate | uppercase }}</button>
+      <!-- <button [routerLink]="previousUrl$ | async" mat-button>{{ 'GENERAL.CANCEL' | translate | uppercase }}</button> -->
+    </div>
+
+    <form>
+      <div class="config-forms">
+        <div class="config-forms-line">
+
+          <mat-form-field class="config-form-item">
+            <input matInput #name placeholder="Scan job name" maxlength="60" [value]="scanJob?.name">
+            <mat-hint align="start">Help text or error</mat-hint>
+            <mat-hint align="end">{{name.value.length}} / 60</mat-hint>
+          </mat-form-field>
+
+          <mat-form-field class="config-form-item">
+            <input matInput #description placeholder="Description" maxlength="300" [value]="scanJob?.shortDescr"/>
+            <mat-hint align="start">This is the help text</mat-hint>
+            <mat-hint align="end">{{description.value.length}} / 300</mat-hint>
+          </mat-form-field>
+
+          <mat-form-field class="config-form-item">
+            <mat-select placeholder="SCAN TYPE" [value]="scanJob?.scanType">
+              <mat-option *ngFor="let scanType of scanTypes" [value]="scanType">{{ scanType }}</mat-option>
+            </mat-select>
+            <mat-hint>This is the help text</mat-hint>
+          </mat-form-field>
+
+        </div>
+        <div class="config-forms-line">
+
+          <mat-form-field class="config-form-item">
+            <mat-select placeholder="APPLIANCE" [value]="scanJob?.jobApplianceName">
+              <mat-option *ngFor="let appliance of appliances$ | async" [value]="appliance">{{ appliance.name }}</mat-option>
+            </mat-select>
+            <mat-hint>Appliance that will use this scan job</mat-hint>
+          </mat-form-field>
+
+          <mat-form-field class="config-form-item">
+            <mat-select placeholder="LOCATION" [value]="(locations$ | async)?.name">
+              <mat-option *ngFor="let location of locations$ | async" [value]="location">{{ location.name }}</mat-option>
+            </mat-select>
+            <mat-hint>Physical location that will be scanned</mat-hint>
+          </mat-form-field>
+
+          <!-- https://github.com/angular/material2/issues/7891 -->
+          <div class="config-form-item">
+            <mat-form-field class="slider-hack-left">
+              <input matInput value="foo" placeholder="Maximum duration">
+              <mat-slider min="0" step="60" max="960" name="duration" [(ngModel)]="duration"></mat-slider>
+              <mat-hint>
+                <mat-checkbox name="resumeOnNext" [(ngModel)]="resumeOnNext"></mat-checkbox>
+                <span>Resume scan on next schedule occurence</span>
+              </mat-hint>
+            </mat-form-field>
+            <mat-form-field class="slider-hack-right">
+              <input matInput readonly [value]="toTime(duration)">
+            </mat-form-field>
+          </div>
+
+        </div>
+      </div>
+    </form>
+
+  </app-section>
+</mat-card>

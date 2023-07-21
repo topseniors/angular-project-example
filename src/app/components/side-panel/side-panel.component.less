@@ -1,0 +1,41 @@
+@import '../../../styles/variables';
+
+.side-panel {
+  position: fixed;
+  top: 55px;
+  bottom: 0;
+  right: -500px;
+  width: 500px;
+  background-color: @white;
+  transition: all .4s;
+  border-top: 1px solid @color-grey0;
+  box-shadow: 0 1px 10px rgba(0,0,0,.1);
+
+  .panel-header {
+    font-size: 20px;
+    padding: 15px 0px 10px 9px;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    border-bottom: 1px solid @color-grey1;
+    color: @color-grey8;
+  }
+
+  &.opened {
+    right: 0;
+  }
+
+  .fa-close {
+    position: absolute;
+    top: 19px;
+    right: 12px;
+    font-size: 20px;
+    font-weight: 100;
+    cursor: pointer;
+    z-index: 2;
+    
+    &:hover {
+      color: @color-red;
+    }
+  }
+}

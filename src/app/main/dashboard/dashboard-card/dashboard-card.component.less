@@ -1,0 +1,51 @@
+@import '../../../../styles/variables';
+
+.dashboard-card {
+  display: inline-block;
+  padding: 0;
+
+  .card {
+    overflow: hidden;
+    margin: 20px;
+    background-color: rgba(255, 255, 255, 0.8);
+    box-shadow: 0 2px 2px 0 rgba(0, 0, 0, 0.23);
+
+    .card-title {
+      display: block;
+      margin: 15px 0px 0px 20px;
+      font-size: 14px;
+      font-weight: 200;
+    }
+
+    .card-body {
+      margin: 10px;
+    }
+
+    .card-bottom {
+      position: relative;
+      height: 38px;
+      border-top: 1px solid @color-grey2;
+      font-size: 13px;
+      font-weight: 200;
+      padding: 10px;
+
+      &.empty {
+        border-top: none;
+      }
+
+      .filter {
+        position: absolute;
+        left: 10px;
+        color: @color-grey5;
+      }
+
+      .action {
+        position: absolute;
+        right: 10px;
+        color: @color-blue6;
+        text-align: right;
+        text-transform: uppercase;
+      }
+    }
+  }
+}

@@ -1,0 +1,86 @@
+@import '../../../../../../styles/variables';
+@import '../../../../../../styles/effects.less';
+
+:host {
+  background-color: @color-grey2;
+
+  ::ng-deep div.app-section {
+    margin: 0;
+    background-color: white !important;
+  }
+
+  ::ng-deep mat-card.mat-card {
+    padding: 0 !important;
+    margin: 120px 70px 70px 70px;
+
+    span.back {
+      font-family: 'Nunito';
+      color: @color-blue6;
+      cursor: pointer;
+      position: absolute;
+      top: -40px;
+    }
+  }
+
+  div.config-controls {
+    position: absolute;
+    top: -75px;
+    display: flex;
+    justify-content: flex-end;
+    padding-right: 30px;
+    width: 100%;
+    button {
+      color: white;
+      font-family: 'Nunito';
+    }
+  }
+
+  ::ng-deep form {
+    padding-top: 50px;
+    .config-forms {
+      display: flex;
+      flex-direction: column;
+      .config-forms-line {
+        display: flex;
+        flex-direction: row;
+        .config-form-item {
+          flex: 0 0 33%;
+          -ms-flex: 0 0 calc(~'33% - 100px');
+          padding: 25px 50px;
+          width: 100%;
+          display: flex;
+          flex-direction: row;
+          .slider-hack-left {
+            flex: 1 1 0;
+            padding-right: 20px;
+            .mat-input-wrapper {
+              padding: 0;
+              .mat-slider {
+                height: 40px;
+                width: 100%;
+                .mat-slider-wrapper {
+                  top: 20px;
+                }
+              }
+            }
+            .mat-hint {
+              span {
+                margin-left: 5px;
+              }
+            }
+            .mat-input-element,
+            .mat-input-underline {
+              display: none;
+            }
+          }
+          .slider-hack-right {
+            flex: 0 0 40px;
+            .mat-input-element {
+              text-align: center;
+            }
+          }
+        }
+      }
+    }
+  }
+}

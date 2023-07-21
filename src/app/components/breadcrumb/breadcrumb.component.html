@@ -1,0 +1,9 @@
+<ul *ngIf="segments.length > 0" class="breadcrumb" [ngClass]="{'breadcrumb--pushed' : pinned}">
+  <li
+    *ngFor="let segment of segments; let last = last; let index = index;"
+    [ngClass]="{'active': last}"
+  >
+    <a *ngIf="!last" (click)="navigateTo(segment)">{{ routeName(segment) | translate }}</a>
+    <span *ngIf="last">{{ routeName(segment, index) | translate}}</span>
+  </li>
+</ul>

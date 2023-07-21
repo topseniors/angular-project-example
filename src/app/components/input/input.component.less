@@ -1,0 +1,54 @@
+@import "../../../styles/variables";
+
+.app-input {
+  width: 100%;
+
+  input {
+    width: 100%;
+    font-weight: 300;
+    color: @color-grey8;
+    font-size: 14px;
+    border: 0px;
+    border-bottom: 1px solid @color-blue6;
+    outline-width: 0;
+    padding-bottom: 4px;
+    margin-bottom: 25px;
+    padding-right: 10px;
+    text-overflow: ellipsis;
+
+    &:focus {
+      border-bottom: 3px solid @color-blue6;
+      padding-bottom: 2px;
+    }
+
+    &.ng-invalid.ng-dirty {
+      border-bottom: 1px solid @color-red;
+
+      &:focus {
+        border-bottom: 3px solid @color-red;
+        padding-bottom: 2px;
+      }
+    }
+
+    .ng-submitted & {
+      &.ng-invalid {
+        border-bottom: 1px solid @color-red;
+
+        &:focus {
+          border-bottom: 3px solid @color-red;
+          padding-bottom: 2px;
+        }
+      }
+    }
+  }
+
+  .input-label {
+    display: block;
+    font-size: 13px;
+    padding-left: 1px;
+    margin-bottom: 2px;
+    color: @color-grey4;
+    font-weight: 200;
+    text-transform: capitalize;
+  }
+}

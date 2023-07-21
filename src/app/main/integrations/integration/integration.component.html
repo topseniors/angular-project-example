@@ -1,0 +1,108 @@
+<mat-sidenav-container>
+  <mat-sidenav #sidenav mode="side" [(opened)]="filterPanelOpened" align="end">
+    <div class="close">
+      <i class="fa fa-times-thin" (click)="toggleFilterPanel()"></i>
+    </div>
+    <div class="title">
+      <h5>{{'GENERAL.FILTERS' | translate | uppercase}}</h5>
+    </div>
+    <div class="content">
+      <mat-form-field>
+        <mat-select [placeholder]="'INTEGRATIONS.COMPONENT_TYPE' | translate" [(ngModel)]="dirtyFilter.componentType">
+          <mat-option>{{'INTEGRATIONS.SELECT_COMPONENT_TYPE_WITH_HYPEN' | translate}}</mat-option>
+          <mat-option *ngFor="let componentType of filterSeed.componentTypes" [value]="componentType.value">
+            {{componentType.label | translate}}
+          </mat-option>
+        </mat-select>
+      </mat-form-field>
+      <mat-form-field class="indent">
+        <input matInput [placeholder]="'INTEGRATIONS.COMPONENT_NAME' | translate" [(ngModel)]="dirtyFilter.componentName" (keyup.enter)="applyFilter()">
+      </mat-form-field>
+      <mat-form-field>
+        <mat-select [placeholder]="'INTEGRATIONS.SUCCESS_STATE' | translate" [(ngModel)]="dirtyFilter.successState">
+          <mat-option>{{'INTEGRATIONS.SELECT_SUCCESS_STATE_WITH_HYPEN' | translate}}</mat-option>
+          <mat-option *ngFor="let successState of filterSeed.successStates" [value]="successState.value">
+            {{successState.label | translate}}
+          </mat-option>
+        </mat-select>
+      </mat-form-field>
+      <mat-form-field class="indent">
+        <input matInput [placeholder]="'INTEGRATIONS.ERROR_MESSAGE' | translate" [(ngModel)]="dirtyFilter.errorMessage" (keyup.enter)="applyFilter()">
+      </mat-form-field>
+    </div>
+    <div class="actions">
+      <div class="left-sub sub">
+        <button type="button" mat-button (click)="toggleFilterPanel()">
+          <span *ngIf="getFilterDirtiness()">{{'GENERAL.CANCEL' | translate}}</span>
+          <span *ngIf="!getFilterDirtiness()">{{'GENERAL.CLOSE' | translate}}</span>
+        </button>
+      </div>
+      <div class="right-sub sub">
+        <a class="link-clear" (click)="clearFilter()">{{'GENERAL.CLEAR' | translate}}</a>
+        <button type="button" mat-raised-button color="warn" (click)="applyFilter()">{{'GENERAL.APPLY' | translate}}</button>
+      </div>
+    </div>
+  </mat-sidenav>
+  <mat-sidenav-content>
+    <div class="back">
+      <b (click)="back()">
+        <i class="fa fa-angle-left bold-font"></i>
+        <span>&nbsp;&nbsp;{{ 'INTEGRATIONS.BACK_TO_ALL_INTEGRATIONS' | translate}}</span>
+      </b>
+    </div>
+    <mat-card [ngClass]="{ 'filter-opened': filterPanelOpened }">
+      <app-section [sectionTitle]="syncSystemIntegration.result.name" blueHeader="true">
+        <!-- Info Section -->
+        <div class="sub-info">
+          <span class="info" *ngFor="let info of infos">
+            <div class="name">{{info.name | translate}}</div>
+            <div class="value">{{info.value}}</div>
+          </span>
+        </div>
+
+        <!-- Controls Section -->
+        <div class="controls">
+          <button mat-icon-button class="app-table-actions-button" [matMenuTriggerFor]="appMenu">
+            <mat-icon fontSet="fa" fontIcon="fa-ellipsis-v"></mat-icon>
+          </button>
+
+          <mat-menu #appMenu="matMenu">
+            <button *ngFor="let menuItem of menuItems" (click)="menuItem.events.next()" mat-menu-item>
+              {{ menuItem.title | translate | uppercase }}
+            </button>
+          </mat-menu>
+        </div>
+
+        <button mat-button class="btn-sync-now" *ngIf="isInitable()" (click)="syncNow()">
+          {{'INTEGRATIONS.SYNC_NOW' | translate}}
+        </button>
+        <button mat-button class="btn-stop-now" *ngIf="!isInitable()" (click)="stopNow()">
+          {{'INTEGRATIONS.STOP_NOW' | translate}}
+        </button>
+
+        <div class="sync-results">
+          <div class="left-sub sub">
+            <span class="sync-results-header">{{'INTEGRATIONS.SYNC_RESULTS' | translate}}</span>
+            <span class="sync-results-indicator">
+              <span *ngIf="isStoppable()" class="icon-success-fail-result icon-success"></span>
+              <span *ngIf="!isStoppable()" class="icon-success-fail-result icon-fail"></span>
+              <span class="counts">{{syncSystemIntegration.result.successFailSummary}}</span>
+            </span>
+          </div>
+          <div class="right-sub sub">
+            <button type="button" mat-button (click)="toggleFilterPanel()">{{'GENERAL.FILTER' | translate | uppercase}}</button>
+          </div>
+        </div>
+
+        <div *ngIf="!filterApplied && dataPopulated && totalRows === 0">
+          <app-alert-panel type="info" message="INTEGRATIONS.NO_SYNC_RESULTS_DATA"></app-alert-panel>
+        </div>
+
+        <div [ngClass]="{'hidden': !filterApplied && dataPopulated && totalRows === 0}">
+          <super-table [refresh]="refresh" [data]="polling$" [columns]="columns" [trackBy]="trackBy" [rowDefs]="rowDefs" [linked]="linked" [filtering]="filtering"
+            [paging]="paging"></super-table>
+        </div>
+      </app-section>
+    </mat-card>
+  </mat-sidenav-content>
+</mat-sidenav-container>

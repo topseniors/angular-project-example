@@ -1,0 +1,276 @@
+@import '../../../../../../styles/variables';
+@import '../../../../../../styles/effects.less';
+
+:host {
+  display: block;
+  min-width: 1090px;
+
+  .back {
+    font-family: 'Nunito';
+    color: @color-blue6;
+    font-size: 12px;
+    margin: 50px 70px 20px 70px;
+    padding-top: 33px;
+
+    & > b {
+      cursor: pointer;
+    }
+  }
+
+  ::ng-deep div.app-section {
+    margin: 0;
+    background-color: white !important;
+  }
+
+  ::ng-deep mat-card.mat-card {
+    padding: 0 !important;
+    margin: 0 70px;
+
+    .section-body {
+      background-color: @color-grey14;
+    }
+  }
+
+  .sub-info {
+    background: @color-blue6;
+    color: @color-grey0;
+    display: flex;
+    align-items: flex-start;
+    padding-bottom: 45px;
+    overflow: hidden;
+
+    .info {
+      font-size: 12px;
+      font-weight: 100;
+      padding-left: 48px;
+      padding-right: 30px;
+      max-width: 200px;
+
+      .name,
+      .value {
+        overflow: hidden;
+        white-space: nowrap;
+        text-overflow: ellipsis;
+      }
+
+      .name {
+        color: @color-grey4;
+      }
+      .value {
+        color: @white;
+      }
+    }
+  }
+
+  .controls {
+    position: absolute;
+    top: -60px;
+    display: flex;
+    justify-content: flex-end;
+    padding-right: 30px;
+    width: 100%;
+    button {
+      color: white;
+      font-family: 'Nunito';
+    }
+  }
+
+  .scan-progress {
+    width: 120px;
+    height: 52px;
+    border-radius: 26px;
+    margin-top: -26px;
+    position: absolute;
+    left: 65px;
+    background: @color-red1;
+    line-height: inherit;
+    padding: 0;
+
+    ::ng-deep .mat-button-wrapper {
+      display: flex;
+      align-items: center;
+    }
+
+    &.can-start {
+      background: @color-blue1;
+
+      .scan-loader {
+        background: @color-blue1;
+
+        &:after {
+          font-family: "FontAwesome";
+          content: '\f00c';
+          color: @white;
+          font-size: 23px;
+          margin-top: 10px;
+          margin-left: -10px;
+          position: absolute;
+        }
+
+        .progress-label {
+          display: none;
+        }
+
+        .spinning {
+          display: none;
+        }
+      }
+    }
+
+    .scan-loader {
+      width: 52px;
+      height: 52px;
+      border-radius: 26px;
+      background: @white;
+      box-shadow: 0 2px 4px 0 rgba(0, 0, 0, 0.2);
+      position: relative;
+
+      .progress-label {
+        color: @color-red1;
+        width: 52px;
+        text-align: center;
+        font-size: 12px;
+        position: absolute;
+        top: 18px;
+        left: 0;
+      }
+
+      .spinning {
+        display: block;
+        font-size: 10px;
+        width: 48px;
+        height: 48px;
+        position: absolute;
+        left:2px;
+        top: 2px;
+        border-radius: 50%;
+        background: @color-red1;
+        background: linear-gradient(to right, @color-red1 5%, rgba(255, 255, 255, 0) 50%);
+
+        .spinning-tip {
+          width: 6px;
+          height: 6px;
+          background: @color-red1;
+          position: relative;
+          top: 0px;
+          left: 21px;
+          display: block;
+          border-radius: 50%;
+        }
+
+        &:before {
+          width: 50%;
+          height: 50%;
+          background: @color-red1;
+          border-radius: 100% 0 0 0;
+          position: absolute;
+          top: 0;
+          left: 0;
+          content: '';
+        }
+        &:after {
+          background: @white;
+          width: 75%;
+          height: 75%;
+          border-radius: 50%;
+          content: '';
+          margin: auto;
+          position: absolute;
+          top: 0;
+          left: 0;
+          bottom: 0;
+          right: 0;
+        }
+      }
+    }
+
+    .scan-button {
+      color: @white;
+      margin-left: 10px;
+      font-size: 12px;
+      font-weight: 300;
+    }
+  }
+
+  ::ng-deep super-table {
+    margin: 77px 0 0;
+
+    ::ng-deep mat-form-field.mat-form-field {
+      top: 5px;
+      label.mat-form-field-placeholder {
+        color: @color-grey0;
+      }
+      input.mat-input-element {
+        color: @color-grey0;
+      }
+      div.mat-form-field-underline {
+        background-color: @color-grey0;
+      }
+    }
+    mat-table.mat-table {
+      min-width: 950px;
+      margin: 30px 0 0 0;
+
+      mat-header-row.mat-header-row,
+      mat-row.mat-row {
+        padding: 0 35px;
+      }
+
+      mat-row.mat-row {
+        &:last-child {
+          box-shadow: none;
+        }
+
+        &:before {
+          box-shadow: none;
+        }
+        &:after {
+          box-shadow: none;
+        }
+
+        .mat-cell {
+          font-size: 12px;
+        }
+      }
+
+      .mat-column-status {
+        flex: 0 0 58px;
+        -ms-flex: 0 0 38px;
+        justify-content: center !important;
+
+        img {
+          width: 38px;
+          height: 38px;
+        }
+      }
+      .mat-column-started {
+        flex: 1 0 120px;
+        -ms-flex: 1 0 100px;
+      }
+      .mat-column-duration {
+        flex: 1 0 120px;
+        -ms-flex: 1 0 100px;
+        color: @color-grey8;
+      }
+      .mat-column-progress {
+        flex: 1 0 280px;
+        -ms-flex: 1 0 260px;
+        color: @color-grey8;
+      }
+      .mat-column-totalDevices {
+        flex: 1 0 120px;
+        -ms-flex: 1 0 100px;
+        color: @color-blue6;
+        font-weight: bold;
+        justify-content: flex-end !important;
+      }
+      .mat-column-scannedIPsScopeSize {
+        flex: 1 0 180px;
+        -ms-flex: 1 0 160px;
+        color: @color-blue6;
+        font-weight: bold;
+        justify-content: flex-end !important;
+      }
+    }
+  }
+}

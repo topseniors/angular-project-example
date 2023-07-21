@@ -1,0 +1,154 @@
+@import "../../../../../styles/variables";
+
+:host {
+  display: block;
+  min-width: 1640px;
+
+  .btn-add-scan {
+    position: absolute;
+    right: 12px;
+    top: -26px;
+    font-size: 24px;
+    width: 50px;
+    height: 50px;
+    box-shadow: 0 2px 8px 0 rgba(0, 0, 0, 0.3) !important;
+
+    ::ng-deep .mat-button-wrapper {
+      padding: 13px 0;
+    }
+  }
+
+  ::ng-deep super-table {
+    margin: 30px 70px 0;
+
+    mat-table.mat-table {
+      min-width: 1500px;
+
+      .mat-header-row {
+        .mat-header-cell {
+          font-weight: normal;
+
+          &.mat-column-status {
+            flex: 0 0 0;
+            padding: 0;
+          }
+          &.mat-column-name {
+            flex: 0 0 358px;
+            -ms-flex: 0 0 328px;
+            padding-left: 20px;
+          }
+        }
+      }
+      .mat-row {
+        &.temporary-scan-job {
+          background-color: @color-blue11;
+          font-style: italic;
+
+          .mat-cell {
+            color: @color-grey5;
+          }
+        }
+
+        .mat-cell {
+          color: @color-grey8;
+
+          &.mat-column-badConfig,
+          &.mat-column-notRunYet {
+            padding-left: 200px;
+
+            .link-config,
+            .link-start-now {
+              cursor: pointer;
+              color: @color-blue6;
+            }
+          }
+
+          &.mat-column-badConfig {
+            .fa-cog {
+              vertical-align: middle;
+            }
+          }
+        }
+      }
+
+      .mat-column-appliance,
+      .mat-column-started,
+      .mat-column-notRunYet,
+      .mat-column-progress,
+      .mat-column-timeRemaining,
+      .mat-column-scannedIPsScopeSize,
+      .mat-column-nextRun,
+      .mat-column-badConfig {
+        font-size: 12px;
+      }
+
+      .mat-column-name {
+        font-weight: bold;
+        flex: 0 0 300px;
+        -ms-flex: 0 0 280px;
+
+        div {
+          max-width: 280px;
+        }
+      }
+      .mat-column-nextRun {
+        flex: 0 0 100px;
+        -ms-flex: 0 0 80px;
+      }
+      .mat-column-timeRemaining,
+      .mat-column-started {
+        flex: 0 0 150px;
+        -ms-flex: 0 0 130px;
+      }
+      .mat-column-progress {
+        flex: 0 0 280px;
+        -ms-flex: 0 0 260px;
+      }
+      .mat-column-actions {
+        flex: 0 0 48px;
+        -ms-flex: 0 0 28px;
+        justify-content: center !important;
+
+        .mat-icon-button {
+          width: 28px;
+          height: 28px;
+          line-height: 28px;
+        }
+      }
+      .mat-column-status,
+      .mat-column-scanType {
+        flex: 0 0 58px;
+        -ms-flex: 0 0 38px;
+        justify-content: center !important;
+
+        img {
+          width: 38px;
+          height: 38px;
+        }
+      }
+
+      .mat-column-scannedIPsScopeSize {
+        flex: 0 0 200px;
+        -ms-flex: 0 0 180px;
+        justify-content: flex-end !important;
+      }
+      .mat-column-badConfig,
+      .mat-column-notRunYet {
+        font-weight: 700;
+        flex: 0 0 880px;
+        -ms-flex: 0 0 670px;
+
+        .icon-play {
+          width: 13px;
+          height: 13px;
+          display: inline-block;
+          vertical-align: middle;
+          background-size: 200% 200%;
+          background-position: 13px 13px;
+          margin-right: 5px;
+          background-image: url(/assets/images/play.svg);
+        }
+      }
+    }
+  }
+}

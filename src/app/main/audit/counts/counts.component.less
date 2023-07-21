@@ -1,0 +1,285 @@
+@import '../../../../styles/variables';
+
+:host {
+  .counts {
+    .counts-panel {
+      padding: 24px 22px 9px;
+
+      .mat-card-header {
+        .mat-card-title {
+          margin-bottom: 20px;
+          font-size: 14px;
+
+          .counts-title-label {
+            color: @color-grey13;
+            margin-right: 10px;
+            font-weight: 500;
+          }
+
+          .counts-title-value {
+            color: @color-grey4;
+            font-weight: 200;
+          }
+        }
+
+        .filter-container {
+          position: absolute;
+          top: 25px;
+          right: 80px;
+
+          .filter-input-toggler,
+          mat-form-field {
+            position: absolute;
+            right: 0;
+            top: -15px;
+          }
+
+          .filter-input-toggler {
+            cursor: pointer;
+            color: @color-dark-blue;
+            top: 0;
+          }
+
+          mat-form-field {
+            width: 200px;
+            transition: width 0.4s ease-in-out;
+
+            &.small {
+              width: 50px;
+              opacity: 0;
+              pointer-events: none;
+            }
+
+            ::ng-deep .mat-form-field-flex {
+              align-items: flex-end;
+
+              .mat-input-prefix {
+                margin-right: 5px;
+                color: @color-grey6;
+              }
+              .mat-input-suffix {
+                font-size: 12px;
+                color: @color-grey6;
+                cursor: pointer;
+              }
+            }
+
+            &.mat-focused {
+              ::ng-deep .mat-form-field-flex {
+                .mat-input-suffix {
+                  color: @color-dark-blue;
+                }
+              }
+            }
+          }
+        }
+        .switch-view {
+          position: absolute;
+          top: 25px;
+          right: 45px;
+
+          .switch-view-toggle {
+            .switch-view-icon {
+              img {
+                width: 20px;
+                height: 20px;
+              }
+            }
+          }
+
+        }
+      }
+
+      .mat-card-content {
+        .counts-container {
+          ::ng-deep super-table {
+            margin-top: 0;
+            margin-left: -22px;
+            margin-right: -22px;
+
+            .filter-container {
+              .filter-input-toggler,
+              mat-form-field {
+                top: 10px;
+                right: 80px;
+              }
+
+              .filter-input-toggler {
+                top: 25px;
+                right: 80px;
+              }
+            }
+
+            mat-table.mat-table {
+              margin: 0;
+
+              mat-header-row.mat-header-row,
+              mat-row.mat-row {
+                padding: 0 30px;
+              }
+
+              mat-header-row.mat-header-row {
+                .mat-column-ciType {
+                  flex: 0;
+                  padding: 0 5px;
+                }
+
+                .mat-column-className {
+                  flex: 0 0 248px;
+                  -ms-flex: 0 0 228px;
+                }
+              }
+
+              mat-row.mat-row {
+                &:last-child {
+                  box-shadow: none;
+                  border-bottom-color: @color-grey15;
+                }
+
+                &:before {
+                  box-shadow: none;
+                }
+                &:after {
+                  box-shadow: none;
+                }
+
+                .mat-cell {
+                  font-size: 12px;
+                  color: @color-grey8;
+                }
+
+                .mat-column-className {
+                  font-weight: 700;
+                }
+              }
+
+              .mat-column-ciType {
+                flex: 0 0 58px;
+                -ms-flex: 0 0 38px;
+                justify-content: center !important;
+              }
+
+              .mat-column-className {
+                flex: 0 0 200px;
+                -ms-flex: 0 0 180px;
+              }
+
+              .mat-column-internalState {
+                flex: 0 0 150px;
+                -ms-flex: 0 0 130px;
+                justify-content: flex-end !important;
+              }
+
+              .mat-column-orientDB,
+              .mat-column-elasticSearch {
+                justify-content: flex-end !important;
+                flex: 1;
+              }
+
+              .mat-column-status {
+                flex: 1;
+                padding-left: 50px;
+              }
+            }
+          }
+
+          .counts-grid {
+            padding: 0 18px;
+
+            .table-legend {
+              display: flex;
+              align-items: center;
+              margin-bottom: 10px;
+
+              .info-col {
+                margin-right: 40px;
+                display: flex;
+                align-items: center;
+
+                .info-icon {
+                  display: block;
+                  width: 8px;
+                  height: 8px;
+                  border-radius: 5px;
+                  margin-right: 10px;
+
+                  &.OK-icon {
+                    background-color: @color-green0;
+                  }
+
+                  &.NotOK-icon {
+                    background-color: @color-red1;
+                  }
+
+                  &.AlmostOK-icon {
+                    background-color: @color-orange;
+                  }
+                }
+
+                .info-text {
+                  color: @color-grey6;
+                }
+              }
+            }
+
+            .table {
+              table-layout: fixed;
+
+              td {
+                padding: 10px;
+                font-size: 12px;
+                cursor: pointer;
+                width: 12.5%;
+
+                &:hover {
+                  background-color: @color-grey16;
+                }
+
+                &.active {
+                  background-color: @color-grey12;
+
+                  &:hover {
+                    background-color: @color-grey16;
+                  }
+                }
+
+                &.OK {
+                  .element-counts {
+                    color: @color-green0;
+                  }
+                }
+
+                &.NotOK {
+                  .element-counts {
+                    color: @color-red1;
+                  }
+                }
+
+                .element-class-name {
+                  margin-bottom: 8px;
+                  max-width: 100%;
+                  white-space: nowrap;
+                  overflow: hidden;
+                  text-overflow: ellipsis;
+                  font-weight: 700;
+                  color: @color-grey8;
+                }
+
+                .element-counts {
+                  display: flex;
+                  align-items: center;
+
+                  span {
+                    display: block;
+                    width: 40px;
+                    margin-right: 10px;
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+}

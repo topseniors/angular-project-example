@@ -1,0 +1,12 @@
+<div class="app-notification">
+  <div class="app-notification__left">
+    <mat-icon class="app-notification__icon fail" *ngIf="data.httpError" fontSet="fa" fontIcon="fa-times-circle"></mat-icon>
+    <mat-icon class="app-notification__icon warn" *ngIf="data.operationError" fontSet="fa" fontIcon="fa-exclamation-triangle"></mat-icon>
+    <mat-icon class="app-notification__icon success" *ngIf="!data.httpError && !data.operationError" fontSet="fa" fontIcon="fa-check-circle"></mat-icon>
+    <div>
+      <p class="app-notification__title">{{data.title | translate}} {{data.status}}</p>
+      <p class="app-notification__sub-title">{{data.subTitle | translate}}</p>
+    </div>
+  </div>
+  <button class="app-notification__action" (click)="action()" mat-button>{{ actionLabel | translate | uppercase }}</button>
+</div>

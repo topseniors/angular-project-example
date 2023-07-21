@@ -1,0 +1,22 @@
+<span class="app-top-menu" #topMenu>
+    <span *ngFor="let tab of menuItems" class="menu-button"
+          [ngClass]="{'hidden': tab.hidden}"
+          routerLink="{{tab.route}}" routerLinkActive="selected">
+        <span class="tab-label">{{tab.name | translate}}</span>
+    </span>
+
+    <span class="dropdown" *ngIf="hiddenItems.length > 0">
+        <span class="menu-button" data-toggle="dropdown">
+            <span class="tab-label">{{'GENERAL.MORE' | translate}}</span>
+            <span class="fa fa-caret-down"></span>
+        </span>
+        <ul class="dropdown-menu">
+            <li class="sub-menu-button"
+                *ngFor="let sub of hiddenItems"
+                routerLink="{{sub.route}}">
+                <span class="fa"></span>
+                {{sub.name | translate}}
+            </li>
+        </ul>
+    </span>
+</span>

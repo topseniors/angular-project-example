@@ -1,0 +1,233 @@
+@import "../../../../styles/variables";
+@import "../../../../styles/effects.less";
+
+:host {
+  display: block;
+  min-width: 1480px;
+
+  .back {
+    font-family: 'Nunito';
+    color: @color-blue6;
+    font-size: 12px;
+    margin: 60px 70px 20px 70px;
+    padding-top: 23px;
+
+    & > b {
+      cursor: pointer;
+    }
+  }
+
+  ::ng-deep mat-card.mat-card {
+    padding: 0 !important;
+    margin: 0 70px;
+  }
+
+  .manage-saved-searches-container {
+    display: flex;
+    align-items: normal;
+    min-height: 500px;
+
+    .sub {
+      padding: 25px 0;
+
+      &.left-sub {
+        background-color: @color-grey12;
+        flex: 0 0 330px;
+
+        .link-folders {
+          color: @color-grey5;
+        }
+
+        .link-folder {
+          cursor: pointer;
+          color: @color-grey5;
+        }
+
+        .top-bar {
+          display: flex;
+          align-items: center;
+          justify-content: space-between;
+          padding: 0 30px;
+          margin-bottom: 20px;
+        }
+
+        ::ng-deep mat-list.folders-list {
+          mat-list-item.folder-item {
+            padding: 0 30px;
+            border-right: 5px solid transparent;
+
+            .mat-list-item-content {
+              display: flex;
+              align-items: center;
+              justify-content: space-between;
+            }
+
+            .link-folder {
+              font-size: 12px;
+              display: flex;
+
+              .folder-name {
+                max-width: 185px;
+                display: block;
+                text-overflow: ellipsis;
+                overflow: hidden;
+                white-space: nowrap;
+                margin-right: 5px;
+              }
+              .search-count {
+                display: block;
+              }
+
+              &:active,
+              &:hover {
+                color: @color-grey9;
+              }
+
+              &:hover {
+                text-decoration: none;
+              }
+
+              &:link,
+              &:visited {
+                color: @color-grey5;
+              }
+            }
+
+            .link-edit-folder,
+            .link-delete-folder {
+              cursor: pointer;
+              color: @color-blue6;
+              visibility: hidden;
+              margin-left: 10px;
+
+              &:hover {
+                text-decoration: none;
+              }
+            }
+
+            &.active {
+              border-right: 5px solid @color-red0;
+              background-color: @color-grey1;
+
+              .link-folder {
+                font-weight: 700;
+                color: @color-grey9;
+              }
+            }
+
+            &:hover {
+              background-color: @color-grey1;
+
+              .link-edit-folder,
+              .link-delete-folder {
+                visibility: visible;
+              }
+            }
+          }
+        }
+      }
+
+      &.right-sub {
+        padding: 20px 30px;
+        flex: 1;
+
+        ::ng-deep .alert-panel {
+          margin: 57px 0 0;
+        }
+
+        .folder-search-actions-container {
+          .folder-search-actions {
+            padding: 0 40px;
+            background-color: @color-grey12;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+
+            .left-sub,
+            .right-sub {
+              display: flex;
+              align-items: center;
+
+              .child {
+                padding: 5px 10px;
+
+                &.mat-button {
+                  min-width: initial;
+                  color: @color-blue6;
+                }
+              }
+            }
+
+            .left-sub {
+              justify-content: flex-start;
+
+              .selected-count {
+                width: 25px;
+                padding-left: 0;
+                padding-right: 0;
+                text-align: right;
+              }
+
+              button.child {
+                i {
+                  margin-top: -2px;
+                }
+              }
+            }
+
+            .right-sub {
+              justify-content: flex-end;
+            }
+          }
+        }
+        ::ng-deep super-table {
+          margin: 10px 0 0;
+
+          mat-table.mat-table {
+            min-width: 950px;
+            margin: 10px 0 0 0;
+
+            .mat-cell {
+              font-size: 12px;
+            }
+            .mat-column-entityType,
+            .mat-column-searchName,
+            .mat-column-searchDescription {
+              flex: 1 0 155px;
+              -ms-flex: 1 0 135px;
+            }
+            .mat-column-tickbox {
+              flex: 0 0 40px;
+              -ms-flex: 0 0 20px;
+              justify-content: center !important;
+            }
+            .mat-column-edit,
+            .mat-column-delete {
+              flex: 0 0 13px;
+              cursor: pointer;
+              margin-left: 15px;
+              margin-right: 10px;
+              padding: 0;
+              color: @color-blue6;
+              font-size: 14px;
+            }
+
+            mat-row.mat-row {
+              mat-cell.mat-cell {
+                .cell-container {
+                  & > div > div {
+                    max-width: 200px;
+
+                    @media (min-width: @xxl_min) {
+                      max-width: 215px;
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+}

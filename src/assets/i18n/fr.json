@@ -1,0 +1,99 @@
+{
+  "GENERAL": {
+    "FILTER": "Filter",
+    "ACTION": "Action",
+    "CLOSE": "Close",
+    "OPEN": "Open",
+    "DELETE": "Delete",
+    "EDIT": "Edit"
+  },
+  "DASHBOARD": {
+    "NAME": "Dashboard",
+    "OVERVIEW_TITLE": "Overview",
+    "OVERVIEW": {
+      "CLOUD_SERVICE_SUMMARY": "Summary of cloud services",
+      "SERVER_SUMMARY": "Summary of servers",
+      "APPLICATIONS_OVERVIEW": "Applications Overview",
+      "APPLICATIONS_SUMMARY": "Summary of Applications"
+    },
+    "INVENTORY_TITLE": "Inventory",
+    "APP_CHANGES_TITLE": "App Changes",
+    "SERVER_CHANGES_TITLE": "Server Changes",
+    "DISCOVERY_TITLE": "Discovery",
+    "USERS_TITLE": "Users"
+  },
+  "IT_EXPLORER": {
+    "NAME": "IT Explorer",
+    "APPLICATIONS_TITLE": "Applications",
+    "APPLICATIONS": {
+      "OVERVIEW_TITLE": "Overview",
+      "RESOURCES_TITLE": "Resources",
+      "DEPENDENCIES_TITLE": "Dependencies",
+      "COMMUNICATION_TITLE": "Communication",
+      "CX_VIEWER_TITLE": "Process Cx Viewer",
+      "NEIGHBORS_VIEW_TITLE": "Neighbors View",
+      "CHANGE_HISTORY_TITLE": "Change History",
+      "APP_METRICS_TITLE": "App Metrics",
+      "OMDB_BROWSER_TITLE": "OMDB Browser"
+    },
+    "SERVICES_TITLE": "Services",
+    "SERVICES": {
+      "OVERVIEW_TITLE": "Overview",
+      "RESOURCES_TITLE": "Resources"
+    },
+    "SERVERS_TITLE": "Servers",
+    "APP_COMPONENTS_TITLE": "App Components",
+    "PLATFORM_APP_TITLE": "Platform App",
+    "SW_CLUSTER_TITLE": "SW Cluster",
+    "VI_CLUSTER_TITLE": "VI Cluster",
+    "OS_CLUSTER_TITLE": "OS Cluster",
+    "NETWORK_DEVICE_TITLE": "Network Device",
+    "STORAGE_DEVICE_TITLE": "Storage Device"
+  },
+  "DISCOVERY": {
+    "NAME": "Discovery",
+    "DASHBOARD": {
+      "NAME": "Dashboard"
+    },
+    "SCAN_JOBS": {
+      "NAME":"Scanjobs",
+      "ALL":"All Scanjobs",
+      "SUBTITLE":"<strong>{{count}}</strong> {{name}} jobs",
+      "JOB_NAME":"Scan job name",
+      "APPLIANCE":"Appliance",
+      "TYPE":"Type",
+      "LAST_USED":"Last used",
+      "LAST_USED_DATE":"{{days}} ago {{time}}"
+    },
+    "SCOPES": "Scopes",
+    "KEYCHAINS": "Keychains",
+    "REPORTS": {
+      "NAME": "Reports",
+      "DASHBOARD": {
+        "NAME": "Dashboard"
+      },
+      "SCANNEDDEVICES": {
+        "NAME": "Scanned Devices",
+        "SUBTITLE": "total records",
+        "IPADDRESS": "IP Address",
+        "HOSTNAME": "Hostname",
+        "OSMODEL": "OS Model",
+        "OSVERSION": "OS Version",
+        "LASTUPDATED": "Last Updated",
+        "LASTUPDATED_DATE":"{{days}} ago {{time}}"
+      }
+    }
+  },
+  "REPORTS": {
+    "NAME": "Reports"
+  },
+  "CATALOG": {
+    "NAME": "Catalog"
+  },
+  "SETTINGS": {
+    "NAME": "Settings"
+  },
+  "HELP": {
+    "NAME": "Help"
+  }
+}

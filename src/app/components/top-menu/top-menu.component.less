@@ -1,0 +1,63 @@
+@import '../../../styles/variables';
+
+.app-top-menu {
+  display: block;
+
+  .tab {
+    text-align: center;
+  }
+
+  .menu-button {
+    min-width: 50px;
+    padding: 20px 30px 19px 30px;
+    display: inline-block;
+    color: @color-grey8;
+    font-size: 14px;
+    font-weight: 300;
+    margin-right: -4px;
+    cursor: pointer;
+    background-color: @white;
+    transition: all .4s cubic-bezier(.25,.8,.25,1);
+
+    &:hover {
+      color: @white;
+      background: @color-blue2;
+    }
+
+    &:active {
+      background: @color-blue6;
+    }
+
+    &.selected{
+      color: @white;
+      background: @color-blue6;
+    }
+  }
+
+  .dropdown {
+    margin-right: -4px;
+    .dropdown-menu {
+      overflow: auto;
+      top: 37px;
+    }
+  }
+
+  .sub-menu-button {
+    color: @color-blue6;
+    padding: 13px;
+    width: 200px;
+    cursor: pointer;
+    background-color: @white;
+    transition: all .4s cubic-bezier(.25,.8,.25,1);
+
+    &:hover {
+      background-color: @color-blue2;
+      color: @white;
+    }
+
+    .fa {
+      text-align: center;
+      width: 20px;
+    }
+  }
+}

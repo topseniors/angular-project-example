@@ -1,0 +1,7 @@
+<div *ngIf="dataPopulated && totalRows === 0">
+  <app-alert-panel type="info" message="DISCOVERY.SCAN_JOBS.NO_SCAN_RESULT_DATA"></app-alert-panel>
+</div>
+
+<div [ngClass]="{'hidden': dataPopulated && totalRows === 0}">
+  <super-table [refresh]="refresh" [data]="polling$" [trackBy]="trackBy" [rowDefs]="rowDefs" [columns]="columns" [paging]="{pageSize: 5, pageSizeOptions: [5, 10, 15, 20, 50, 100]}"></super-table>
+</div>

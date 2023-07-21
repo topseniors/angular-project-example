@@ -1,0 +1,46 @@
+@import '../../../styles/variables';
+
+.breadcrumb {
+  list-style    : none;
+  font-size     : 12px;
+  background    : transparent;
+  padding-left  : 30px;
+  padding-right : 30px;
+
+  &--pushed {
+    margin-left : 240px !important;
+  }
+
+  li {
+    display        : inline-block;
+    vertical-align : middle;
+    color          : @color-grey7;
+    font-weight    : 200;
+    max-width      : 300px;
+    overflow       : hidden;
+    white-space    : nowrap;
+    text-overflow  : ellipsis;
+
+    &:first-child::before {
+      display : none;
+    }
+
+    &::before {
+      padding     : 0 8px 0 12px;
+      color       : @color-grey7;
+      font-family : 'FontAwesome';
+      content     : '\f105';
+    }
+
+    a {
+      color       : @color-blue3;
+      font-weight : 400;
+      cursor      : pointer;
+
+      &:hover {
+        color           : @color-blue1;
+        text-decoration : none;
+      }
+    }
+  }
+}

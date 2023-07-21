@@ -1,0 +1,22 @@
+<div class="app-section">
+    <div class="card" *ngIf="!loading">
+        <div class="section-header"  [ngClass]="{'blue-header' : blueHeader}">
+            <span class="section-icon" *ngIf="sectionIcon">
+                <span class="fa {{sectionIcon}}"></span>
+            </span>
+            <span class="section-title">
+                <div class="main-title">{{sectionTitle | translate}}</div>
+                <div class="sub-title" innerHTML="{{subTitle | translate}}"></div>
+            </span>
+            <span class="section-menu">
+                <app-top-menu [menuItems]="menuItems"></app-top-menu>
+            </span>
+        </div>
+        <div class="section-body col-xs-12 pt-1">
+            <ng-content></ng-content>
+        </div>
+    </div>
+    <div class="card" *ngIf="loading">
+        <div class="loading">{{"GENERAL.LOADING" | translate}}...</div>
+    </div>
+</div>

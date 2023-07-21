@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="30px" height="30px" viewBox="0 0 30 30" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <!-- Generator: Sketch 50.2 (55047) - http://www.bohemiancoding.com/sketch -->
+    <title>atoms / icons / ui / start/play</title>
+    <desc>Created with Sketch.</desc>
+    <defs></defs>
+    <g id="atoms-/-icons-/-ui-/-start/play" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+        <path d="M28.0703125,21.6015625 C28.3567723,21.8359387 28.5,22.1354148 28.5,22.5 C28.5,22.8645852 28.3567723,23.1640613 28.0703125,23.3984375 L17.2109375,29.8828125 C17.0546867,29.9609379 16.911459,30 16.78125,30 C16.5729156,30 16.3906258,29.9218758 16.234375,29.765625 C16.0781242,29.6093742 16,29.4270844 16,29.21875 L16,15.78125 C16,15.5729156 16.0781242,15.3906258 16.234375,15.234375 C16.3906258,15.0781242 16.5729156,15 16.78125,15 C16.9375008,15 17.0807285,15.0390621 17.2109375,15.1171875 L28.0703125,21.6015625 Z" id="ion-play---Ionicons" fill="#9b9b9b"></path>
+    </g>
+</svg>

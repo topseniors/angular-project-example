@@ -1,0 +1,92 @@
+@import '../../styles/variables';
+
+::ng-deep .ng-sidebar {
+  text-align : right;
+}
+
+.login {
+  width           : 100%;
+  height          : calc(~"100vh - 44px");
+  min-height      : 700px;
+  overflow        : auto;
+  display         : flex;
+  flex-direction  : column;
+  align-items     : center;
+  justify-content : center;
+  position        : relative;
+
+  &__animation {
+    position : absolute;
+    top      : 0;
+    left     : 0;
+    height   : 50vh;
+    width    : 100%;
+    z-index  : -1;
+
+    background-color : @color-blue6;
+  }
+
+  &__card {
+    position        : relative;
+    height          : 530px;
+    width           : 440px;
+    padding         : 50px 90px;
+    display         : flex;
+    flex-direction  : column;
+    align-items     : center;
+    justify-content : space-between;
+
+    background-color : #FFFFFF;
+    box-shadow       : 0 2px 6px 0 rgba(0, 0, 0, 0.3);
+  }
+
+  .card {
+    &__header {
+      display         : flex;
+      align-items     : center;
+      justify-content : center;
+      margin-top      : -33px;
+      margin-bottom   : 18px;
+    }
+
+    &__content {
+      width : 100%;
+    }
+
+    &__footer {
+      width : 200px;
+    }
+
+    &__error {
+      margin   : 0;
+      bottom   : 0;
+      left     : 0;
+      width    : 440px;
+      padding  : 20px 0;
+
+      transition : transform 0.25s linear;
+      transform  : translateY(-100%);
+
+      background-color : @color-blue6;
+      color            : #FFFFFF;
+      text-align       : center;
+      z-index          : -1;
+
+      &__visible {
+        transform  : translateY(0);
+        box-shadow : 0 2px 6px 0 rgba(0, 0, 0, 0.3);
+      }
+    }
+  }
+
+  /deep/ .mat-checkbox-layout {
+    margin-bottom : 20px;
+  }
+
+  /deep/ .mat-checkbox-label {
+    color     : #4A4A4A;
+    font-size : 12px;
+  }
+}
+
+@media (max-width: @xs_max) {}

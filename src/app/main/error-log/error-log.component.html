@@ -1,0 +1,23 @@
+<div class="error-log-page page">
+  <app-section sectionTitle="ERROR_LOG.NAME" class="error-log-section">
+    <!-- Error Template -->
+    <div *ngIf="errorMessage else table">
+      <app-alert-panel type="error" [message]="errorMessage"></app-alert-panel>
+    </div>
+
+    <ng-template #table>
+      <div *ngIf="dataPopulated && totalRows === 0">
+        <app-alert-panel type="info" message="GENERAL.NO_DATA"></app-alert-panel>
+      </div>
+
+      <div class="error-log-container" [ngClass]="{'hidden': dataPopulated && totalRows === 0}">
+        <div class="error-log-operation">
+          <button type="button" mat-raised-button color="warn" (click)="clearErrorLog()">{{'ERROR_LOG.CLEAR_ERROR_LOG' | translate}}</button>
+        </div>
+        <super-table [data]="errorLogResult$" [columns]="columns" [rowDefs]="rowDefs" [trackBy]="trackBy" [linked]="linked" [filtering]="filtering"
+          [paging]="paging">
+        </super-table>
+      </div>
+    </ng-template>
+  </app-section>
+</div>

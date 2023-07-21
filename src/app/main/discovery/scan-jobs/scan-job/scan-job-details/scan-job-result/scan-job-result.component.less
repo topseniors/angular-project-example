@@ -1,0 +1,50 @@
+@import '../../../../../../../styles/variables';
+
+::ng-deep .scanjobdetails-popup {
+
+  .mat-dialog-container {
+    .mat-dialog-content {
+      .mat-tab-group {
+        .mat-tab-body {
+          scan-job-result {
+            super-table {
+              mat-table.mat-table {
+                .mat-header-row {
+                  .mat-column-entityType {
+                    flex: 0 0 0;
+                    padding: 0;
+                  }
+                  .mat-column-name {
+                    flex: 1 0 168px;
+                    -ms-flex: 1 0 148px;
+                  }
+                }
+                .mat-row {
+                  &:last-child {
+                    box-shadow: none;
+                    border-bottom-color: @color-grey15;
+                  }
+
+                  &:before {
+                    box-shadow: none;
+                    display: none;
+                  }
+                  &:after {
+                    box-shadow: none;
+                    display: none;
+                  }
+
+                  .mat-column-name {
+                    div {
+                      max-width: 200px;
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+}

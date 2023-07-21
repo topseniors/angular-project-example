@@ -1,0 +1,18 @@
+<span draggable class="dashboard-card" [ngClass]="getClass()">
+  <span class="card" >
+    <div class="card-title">{{title | translate}}</div>
+    <div class="card-body" [ngStyle]="getStyle()">
+      <div #container></div>
+    </div>
+    <div class="card-bottom" [ngClass]="{'empty': !filter && !action}">
+      <div *ngIf="filter" class="filter">
+        <span>{{filter.label | translate}}</span>
+        <span class="fa fa-angle-down"></span>
+      </div>
+      <div *ngIf="action" class="action">
+        <span>{{action.label | translate}}</span>
+        <span class="fa fa-angle-right"></span>
+      </div>
+    </div>
+  </span>
+</span>

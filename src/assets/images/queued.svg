@@ -1,0 +1,22 @@
+<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="45" height="45" viewBox="0 0 45 45">
+  <defs>
+    <circle id="queued-a" cx="11" cy="11" r="10.5"/>
+    <filter id="queued-b" width="185.7%" height="185.7%" x="-42.9%" y="-42.9%" filterUnits="objectBoundingBox">
+      <feOffset in="SourceAlpha" result="shadowOffsetOuter1"/>
+      <feGaussianBlur in="shadowOffsetOuter1" result="shadowBlurOuter1" stdDeviation="3"/>
+      <feComposite in="shadowBlurOuter1" in2="SourceAlpha" operator="out" result="shadowBlurOuter1"/>
+      <feColorMatrix in="shadowBlurOuter1" values="0 0 0 0 0   0 0 0 0 0   0 0 0 0 0  0 0 0 0.216768569 0"/>
+    </filter>
+  </defs>
+  <g fill="none" fill-rule="evenodd">
+    <g transform="translate(10 10)">
+      <g transform="translate(2 2)">
+        <use fill="#000" filter="url(#queued-b)" xlink:href="#queued-a"/>
+        <use fill="#FFF" fill-opacity="0" xlink:href="#queued-a"/>
+      </g>
+      <path d="M12.9853507,25.7453294 C5.91145513,25.7453294 0.17692969,20.0108039 0.17692969,12.9369083 C0.17692969,5.86301271 5.91145513,0.128487271 12.9853507,0.128487271 C20.0592464,0.128487271 25.7937718,5.86301271 25.7937718,12.9369083 C25.7937718,20.0108039 20.0592464,25.7453294 12.9853507,25.7453294 Z M12.9464034,23.1284873 C18.596567,23.1284873 23.1769297,18.5481246 23.1769297,12.897961 C23.1769297,7.24779729 18.596567,2.66743464 12.9464034,2.66743464 C7.29623971,2.66743464 2.71587706,7.24779729 2.71587706,12.897961 C2.71587706,18.5481246 7.29623971,23.1284873 12.9464034,23.1284873 Z" transform="rotate(-90 12.985 12.937)"/>
+    </g>
+    <rect width="2" height="8" x="22" y="19" fill="#9B9B9B"/>
+    <rect width="2" height="8" x="22" y="19" fill="#9B9B9B" transform="rotate(90 23 23)"/>
+  </g>
+</svg>

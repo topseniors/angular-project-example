@@ -1,0 +1,14 @@
+<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="45" height="45" viewBox="0 0 45 45">
+  <defs>
+    <polygon id="with-some-error-b" points="21 26.184 28.056 19.112 29 20.056 21 28.056 17.288 24.344 18.216 23.4"/>
+    <filter id="with-some-error-a" width="159.8%" height="178.3%" x="-29.9%" y="-28%" filterUnits="objectBoundingBox">
+      <feOffset dy="1" in="SourceAlpha" result="shadowOffsetOuter1"/>
+      <feGaussianBlur in="shadowOffsetOuter1" result="shadowBlurOuter1" stdDeviation="1"/>
+      <feColorMatrix in="shadowBlurOuter1" values="0 0 0 0 0   0 0 0 0 0   0 0 0 0 0  0 0 0 0.1 0"/>
+    </filter>
+  </defs>
+  <g fill="none" fill-rule="evenodd">
+    <use fill="#000" filter="url(#with-some-error-a)" xlink:href="#with-some-error-b"/>
+    <use fill="#FF840B" xlink:href="#with-some-error-b"/>
+  </g>
+</svg>

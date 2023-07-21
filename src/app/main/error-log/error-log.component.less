@@ -1,0 +1,79 @@
+@import "../../../styles/variables";
+
+:host {
+  display: block;
+  min-width: 1040px;
+
+  .error-log-operation {
+    margin: 30px 70px 10px;
+  }
+  ::ng-deep super-table {
+    margin: 0 70px;
+
+    mat-table.mat-table {
+      mat-header-row.mat-header-row {
+        padding: 0 20px;
+
+        .mat-header-cell {
+          position: relative;
+        }
+      }
+
+      mat-row.mat-row {
+        padding: 0 20px;
+
+        .mat-cell {
+          color: @color-grey8;
+          font-size: 12px;
+
+          &.mat-column-date {
+            .time {
+              margin-left: 10px;
+              color: @color-grey6;
+            }
+          }
+          &.mat-column-numberOfOccurrences {
+            color: @color-grey6;
+          }
+          &.mat-column-url {
+            .cell-container {
+              & > div > div {
+                max-width: 450px;
+
+                @media (min-width: @xl_min) {
+                  max-width: 630px;
+                }
+
+                @media (min-width: @xxl_min) {
+                  max-width: 830px;
+                }
+
+                .env-path {
+                  color: @color-grey6;
+                }
+              }
+            }
+          }
+        }
+      }
+
+      .mat-column-date {
+        flex: 0 0 180px;
+        -ms-flex: 0 0 160px;
+      }
+      .mat-column-numberOfOccurrences {
+        flex: 0 0 150px;
+        -ms-flex: 0 0 130px;
+        justify-content: flex-end !important;
+      }
+      .mat-column-url {
+        flex: 1;
+      }
+      .mat-column-debugCode {
+        flex: 0 0 100px;
+        -ms-flex: 0 0 80px;
+        justify-content: flex-end !important;
+      }
+    }
+  }
+}

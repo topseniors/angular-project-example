@@ -1,0 +1,42 @@
+@import '../../../styles/variables';
+
+::ng-deep .save-search-modal {
+  .mat-dialog-container {
+    .mat-dialog-title {
+      .save-search-term {
+        max-width: 300px;
+        display: inline-block;
+        vertical-align: middle;
+        overflow: hidden;
+        white-space: nowrap;
+        text-overflow: ellipsis;
+      }
+    }
+    .mat-dialog-content {
+      .mat-form-field {
+        width: 100%;
+        display: block;
+
+        .mat-input-wrapper {
+          .mat-input-underline {
+            bottom: auto;
+            top: 39px;
+          }
+          .mat-input-subscript-wrapper {
+            top: auto;
+            position: initial;
+          }
+        }
+      }
+
+      .select-folder {
+        margin-top: 25px;
+      }
+    }
+
+    .mat-dialog-actions {
+      display: flex;
+      justify-content: flex-end;
+    }
+  }
+}

@@ -1,0 +1,241 @@
+/* The main divs that make up the component's contents */
+
+.yfiles-canvascomponent, .yfiles-svgpanel {
+  position: relative;
+}
+
+.yfiles-svgpanel {
+  /*
+    For exact label size measurement, use the below property
+    to emphasize geometric precision over legibility and rendering speed.
+  */
+  /* text-rendering: geometricPrecision; */
+}
+
+/* Layout the components of a CanvasComponent in a grid */
+
+.yfiles-canvascomponent {
+  position: relative;
+  overflow: hidden;
+  -ms-touch-action: none;
+  touch-action: none;
+  /* prevent selecting text by double click */
+  -webkit-touch-callout: none;
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+}
+
+.yfiles-canvascomponent .yfiles-svgpanel {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  overflow: hidden;
+}
+
+/* Style the scrollbars */
+
+.yfiles-canvascomponent .yfiles-scrollbar.yfiles-scrollbar-vertical {
+  background: #eee;
+  width: 15px;
+  position: absolute;
+  right: 0;
+  top: 0;
+  bottom: 0;
+}
+
+.yfiles-canvascomponent .yfiles-scrollbar.yfiles-scrollbar-horizontal {
+  background: #eee;
+  height: 15px;
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 0;
+}
+
+.yfiles-canvascomponent .yfiles-scrollbar.yfiles-scrollbar-vertical div {
+  /* set the size to all inner elements as well to ensure that none accidentally enlarges the scrollbar */
+  width: 15px;
+}
+
+.yfiles-canvascomponent .yfiles-scrollbar.yfiles-scrollbar-horizontal div {
+  /* set the size to all inner elements as well to ensure that none accidentally enlarges the scrollbar */
+  height: 15px;
+}
+
+.yfiles-canvascomponent .yfiles-scrollbar .yfiles-button:hover {
+  background: #bbb;
+}
+
+.yfiles-canvascomponent .yfiles-scrollbar, .yfiles-canvascomponent .yfiles-scrollbar-range, .yfiles-canvascomponent .yfiles-scrollbar-range-content {
+  background-color: transparent;
+}
+
+.yfiles-canvascomponent .yfiles-scrollbar-range.yfiles-scrollbar-range-vertical .yfiles-scrollbar-slider, .yfiles-canvascomponent .yfiles-scrollbar .yfiles-button.yfiles-button-up:hover, .yfiles-canvascomponent .yfiles-scrollbar .yfiles-button.yfiles-button-down:hover {
+  border: none;
+  background: #cccccc;
+  border-radius: 0;
+  width: 15px;
+}
+
+.yfiles-canvascomponent .yfiles-scrollbar-range.yfiles-scrollbar-range-horizontal .yfiles-scrollbar-slider, .yfiles-canvascomponent .yfiles-scrollbar .yfiles-button.yfiles-button-left:hover, .yfiles-canvascomponent .yfiles-scrollbar .yfiles-button.yfiles-button-right:hover {
+  border: none;
+  background: #cccccc;
+  border-radius: 0;
+  height: 15px;
+}
+
+.yfiles-canvascomponent .yfiles-scrollbar-range.yfiles-scrollbar-range-horizontal .yfiles-scrollbar-slider:hover,
+.yfiles-canvascomponent .yfiles-scrollbar-range.yfiles-scrollbar-range-vertical .yfiles-scrollbar-slider:hover {
+  background: #bbb;
+}
+
+/* Layout the scrollbars */
+
+.yfiles-canvascomponent .yfiles-scrollbar div {
+  overflow: hidden;
+  -webkit-box-sizing: border-box;
+  -moz-box-sizing: border-box;
+  box-sizing: border-box;
+}
+
+.yfiles-canvascomponent .yfiles-scrollbar-content {
+  cursor: default;
+}
+
+.yfiles-canvascomponent .yfiles-scrollbar > div {
+  position: absolute;
+}
+
+.yfiles-canvascomponent .yfiles-scrollbar .yfiles-scrollbar-range.yfiles-scrollbar-range-horizontal {
+  left: 15px;
+  right: 15px;
+  top: 0;
+  bottom: 0;
+  height: 15px;
+}
+
+.yfiles-canvascomponent .yfiles-scrollbar .yfiles-scrollbar-range.yfiles-scrollbar-range-vertical {
+  width: 15px;
+  left: 0;
+  right: 0;
+  top: 15px;
+  bottom: 15px;
+}
+
+.yfiles-canvascomponent .yfiles-scrollbar .yfiles-scrollbar-range-content, .yfiles-canvascomponent .yfiles-scrollbar .yfiles-scrollbar-slider-content {
+  /* set maximum size in both dimension and override for specific elements if required */
+  width: 100%;
+  height: 100%;
+}
+
+.yfiles-canvascomponent .yfiles-scrollbar .yfiles-button {
+  color: #000;
+  width: 15px;
+  height: 15px;
+  font-size: 10px;
+  line-height: 15px;
+  text-align: center;
+  vertical-align: middle;
+  position: absolute;
+  border: none;
+  border-radius: 0;
+}
+
+.yfiles-canvascomponent .yfiles-scrollbar .yfiles-button-left {
+  left: 0;
+  top: 0;
+  bottom: 0;
+}
+
+.yfiles-canvascomponent .yfiles-scrollbar .yfiles-button-right {
+  right: 0;
+  top: 0;
+  bottom: 0;
+}
+
+.yfiles-canvascomponent .yfiles-scrollbar .yfiles-button-up {
+  left: 0;
+  right: 0;
+  top: 0;
+}
+
+.yfiles-canvascomponent .yfiles-scrollbar .yfiles-button-down {
+  left: 0;
+  right: 0;
+  bottom: 0;
+}
+
+/* Misc styling */
+
+.yfiles-canvascomponent, .yfiles-canvascomponent-svg {
+  outline: 0;
+  -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
+}
+
+.yfiles-canvascomponent-svg {
+  width: 100%;
+  height: 100%;
+  display: block;
+}
+
+.yfiles-tooltip {
+  font-size: 10pt;
+  background-color: #ffffd0;
+  border: 1px solid black;
+  padding: 2px;
+  position: absolute;
+  overflow: visible;
+}
+
+.yfiles-dropshadow-image {
+  pointer-events: none;
+}
+
+.yfiles-canvascomponent .yfiles-labeleditbox-container {
+  border: 1px solid black;
+  background-color: white;
+  padding: 2px;
+}
+
+.yfiles-canvascomponent .yfiles-labeleditbox {
+  box-sizing: border-box; /* box model is crucial for measuring */
+  resize: none;
+  overflow: hidden;
+  width: 100%;
+  height: 100%;
+  background-color: transparent;
+  border: 0 none;
+  padding: 0;
+  line-height: normal;
+  font-family: sans-serif;
+  font-size: 10pt;
+  font-stretch: normal;
+  font-style: normal;
+  font-variant: normal;
+  font-weight: 400;
+  text-decoration: none;
+  text-transform: none;
+  letter-spacing: normal;
+  word-spacing: 0;
+  outline: none;
+  white-space: pre;
+}
+
+.yfiles-collapsebutton {
+  cursor: pointer;
+}
+
+.yfiles-overlaypanel {
+  -webkit-user-select: text;
+  -moz-user-select: text;
+  -ms-user-select: text;
+  user-select: text;
+}
+
+.yfiles-canvascomponent ::-webkit-scrollbar {
+  -webkit-appearance: none;
+}

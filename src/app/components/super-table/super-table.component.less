@@ -1,0 +1,215 @@
+@import '../../../styles/variables';
+
+:host {
+  display: block;
+  margin: 30px 70px 0;
+
+  &[ng-reflect-on-row-clicked] {
+    mat-row {
+      cursor: pointer;
+    }
+  }
+
+  .filter-container {
+    .filter-input-toggler,
+    mat-form-field {
+      position: absolute;
+      right: 100px;
+      top: -80px;
+    }
+
+    .filter-input-toggler {
+      cursor: pointer;
+      color: @color-dark-blue;
+      top: -65px;
+    }
+
+    mat-form-field {
+      width: 200px;
+      transition: width 0.4s ease-in-out;
+
+      &.small {
+        width: 50px;
+        opacity: 0;
+        pointer-events: none;
+      }
+
+      ::ng-deep .mat-form-field-flex {
+        align-items: flex-end;
+
+        .mat-input-prefix {
+          margin-right: 5px;
+          color: @color-grey6;
+        }
+        .mat-input-suffix {
+          font-size: 12px;
+          color: @color-grey6;
+          cursor: pointer;
+        }
+      }
+
+      &.mat-focused {
+        ::ng-deep .mat-form-field-flex {
+          .mat-input-suffix {
+            color: @color-dark-blue;
+          }
+        }
+      }
+    }
+  }
+
+  ::ng-deep mat-table.mat-table {
+    margin: 0px;
+    min-width: 900px;
+    font-family: 'Nunito';
+    background-color: transparent;
+
+    mat-header-row.mat-header-row {
+      min-height: 39px;
+      height: 39px;
+      display: flex;
+      align-items: stretch;
+      padding: 0;
+      border-bottom-color: @color-grey15;
+
+      mat-header-cell.mat-header-cell {
+        font-family: 'Nunito';
+        font-size: 12px;
+        font-weight: normal;
+        color: @color-grey4;
+        display: flex;
+        align-items: center;
+        justify-content: flex-start;
+        padding: 0px 10px;
+
+        .mat-sort-header-sorted {
+          font-weight: bold;
+          color: @color-grey13;
+        }
+
+        .mat-sort-header-container {
+          display: flex;
+          align-items: center;
+          justify-content: flex-start;
+
+          .mat-sort-header-arrow {
+            display: none;
+          }
+
+          .mat-sort-header-custom-arrow {
+            &:before {
+              font-family: FontAwesome;
+              font-style: normal;
+              font-weight: normal;
+              margin-left: 8px;
+              margin-top: -4px;
+              font-size: 16px;
+              display: block;
+            }
+
+            &.asc {
+              &:before {
+                content: "\f0d8";
+              }
+            }
+
+            &.desc {
+              &:before {
+                content: "\f0d7";
+              }
+            }
+          }
+        }
+      }
+    }
+
+    mat-row.mat-row {
+      position: relative;
+      min-height: 39px;
+      height: 39px;
+      padding: 0;
+      background-color: @white;
+      cursor: pointer;
+      border-bottom-color: @color-grey15;
+
+      &:before {
+        box-shadow: -5px 0 5px -5px @color-black-alpha3 inset;
+        content: " ";
+        height: 40px;
+        position: absolute;
+        left: -5px;
+        top: 0;
+        width: 5px;
+      }
+
+      &:after {
+        box-shadow: 5px 0 5px -5px @color-black-alpha3 inset;
+        content: " ";
+        height: 40px;
+        position: absolute;
+        right: -5px;
+        top: 0;
+        width: 5px;
+      }
+
+      &:hover {
+        background-color: @color-grey16;
+      }
+
+      &.active {
+        background-color: @color-grey12;
+
+        &:hover {
+          background-color: @color-grey16;
+        }
+      }
+
+      &:last-child {
+        box-shadow: 0 3px 2px -2px @color-black-alpha3;
+        border-bottom-color: transparent;
+      }
+
+      mat-cell.mat-cell {
+        padding: 0px 10px;
+        font-family: 'Nunito';
+        display: flex;
+        align-items: center;
+        justify-content: flex-start;
+
+        .text-center {
+          text-align: center;
+        }
+
+        div {
+          display: inline-block;
+          vertical-align: middle;
+          overflow: hidden;
+          text-overflow: ellipsis;
+          white-space: nowrap;
+        }
+      }
+    }
+  }
+
+  .bottom-section {
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+    padding: 0 15px;
+
+    ::ng-deep .mat-paginator {
+      background-color: @no-color;
+    }
+
+    .refresh-container {
+      height: 56px;
+      display: flex;
+      align-items: center;
+
+      .link-refresh {
+        cursor: pointer;
+        color: rgba(0,0,0,.54);
+      }
+    }
+  }
+}

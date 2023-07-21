@@ -1,0 +1,51 @@
+<form [formGroup]="formGroup" (ngSubmit)="onSubmit()">
+  <h1 mat-dialog-title>{{'GENERAL.UPDATE_USER_INFO' | translate | uppercase}}</h1>
+  <div mat-dialog-content>
+    <mat-form-field>
+      <input matInput [placeholder]="'GENERAL.FULL_NAME' | translate" [formControl]="fullNameFormControl"
+        [errorStateMatcher]="matcher" name="fullName" [(ngModel)]="data.userName">
+      <mat-error *ngIf="fullNameFormControl.hasError('required')">
+        {{'GENERAL.FULL_NAME_REQUIRED' | translate}}
+      </mat-error>
+      <mat-error *ngIf="fullNameFormControl.hasError('minlength')">
+        {{'GENERAL.FULL_NAME_MIN_LENGTH_3' | translate}}
+      </mat-error>
+      <mat-error *ngIf="fullNameFormControl.hasError('maxlength')">
+        {{'GENERAL.FULL_NAME_MAX_LENGTH_64' | translate}}
+      </mat-error>
+      <mat-error *ngIf="fullNameFormControl.hasError('pattern')">
+        {{'GENERAL.FULL_NAME_VALID' | translate}}
+      </mat-error>
+    </mat-form-field>
+
+    <mat-form-field>
+      <input matInput [placeholder]="'GENERAL.USERNAME' | translate" [formControl]="userNameFormControl"
+        name="userName" [(ngModel)]="data.login" readonly>
+    </mat-form-field>
+
+    <mat-form-field>
+      <input matInput [placeholder]="'GENERAL.EMAIL' | translate" [formControl]="emailFormControl"
+        [errorStateMatcher]="matcher" name="email" [(ngModel)]="data.email">
+      <mat-error *ngIf="emailFormControl.hasError('email') && !emailFormControl.hasError('required') && !emailFormControl.hasError('maxlength')">
+        {{'GENERAL.ENTER_VALID_EMAIL' | translate}}
+      </mat-error>
+      <mat-error *ngIf="emailFormControl.hasError('required')">
+        {{'GENERAL.EMAIL_REQUIRED' | translate}}
+      </mat-error>
+      <mat-error *ngIf="emailFormControl.hasError('maxlength')">
+        {{'GENERAL.EMAIL_MAX_LENGTH_1024' | translate}}
+      </mat-error>
+    </mat-form-field>
+
+    <mat-form-field>
+      <mat-select [placeholder]="'GENERAL.TIME_ZONE' | translate" [formControl]="timeZoneFormControl"
+        name="timeZone" [(ngModel)]="data.userTimeZone">
+        <mat-option *ngFor="let timeZone of data.timeZones" [value]="timeZone.id">{{timeZone.id}}</mat-option>
+      </mat-select>
+    </mat-form-field>
+  </div>
+  <div mat-dialog-actions>
+    <button mat-button type="button" (click)="onCancel()">{{'GENERAL.CANCEL' | translate}}</button>
+    <button mat-button mat-raised-button cdkFocusInitial color="warn" type="submit">{{'GENERAL.UPDATE_INFO' | translate}}</button>
+  </div>
+</form>

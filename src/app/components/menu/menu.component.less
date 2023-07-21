@@ -1,0 +1,298 @@
+@import '../../../styles/variables';
+
+.menu {
+  list-style : none;
+  margin     : 0;
+  padding    : 0;
+  height     : 0;
+  overflow   : hidden;
+
+  &--wrap {
+    background-color : @color-dark-blue;
+    overflow         : visible;
+    user-select      : none;
+    width            : 50px;
+    display          : flex;
+    flex-direction   : column;
+    justify-content  : space-between;
+    flex             : 1;
+    min-height       : 100%;
+    color            : @white;
+    transition       : width 0.3s cubic-bezier(0, 0, 0.3, 1);
+  }
+
+  &--visible {
+    height : auto;
+  }
+
+  &--opened {
+    width : 100%;
+  }
+
+  &--opened &__item__left {
+    width : calc(~'100% - 26px');
+  }
+
+  &--opened &__item__left.no-width-constraint {
+    width : 100%;
+  }
+
+  &--opened &__item__left.no-width-constraint &__item__label {
+    width      : 100%;
+    max-width  : 100%;
+    text-align : left;
+  }
+
+  &--opened &__logo {
+    background-image : url('../../../assets/images/white-logo.svg');
+    background-size  : 240px 50px;
+    width            : 100%;
+  }
+
+  &--opened &__item__label {
+    width : auto;
+  }
+
+  &__logo {
+    background          : @color-red1 url('../../../assets/images/q-logo.svg');
+    background-repeat   : no-repeat;
+    width               : 50px;
+    height              : 50px;
+    display             : block;
+    background-size     : 50px auto;
+    background-position : 50%;
+  }
+
+  &--top {
+    margin-bottom : 50px;
+  }
+
+  &--level-1 {
+    background-color : @color-dark-blue;
+  }
+
+  &--level-2 {
+    background-color : darken(@color-dark-blue, 4%);
+  }
+
+  &--level-3 {
+    background-color : darken(@color-dark-blue, 8%);
+  }
+
+  &--level-4 {
+    background-color : darken(@color-dark-blue, 12%);
+  }
+
+  &--level-1 &__item__left {
+    height : 50px;
+  }
+
+  &--level-1 > &__item--active > &__item__header {
+    box-shadow    : inset 4px 0px 0px 0px @color-red1;
+    border-bottom : 1px solid rgba(255, 255, 255, 0.06);
+  }
+
+  &--level-2 > &__item &__item__label:first-child {
+    padding-left : 40px;
+  }
+
+  &--level-2 &__item__left {
+    height : 38px;
+  }
+
+  &--level-3 &__item__count {
+    width : 50px;
+  }
+
+  &--level-3 &__item__label {
+    max-width : calc(~'100% - 60px');
+  }
+
+  &__item {
+    color           : @white;
+    min-height      : 38px;
+    outline         : none;
+    display         : flex;
+    flex-direction  : column;
+    min-width       : 50px;
+    justify-content : space-between;
+    border-top      : 1px solid rgba(255, 255, 255, 0.06);
+    transition      : all 0.3s cubic-bezier(0, 0, 0.3, 1);
+    cursor          : pointer;
+
+    &.left-align {
+      justify-content : flex-start;
+    }
+
+    &:hover {
+      background-color : rgba(255, 255, 255, 0.06);
+    }
+
+    &:last-child {
+      border-bottom : 1px solid rgba(255, 255, 255, 0.06);
+    }
+
+    &--row {
+      height         : 50px;
+      align-items    : center;
+      flex-direction : row !important;
+    }
+
+    &--active {
+      color            : @color-red1;
+      background-color : @color-blue4;
+    }
+
+    &__left {
+      height      : 50px;
+      display     : flex;
+      align-items : center;
+      flex-wrap   : nowrap;
+      white-space : nowrap;
+      max-width   : 100;
+    }
+
+    &__right {
+      display         : flex;
+      align-items     : center;
+      justify-content : flex-end;
+    }
+
+    &__icon {
+      font-size   : 32px;
+      font-weight : 500;
+      flex        : 0 0 50px;
+      text-align  : center;
+
+      &.arrow-left {
+        font-size: 17px;
+      }
+    }
+
+    &__label {
+      width         : 0;
+      overflow      : hidden;
+      font-weight   : 300;
+      white-space   : nowrap;
+      text-overflow : ellipsis;
+      overflow      : hidden;
+    }
+
+    &__count {
+      display      : inline-block;
+      margin-right : 5px;
+      width        : 40px;
+      text-align   : right;
+    }
+
+    &__label {
+      max-width : calc(~'100% - 50px');
+    }
+
+    &__header {
+      outline         : none;
+      width           : 100%;
+      display         : flex;
+      align-items     : center;
+      justify-content : space-between;
+    }
+
+    &__times {
+      flex         : 0 0 10px;
+      height       : 38px;
+      margin-right : 16px;
+      margin-top   : 18px;
+      font-size    : 17px;
+    }
+    &__arrow {
+      flex         : 0 0 10px;
+      height       : 38px;
+      margin-right : 16px;
+      position     : relative;
+
+      &__tap-area {
+        position : absolute;
+        width    : 300%;
+        height   : 100%;
+        left     : -100%;
+        top      : 0;
+        cursor   : pointer;
+      }
+
+      &::before,
+      &::after {
+        background-color : currentColor;
+        content          : '';
+        position         : absolute;
+        left             : 0;
+        top              : 50%;
+        width            : 10px;
+        height           : 1px;
+        transform-origin : 50%;
+        transition       : all 0.25s ease-in-out;
+      }
+
+      &::before {
+        transform : rotate(90deg);
+      }
+
+      &--expanded::before {
+        transform : scale(0.1, 0.1) rotate(90deg);
+      }
+    }
+
+    &__icon-pin {
+      width : 20px;
+      height : 20px;
+      position : relative;
+      margin-right : 16px;
+
+      &::before {
+        position         : absolute;
+        border-style     : solid;
+        border-width     : 1px 1px 0 0;
+        content          : '';
+        display          : inline-block;
+        height           : 10px;
+        width            : 10px;
+        top              : 50%;
+        left             : 0;
+        transform        : rotate(45deg);
+        transform-origin : 100%;
+        vertical-align   : top;
+        transition       : all 0.25s ease-in-out;
+      }
+
+      &--to-left {
+        transform : rotate3d(0, 1, 0, 180deg);
+      }
+
+      &--down {
+        width : 14px;
+        height : 14px;
+        margin-right : 10px;
+
+        &::before {
+          width : 7px;
+          height : 7px;
+          transform : rotate(135deg) translateY(5px);
+        }
+      }
+    }
+  }
+
+  &--top &__item:first-child {
+    border-top : 0;
+  }
+
+  .search-input {
+    flex          : 1;
+    margin        : 0;
+    color         : @white;
+    background    : transparent;
+    border        : 0;
+    outline-width : 0;
+    text-overflow : ellipsis;
+    transition    : all 0.4s;
+  }
+}

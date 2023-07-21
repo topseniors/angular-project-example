@@ -1,0 +1,162 @@
+<div class="dashboard">
+  <div class="row">
+    <div class="col-sm-4">
+      <mat-card class="nodes-relationships">
+        <div class="title clearfix">
+          <div class="pull-left">{{'AUDIT.DASHBOARD.NODES_RELATIONSHIPS' | translate}}</div>
+          <div class="pull-right">
+            <button class="refresh-counts" (click)="refreshCounts()" *ngIf="!refreshingCounts">
+              <img src="/assets/images/refresh.svg">
+            </button>
+            <div class="loader" *ngIf="refreshingCounts">
+              <img src="/assets/images/loadingoval.svg">
+            </div>
+          </div>
+        </div>
+        <div class="items">
+          <div class="items-header row">
+            <div class="header-server col-xs-4">{{'AUDIT.DASHBOARD.SERVER' | translate}}</div>
+            <div class="header-nodes col-xs-4">{{'AUDIT.DASHBOARD.NODES' | translate}}</div>
+            <div class="header-relationships col-xs-4">{{'AUDIT.DASHBOARD.RELATIONSHIPS' | translate}}</div>
+          </div>
+          <div class="items-body">
+            <div class="items-list">
+              <div class="list-item ingestion-row row" [ngClass]="ingestionStatus">
+                <div class="body-server col-xs-4">{{'AUDIT.DASHBOARD.INGESTION' | translate}}</div>
+                <div class="body-nodes col-xs-4">{{ingestionNodes}}</div>
+                <div class="body-relationships col-xs-4">{{ingestionRels}}</div>
+              </div>
+              <div class="list-item elastic-row row" [ngClass]="esStatus">
+                <div class="body-server col-xs-4">{{'AUDIT.DASHBOARD.ELASTIC' | translate}}</div>
+                <div class="body-nodes col-xs-4">{{esNodes}}</div>
+                <div class="body-relationships col-xs-4">{{esRels}}</div>
+              </div>
+              <div class="list-item orient-row row" [ngClass]="orientStatus">
+                <div class="body-server col-xs-4">{{'AUDIT.DASHBOARD.ORIENT' | translate}}</div>
+                <div class="body-nodes col-xs-4">{{orientNodes}}</div>
+                <div class="body-relationships col-xs-4">{{orientRels}}</div>
+              </div>
+            </div>
+            <div class="items-footer">
+              <div class="info-row row">
+                <div class="col col-xs-12">
+                  <div class="info-col">
+                    <span class="OK-icon info-icon"></span>
+                    <span class="info-text">{{'AUDIT.DASHBOARD.OK' | translate}}</span>
+                  </div>
+                  <div class="info-col">
+                    <span class="NotOK-icon info-icon"></span>
+                    <span class="info-text">{{'AUDIT.DASHBOARD.NOT_OK' | translate}}</span>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </mat-card>
+    </div>
+    <div class="col-sm-8">
+      <mat-card class="messages-timechart">
+        <div class="title">
+          <span>{{'AUDIT.DASHBOARD.MESSAGES_TIMECHART' | translate}}</span>
+        </div>
+        <div class="chart-container">
+          <canvas baseChart [chartType]="'line'" [datasets]="chartData" [labels]="chartLabels" [options]="chartOptions" [legend]="false"
+            [colors]="chartColors" (chartClick)="onChartClick($event)">
+          </canvas>
+        </div>
+        <div class="chart-slider-legend">
+          <div class="chart-slider">
+            <nouislider [connect]="true" [min]="chartMin" [max]="chartMax" [step]="1"
+              [(ngModel)]="chartRange" (ngModelChange)="onChartRangeChange($event)"></nouislider>
+          </div>
+          <div class="chart-legend">
+            <div class="info-col">
+              <span class="OK-icon info-icon"></span>
+              <span class="info-text">{{'AUDIT.DASHBOARD.MESSAGES' | translate}}</span>
+            </div>
+            <div class="info-col">
+              <span class="NotOK-icon info-icon"></span>
+              <span class="info-text">{{'AUDIT.DASHBOARD.ERRORS' | translate}}</span>
+            </div>
+          </div>
+        </div>
+      </mat-card>
+    </div>
+  </div>
+
+  <div class="gauge-section row">
+    <div class="col-sm-3">
+      <mat-card class="gauge-panel clearfix">
+        <div class="pull-left">
+          <div class="title">
+            <span>Ingestion</span>
+          </div>
+          <div class="gauge-value">
+            <span>{{ingestionTps}}</span>
+          </div>
+          <div class="gauge-label">
+            <span>msg/s</span>
+          </div>
+        </div>
+        <div class="pull-right">
+          <mwl-gauge [max]="120" [dialStartAngle]="-90" [dialEndAngle]="-90.001" [value]="ingestionTps" [animated]="true"></mwl-gauge>
+        </div>
+      </mat-card>
+    </div>
+    <div class="col-sm-3">
+      <mat-card class="gauge-panel clearfix">
+        <div class="pull-left">
+          <div class="title">
+            <span>Elastic</span>
+          </div>
+          <div class="gauge-value">
+            <span>{{esTps}}</span>
+          </div>
+          <div class="gauge-label">
+            <span>msg/s</span>
+          </div>
+        </div>
+        <div class="pull-right">
+          <mwl-gauge [max]="120" [dialStartAngle]="-90" [dialEndAngle]="-90.001" [value]="esTps" [animated]="true"></mwl-gauge>
+        </div>
+      </mat-card>
+    </div>
+    <div class="col-sm-3">
+      <mat-card class="gauge-panel clearfix">
+        <div class="pull-left">
+          <div class="title">
+            <span>Orient</span>
+          </div>
+          <div class="gauge-value">
+            <span>{{odbTps}}</span>
+          </div>
+          <div class="gauge-label">
+            <span>msg/s</span>
+          </div>
+        </div>
+        <div class="pull-right">
+          <mwl-gauge [max]="120" [dialStartAngle]="-90" [dialEndAngle]="-90.001" [value]="odbTps" [animated]="true"></mwl-gauge>
+        </div>
+      </mat-card>
+    </div>
+    <div class="col-sm-3">
+      <mat-card class="gauge-panel error-panel clearfix">
+        <div class="pull-left">
+          <div class="title">
+            <span>Errors</span>
+          </div>
+          <div class="gauge-value">
+            <span>{{errorCount}}</span>
+          </div>
+          <div class="gauge-label">
+            <span>msg/s</span>
+          </div>
+        </div>
+        <div class="pull-right">
+          <mwl-gauge [max]="120" [dialStartAngle]="-90" [dialEndAngle]="-90.001" [value]="errorCount" [animated]="true"></mwl-gauge>
+        </div>
+      </mat-card>
+    </div>
+  </div>
+</div>

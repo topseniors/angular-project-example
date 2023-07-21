@@ -1,0 +1,95 @@
+<div class="counts">
+  <mat-card class="counts-panel">
+    <mat-card-header>
+      <mat-card-title>
+        <span class="counts-title-label">{{'AUDIT.COUNTS.CI_COUNTS' | translate}}</span>
+        <span class="counts-title-value">{{totalRows}}</span>
+      </mat-card-title>
+      <div class="filter-container" [ngClass]="{'hidden': viewMode.currentMode !== viewMode.gridView}">
+        <mat-icon class="filter-input-toggler" (click)="toggleFilterInput()" *ngIf="!filterInputVisible">search</mat-icon>
+        <mat-form-field [ngClass]="{'small': !filterInputVisible}" floatPlaceholder="never">
+          <input matInput #filter placeholder="{{'GENERAL.TABLE.FILTERRECORDS' | translate}}" (blur)="toggleFilterInput()">
+          <mat-icon matPrefix>search</mat-icon>
+          <mat-icon matSuffix (click)="clearFilterText()">close</mat-icon>
+        </mat-form-field>
+      </div>
+      <div class="switch-view">
+        <a class="switch-view-toggle" [matMenuTriggerFor]="switchViewMenu" style="cursor: pointer;">
+          <span *ngIf="viewMode.currentMode === viewMode.tableView" class="switch-view-icon">
+            <img src="/assets/images/tableview-blue.svg">
+          </span>
+          <span *ngIf="viewMode.currentMode === viewMode.gridView" class="switch-view-icon">
+            <img src="/assets/images/gridview-blue.svg">
+          </span>
+        </a>
+        <mat-menu class="switch-view-items" #switchViewMenu="matMenu" [overlapTrigger]="false" xPosition="before">
+          <div class="switch-view-label">
+            <span>{{'AUDIT.COUNTS.DISPLAY_OPTIONS' | translate}}</span>
+          </div>
+          <div class="switch-view-item">
+            <button mat-menu-item [ngClass]="{'active': viewMode.currentMode === viewMode.tableView}" (click)="setViewMode(viewMode.tableView)">
+              <span class="switch-view-icon">
+                <img src="/assets/images/tableview-grey.svg">
+              </span>
+              <span class="item-text">{{'AUDIT.COUNTS.TABLE_VIEW' | translate}}</span>
+            </button>
+          </div>
+          <div class="switch-view-item">
+            <button mat-menu-item [ngClass]="{'active': viewMode.currentMode === viewMode.gridView}" (click)="setViewMode(viewMode.gridView)">
+              <span class="switch-view-icon">
+                <img src="/assets/images/gridview-grey.svg">
+              </span>
+              <span class="item-text">{{'AUDIT.COUNTS.GRID_VIEW' | translate}}</span>
+            </button>
+          </div>
+        </mat-menu>
+      </div>
+    </mat-card-header>
+    <mat-card-content>
+      <div *ngIf="dataPopulated && totalRows === 0">
+        <app-alert-panel type="info" message="GENERAL.NO_DATA"></app-alert-panel>
+      </div>
+      <div class="counts-container" [ngClass]="{'hidden': dataPopulated && totalRows === 0}">
+        <super-table *ngIf="viewMode.currentMode === viewMode.tableView" [data]="countsResult$" [columns]="columns" [rowDefs]="rowDefs" [trackBy]="trackBy" [linked]="linked" [filtering]="filtering"
+          [paging]="paging">
+        </super-table>
+        <div class="counts-grid" *ngIf="viewMode.currentMode === viewMode.gridView">
+          <div class="table-legend">
+            <div class="info-col">
+              <span class="OK-icon info-icon"></span>
+              <span class="info-text">{{'AUDIT.COUNTS.OK' | translate}}</span>
+            </div>
+            <div class="info-col">
+              <span class="NotOK-icon info-icon"></span>
+              <span class="info-text">{{'AUDIT.COUNTS.NOT_OK' | translate}}</span>
+            </div>
+          </div>
+          <div class="table-responsive">
+            <table class="table table-bordered">
+              <tbody>
+                <tr *ngFor="let gridRow of gridRows">
+                  <td *ngFor="let gridCell of gridRow" [ngClass]="{ 'OK': gridCell.status === 'OK', 'NotOK': gridCell.status === 'NotOK', 'active': gridCell.selected }"
+                    (click)="selectGridCell(gridCell)">
+                    <div class="element-class-name">
+                      <span>{{gridCell.className}}</span>
+                    </div>
+                    <div class="element-counts">
+                      <span>{{gridCell.InternalState}}</span>
+                      <span>{{gridCell.OrientDB}}</span>
+                      <span>{{gridCell.ES}}</span>
+                    </div>
+                  </td>
+                </tr>
+              </tbody>
+              <tfoot *ngIf="gridRowsTooMany">
+                <tr>
+                  <td colspan="8">......</td>
+                </tr>
+              </tfoot>
+            </table>
+          </div>
+        </div>
+      </div>
+    </mat-card-content>
+  </mat-card>
+</div>

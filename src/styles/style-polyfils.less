@@ -1,0 +1,42 @@
+@multi: 4px;
+@iterations: 8;
+
+.generate-margins(@iterations);
+.generate-margins(@n, @i: 0) when (@i =< @n) {
+  .mt-@{i} {
+    margin-top: @i * @multi;
+  }
+  .mb-@{i} {
+    margin-bottom: @i * @multi;
+  }
+  .mr-@{i} {
+    margin-right: @i * @multi;
+  }
+  .ml-@{i} {
+    margin-left: @i * @multi;
+  }
+  .m-@{i} {
+    margin: @i * @multi;
+  }
+  .generate-margins(@n, (@i + 1));
+}
+
+.generate-paddings(@iterations);
+.generate-paddings(@n, @i: 0) when (@i =< @n) {
+  .pt-@{i} {
+    padding-top: @i * @multi;
+  }
+  .pb-@{i} {
+    padding-bottom: @i * @multi;
+  }
+  .pr-@{i} {
+    padding-right: @i * @multi;
+  }
+  .pl-@{i} {
+    padding-left: @i * @multi;
+  }
+  .p-@{i} {
+    padding: @i * @multi;
+  }
+  .generate-paddings(@n, (@i + 1));
+}

@@ -1,0 +1,31 @@
+<div class="top-nav">
+  <app-breadcrumb [(pinned)]="pinned"></app-breadcrumb>
+  <div class="nav-links" ng-show="vm.isLoggedIn()">
+    <a class="nav-link-item fa fa-bell hidden"></a>
+    <a class="nav-link-item user-profile" [mdePopoverTriggerFor]="userProfileMenu" mdePopoverTriggerOn="click">
+      <div class="profile-text">
+        <div class="user-name">{{ userData.userName }}</div>
+        <div class="org-oid">{{ userData.orgOid }}</div>
+      </div>
+      <div class="popup-indicator">
+        <span class="fa fa-angle-down"></span>
+      </div>
+    </a>
+    <mde-popover #userProfileMenu="mdePopover" class="navbar-drop-down" [mdePopoverOverlapTrigger]="false" mdePopoverPositionX="before">
+      <mat-menu></mat-menu>
+      <div class="mat-menu-panel">
+        <div class="mat-menu-content">
+          <button id="iq-updateinfo"  mat-menu-item (click)="openUserInfoModal()">
+            {{ 'GENERAL.UPDATE_USER_INFO' | translate | uppercase }}
+          </button>
+          <button id="iq-chgpwd"  mat-menu-item (click)="openChangePasswordModal()">
+            {{ 'GENERAL.CHANGE_PASSWORD' | translate | uppercase }}
+          </button>
+          <button id="iq-logout" mat-menu-item (click)="logout()">
+            {{ 'GENERAL.LOG_OUT' | translate | uppercase }}
+          </button>
+        </div>
+      </div>
+    </mde-popover>
+  </div>
+</div>

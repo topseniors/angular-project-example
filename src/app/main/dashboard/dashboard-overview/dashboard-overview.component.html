@@ -1,0 +1,10 @@
+<div dnd-sortable-container [sortableData]="cards">
+  <dashboard-card *ngFor="let card of cards; let i = index"
+                  dnd-sortable [sortableIndex]="i"
+                  (onDropSuccess)="onItemDrop($event)"
+                  [title]="card.title"
+                  [type]="card.type"
+                  [width]="card.width"
+                  [height]="card.height">
+  </dashboard-card>
+</div>

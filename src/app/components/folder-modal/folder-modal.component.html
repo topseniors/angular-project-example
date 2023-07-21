@@ -1,0 +1,51 @@
+<form [formGroup]="formGroup" (ngSubmit)="onSubmit()">
+  <h1 mat-dialog-title>
+    <span *ngIf="isAddMode()" data-testid="add-search-folder-title">
+      {{'SEARCH.MANAGE_SAVED_SEARCHES.ADD_FOLDER' | translate}}
+    </span>
+    <span *ngIf="isEditMode()" data-testid="edit-search-folder-title">
+      {{'SEARCH.MANAGE_SAVED_SEARCHES.EDIT_FOLDER' | translate}}
+    </span>
+  </h1>
+  <div mat-dialog-content>
+    <mat-form-field>
+      <input
+        matInput
+        data-testid="add-edit-name-input"
+        [placeholder]="'SEARCH.MANAGE_SAVED_SEARCHES.FOLDER_NAME' | translate"
+        [errorStateMatcher]="matcher"
+        [formControl]="folderNameFormControl"
+        [(ngModel)]="data.name"
+        name="folderName"
+        (blur)="trimFolderName()"
+      >
+      <mat-error *ngIf="folderNameFormControl.hasError('required')" data-testid="add-edit-name-input-error required">
+        {{'SEARCH.MANAGE_SAVED_SEARCHES.FOLDER_NAME_REQUIRED' | translate}}
+      </mat-error>
+      <mat-error *ngIf="folderNameFormControl.hasError('maxlength')" data-testid="add-edit-name-input-error max-length">
+        {{'SEARCH.MANAGE_SAVED_SEARCHES.FOLDER_NAME_MAX_LENGTH_64' | translate}}
+      </mat-error>
+      <mat-error *ngIf="folderNameFormControl.hasError('pattern')" data-testid="add-edit-name-input-error pattern">
+        {{'SEARCH.MANAGE_SAVED_SEARCHES.FOLDER_NAME_NO_WHITE_SPACES_ONLY' | translate}}
+      </mat-error>
+    </mat-form-field>
+    <mat-form-field>
+      <input
+        matInput
+        data-testid="add-edit-description-input"
+        [placeholder]="'SEARCH.MANAGE_SAVED_SEARCHES.FOLDER_DESCRIPTION' | translate"
+        [errorStateMatcher]="matcher"
+        [formControl]="folderDescriptionFormControl"
+        [(ngModel)]="data.shortDescr"
+        name="folderDescription"
+      >
+      <mat-error *ngIf="folderDescriptionFormControl.hasError('maxlength')" data-testid="add-edit-description-error max-length">
+        {{'SEARCH.MANAGE_SAVED_SEARCHES.FOLDER_DESCRIPTION_MAX_LENGTH_256' | translate}}
+      </mat-error>
+    </mat-form-field>
+  </div>
+  <div mat-dialog-actions>
+    <button data-testid="add-edit-folder-cta secondary" type="button" mat-button (click)="onCancel()">{{'GENERAL.CANCEL' | translate}}</button>
+    <button data-testid="add-edit-folder-cta primary" type="submit" mat-raised-button color="warn">{{'GENERAL.SUBMIT' | translate}}</button>
+  </div>
+</form>

@@ -1,0 +1,178 @@
+<nav class="menu--wrap" [ngClass]="{'menu--opened' : opened}">
+  <ul class="menu menu--visible menu--top menu--level-1">
+    <li class="menu__item"><a class="menu__logo" [routerLink]=""></a></li>
+    <li class="menu__item menu__item--row left-align" *ngIf="showSearch">
+      <span class="menu__item__icon icon-search" *ngIf="!searchAutoComplete.isOpen" (click)="startSearch()"></span>
+      <span class="menu__item__icon arrow-left fa fa-arrow-left" *ngIf="searchAutoComplete.isOpen" (click)="hideSearchAutoComplete()"></span>
+      <input #searchInput class="search-input"
+        placeholder="{{'SEARCH.NAME' | translate}}"
+        [(ngModel)]="searchString"
+        aria-label="Search"
+        *ngIf="opened"
+        [matAutocomplete]="searchAutoComplete"
+        [formControl]="searchInputCtrl"
+        (keyup.enter)="startSearch()"
+      >
+      <span class="menu__item__times fa fa-times-thin" (click)="clearSearch()"></span>
+      <mat-autocomplete class="menu-search-auto-complete" #searchAutoComplete="matAutocomplete" (optionSelected)="startSearch()">
+        <mat-option *ngFor="let keyword of searchKeywords$ | async" [value]="keyword">
+          <span>{{keyword}}</span>
+        </mat-option>
+      </mat-autocomplete>
+    </li>
+
+    <li
+      class="menu__item {{item.key}} level-1"
+      [ngClass]="{'menu__item--active' : item.isActive}"
+      *ngFor="let item of menuItems.top; trackBy: trackByFn"
+      [attr.data-testid]="item.key"
+    >
+      <div
+        class="menu__item__header"
+        (click)="itemClick(item, $event, 1)"
+      >
+        <span class="menu__item__left">
+          <span class="menu__item__icon {{item.icon}}"></span>
+          <span class="menu__item__label">{{item.name | translate}}</span>
+        </span>
+        <span
+          class="menu__item__arrow"
+          [ngClass]="{'menu__item__arrow--expanded' : item.isExpanded}"
+          (click)="itemClick(item, $event, 1)"
+          *ngIf="opened && item.isExpandable"
+        >
+          <i class="menu__item__arrow__tap-area"></i>
+        </span>
+      </div>
+
+      <ul
+        class="menu menu--level-2"
+        [ngClass]="{'menu--visible' : opened && item.isExpanded}"
+      >
+        <ng-container *ngFor="let child of item.children; trackBy: trackByFn">
+          <li
+            class="menu__item {{child.key}} level-2"
+            (click)="itemClick(child, $event, 2)"
+            [ngClass]="{'menu__item--active' : child.isActive}"
+            [attr.data-testid]="child.key"
+          >
+            <div class="menu__item__header">
+              <span class="menu__item__left">
+                <span *ngIf="child.count">
+                  <span class="menu__item__count">{{child.count}}</span>
+                </span>
+                <span class="menu__item__label">{{child.name | translate}}</span>
+              </span>
+
+              <span
+                class="menu__item__arrow"
+                [ngClass]="{'menu__item__arrow--expanded' : child.isExpanded}"
+                (click)="expandCollapse(child, $event)"
+                *ngIf="opened && child.isExpandable"
+              >
+                <i class="menu__item__arrow__tap-area"></i>
+              </span>
+            </div>
+
+            <ul
+              class="menu menu--level-3"
+              [ngClass]="{'menu--visible' : opened && child.isExpanded}"
+              *ngIf="child.isExpandable"
+            >
+              <li
+                class="menu__item {{grandChild.key}} level-3"
+                (click)="itemClick(grandChild, $event, 3)"
+                [ngClass]="{'menu__item--active' : grandChild.isActive}"
+                *ngFor="let grandChild of child.children; trackBy: trackByFn"
+                [attr.data-testid]="grandChild.key"
+              >
+                <div class="menu__item__header">
+                  <span class="menu__item__left">
+                    <span class="menu__item__count">{{grandChild.count}}</span>
+                    <span class="menu__item__label">{{grandChild.text}}</span>
+                  </span>
+
+                  <span
+                    class="menu__item__arrow"
+                    [ngClass]="{'menu__item__arrow--expanded' : grandChild.isExpanded}"
+                    (click)="expandCollapse(grandChild, $event)"
+                    *ngIf="opened && grandChild.isExpandable"
+                  >
+                    <i class="menu__item__arrow__tap-area"></i>
+                  </span>
+                </div>
+
+                <ul
+                  class="menu menu--level-4"
+                  [ngClass]="{'menu--visible' : opened && grandChild.isExpanded}"
+                  *ngIf="grandChild.isExpandable"
+                >
+                  <li
+                    class="menu__item {{grandGrandChild.key}} level-4"
+                    [ngClass]="{'menu__item--active' : grandGrandChild.isActive}"
+                    *ngFor="let grandGrandChild of grandChild.children; trackBy: trackByFn"
+                    (click)="itemClick(grandGrandChild, $event, 4)"
+                    [attr.data-testid]="grandGrandChild.key"
+                  >
+                    <span class="menu__item__left">
+                      <span class="menu__item__count">{{grandGrandChild.count}}</span>
+                      <span class="menu__item__label">{{grandGrandChild.text}}</span>
+                    </span>
+                  </li>
+                </ul>
+              </li>
+            </ul>
+          </li>
+        </ng-container>
+      </ul>
+    </li>
+  </ul>
+
+  <ul class="menu menu--level-1 menu--visible menu--bottom">
+    <li
+      class="menu__item {{item.key}} level-1"
+      [ngClass]="{'menu__item--active' : item.isActive}"
+      *ngFor="let item of menuItems.bottom"
+      [attr.data-testid]="item.key"
+      (click)="itemClick(item, $event, 1)"
+    >
+      <div class="menu__item__header" (click)="itemClick(item, $event, 1)">
+        <span class="menu__item__left">
+          <span class="menu__item__icon {{item.icon}}"></span>
+          <span class="menu__item__label">{{item.name | translate}}</span>
+        </span>
+        <span
+          class="menu__item__arrow"
+          [ngClass]="{'menu__item__arrow--expanded' : item.isExpanded}"
+          (click)="itemClick(item, $event, 1)"
+          *ngIf="opened && item.isExpandable"
+        >
+          <i class="menu__item__arrow__tap-area"></i>
+        </span>
+      </div>
+
+      <ul
+        class="menu menu--level-2"
+        [ngClass]="{'menu--visible' : opened && item.isExpanded}"
+        *ngIf="item.isExpandable"
+      >
+        <li
+          class="menu__item {{child.key}} level-2"
+          [ngClass]="{'menu__item--active' : child.isActive}"
+          *ngFor="let child of item.children; trackBy: trackByFn"
+          [attr.data-testid]="child.key"
+        >
+          <div class="menu__item__header" (click)="itemClick(child, $event, 2)">
+            <span class="menu__item__left no-width-constraint">
+              <span class="menu__item__label">{{child.name}}</span>
+            </span>
+          </div>
+        </li>
+      </ul>
+    </li>
+
+    <li class="menu__item menu__item__right menu__item--row" (click)="toggleIsOpened()">
+      <span class="menu__item__icon-pin" [ngClass]="{'menu__item__icon-pin--to-left' : pinned}"></span>
+    </li>
+  </ul>
+</nav>

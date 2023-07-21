@@ -1,0 +1,28 @@
+<div class="scan-log-actions-container" [ngClass]="{'hidden': selectedScanLogs.length === 0}">
+  <div class="scan-log-actions">
+    <div class="left-sub">
+      <span class="selected-count child">{{selectedScanLogs.length}}</span>
+      <span class="child">{{'DISCOVERY.SCAN_JOBS.ITEMS_SELECTED' | translate}}</span>
+      <button mat-button class="child" [disabled]="selectedScanLogs.length === 0" (click)="clearSelection()">{{'DISCOVERY.SCAN_JOBS.CLEAR_SELECTION' | translate}}</button>
+    </div>
+    <div class="right-sub">
+      <!-- <mat-hint class="child">{{selectedScope && selectedScope.shortDescr}}</mat-hint> -->
+      <mat-form-field class="child">
+        <mat-select [placeholder]="'DISCOVERY.SCAN_JOBS.SELECT_SCOPE' | translate" [(ngModel)]="selectedScope" [name]="scope">
+          <mat-option>{{'DISCOVERY.SCAN_JOBS.SELECT_SCOPE_WITH_HYPEN' | translate}}</mat-option>
+          <mat-option *ngFor="let scope of scopes" [value]="scope">
+            {{scope.name}}
+          </mat-option>
+        </mat-select>
+      </mat-form-field>
+      <button mat-button class="child" [disabled]="!selectedScope || selectedScanLogs.length === 0" (click)="removeFromScope()">{{'DISCOVERY.SCAN_JOBS.REMOVE_FROM_SCOPE' | translate}}</button>
+      <button mat-button class="child" [disabled]="selectedScanLogs.length === 0" (click)="rescan()">{{'DISCOVERY.SCAN_JOBS.RESCAN' | translate}}</button>
+    </div>
+  </div>
+</div>
+<div *ngIf="dataPopulated && totalRows === 0">
+  <app-alert-panel type="info" message="DISCOVERY.SCAN_JOBS.NO_SCAN_LOG_DATA"></app-alert-panel>
+</div>
+<div [ngClass]="{'hidden': dataPopulated && totalRows === 0}">
+  <super-table [refresh]="refresh" [data]="polling$" [trackBy]="trackBy" [rowDefs]="rowDefs" [columns]="columns" [paging]="{pageSize: 5, pageSizeOptions: [5, 10, 15, 20, 50, 100]}"></super-table>
+</div>

@@ -1,0 +1,152 @@
+<div *ngIf="_error$ | async; then error else table"></div>
+
+<ng-template #error>
+  <!-- <app-alert-panel type="error" [message]="(_error$ | async).statusText"></app-alert-panel> -->
+</ng-template>
+
+<ng-template #table>
+
+  <div class="super-table">
+    <div class="filter-container" [ngClass]="{'hidden': !filtering}">
+      <mat-icon class="filter-input-toggler" (click)="toggleFilterInput()" *ngIf="!filterInputVisible">search</mat-icon>
+      <mat-form-field [ngClass]="{'small': !filterInputVisible}" floatPlaceholder="never">
+        <input matInput #filter placeholder="{{ filtering?.placeholder || 'GENERAL.TABLE.FILTERRECORDS' | translate }}" (blur)="toggleFilterInput()">
+        <mat-icon matPrefix>search</mat-icon>
+        <mat-icon matSuffix (click)="clearFilterText()">close</mat-icon>
+      </mat-form-field>
+    </div>
+    <mat-table [dataSource]="_dataSource" [trackBy]="trackBy" matSort>
+
+      <ng-container *ngFor="let column of columns; index as j" matColumnDef="{{column.def}}">
+        <span *ngIf="column.sort">
+          <mat-header-cell *matHeaderCellDef mat-sort-header class="cell-header-container"
+            [ngSwitch]="typeOf(column.header)" [ngClass]="column.headerCssClass">
+            <div *ngSwitchCase="'custom'">
+              <div *iqCustomCell="{ factory: column.header, inputs: column.headerContext }"></div>
+            </div>
+
+            <div *ngSwitchCase="'template'">
+              <ng-container *ngTemplateOutlet="column.header;context:{context:column.headerContext}"></ng-container>
+            </div>
+
+            <div *ngSwitchCase="'string'">{{ column.header | translate }}</div>
+
+            <div *ngSwitchCase="'undefined'">{{ column.def }}</div>
+
+            <div *ngSwitchDefault>something went wrong</div>
+            <div class="mat-sort-header-custom-arrow {{getSortDirection(column.def)}}"></div>
+          </mat-header-cell>
+        </span>
+        <span *ngIf="!column.sort">
+          <mat-header-cell *matHeaderCellDef class="cell-header-container"
+            [ngSwitch]="typeOf(column.header)" [ngClass]="column.headerCssClass">
+            <div *ngSwitchCase="'custom'">
+              <div *iqCustomCell="{ factory: column.header, inputs: column.headerContext }"></div>
+            </div>
+
+            <div *ngSwitchCase="'template'">
+              <ng-container *ngTemplateOutlet="column.header;context:{context:column.headerContext}"></ng-container>
+            </div>
+
+            <div *ngSwitchCase="'string'">{{ column.header | translate }}</div>
+
+            <div *ngSwitchCase="'undefined'">{{ column.def }}</div>
+
+            <div *ngSwitchDefault>something went wrong</div>
+          </mat-header-cell>
+        </span>
+
+        <mat-cell *matCellDef="let viewModel; let i = index;" (click)="column.onCellClicked(i, j, viewModel, $event)"
+          [matTooltip]="viewModel.tooltipMap[column.def] | translate" matTooltipShowDelay="500"
+          [mdePopoverTriggerFor]="popoverTooltip" mdePopoverTriggerOn="hover" enterDelay="500"
+          (mouseover)="onCellHover(column.def, viewModel.popoverTooltipMap[column.def])" [ngClass]="viewModel.cssClassMap[column.def] || ''">
+
+          <div *ngIf="{value:viewModel.cellMap[column.def]} as cell">
+            <div class="cell-container" [ngSwitch]="typeOf(column.cell)">
+              <div *ngSwitchCase="'custom'">
+                <div *iqCustomCell="{ factory: column.cell, inputs: cell.value }"></div>
+              </div>
+              <div *ngSwitchCase="'template'">
+                <ng-container *ngTemplateOutlet="column.cell;context:{context:cell.value}"></ng-container>
+              </div>
+              <div *ngSwitchCase="'string'">
+                <div>{{ column.cell }}</div>
+              </div>
+              <div *ngSwitchCase="'function'">
+                <div *ngIf="!column.html">{{ column.cell(i,j,cell.value) }}</div>
+                <div *ngIf="column.html" [innerHtml]="column.cell(i,j,cell.value)"></div>
+              </div>
+              <div *ngSwitchCase="'undefined'">
+                <div *ngIf="!column.html">{{ cell.value }}</div>
+                <div *ngIf="column.html" [innerHtml]="cell.value"></div>
+              </div>
+              <div *ngSwitchDefault>something went wrong</div>
+            </div>
+          </div>
+
+        </mat-cell>
+      </ng-container>
+
+      <div class="mat-table-header">
+        <mat-header-row *matHeaderRowDef="rowDefs[0].columns"></mat-header-row>
+      </div>
+      <div class="mat-table-body">
+        <div *ngFor="let rowDef of rowDefs">
+          <div *ngIf="rowDef.onRowClicked && !rowDef.onRowDoubleClicked">
+            <mat-row *matRowDef="let viewModel; columns: rowDef.columns; when: rowDef.predicate; let i = index" [matTooltip]="rowDef.tooltip"
+              matTooltipShowDelay="500" [ngClass]="viewModel.row.customCSSClass || ''" [expandedRow]="rowDef.expandedRow" [expandedRowIndex]="i"
+              [expandedRowModel]="viewModel.row" (click)="rowDef.onRowClicked(i, viewModel.row, $event)"></mat-row>
+          </div>
+          <div *ngIf="rowDef.onRowDoubleClicked && !rowDef.onRowClicked">
+            <mat-row *matRowDef="let viewModel; columns: rowDef.columns; when: rowDef.predicate; let i = index" [matTooltip]="rowDef.tooltip"
+              matTooltipShowDelay="500" [ngClass]="viewModel.row.customCSSClass || ''" [expandedRow]="rowDef.expandedRow" [expandedRowIndex]="i"
+              [expandedRowModel]="viewModel.row" (dblclick)="rowDef.onRowDoubleClicked(i, viewModel.row, $event)"></mat-row>
+          </div>
+          <div *ngIf="rowDef.onRowClicked && rowDef.onRowDoubleClicked">
+            <mat-row *matRowDef="let viewModel; columns: rowDef.columns; when: rowDef.predicate; let i = index" [matTooltip]="rowDef.tooltip"
+              matTooltipShowDelay="500" [ngClass]="viewModel.row.customCSSClass || ''" [expandedRow]="rowDef.expandedRow" [expandedRowIndex]="i"
+              [expandedRowModel]="viewModel.row" (click)="rowDef.onRowClicked(i, viewModel.row, $event)" (dblclick)="rowDef.onRowDoubleClicked(i, viewModel.row, $event)"></mat-row>
+          </div>
+          <div *ngIf="!rowDef.onRowClicked && !rowDef.onRowDoubleClicked">
+            <mat-row *matRowDef="let viewModel; columns: rowDef.columns; when: rowDef.predicate; let i = index" [matTooltip]="rowDef.tooltip"
+              matTooltipShowDelay="500" [ngClass]="viewModel.row.customCSSClass || ''" [expandedRow]="rowDef.expandedRow" [expandedRowIndex]="i"
+              [expandedRowModel]="viewModel.row"></mat-row>
+          </div>
+        </div>
+      </div>
+    </mat-table>
+    <mde-popover class="popover-tooltip" #popoverTooltip="mdePopover" [mdePopoverOverlapTrigger]="false" [mdePopoverCloseOnClick]="false">
+      <mat-card *ngIf="popoverTooltipContent.length > 0">
+        <mat-card-content>
+          <div class="popover-content table-responsive">
+            <table class="table">
+              <thead>
+                <tr>
+                  <th *ngFor="let th of popoverTooltipKeys">
+                    {{th}}
+                  </th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr *ngFor="let tr of popoverTooltipContent">
+                  <td *ngFor="let td of popoverTooltipKeys" [innerHTML]="tr[td]"></td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </mat-card-content>
+      </mat-card>
+    </mde-popover>
+
+    <div class="bottom-section">
+      <mat-paginator [ngClass]="{ 'hidden': (!paging || (_dataSource.filteredTotal$ | async) <= (getMinPageSize())) }"
+        #paginator [length]="_dataSource.filteredTotal$ | async" [pageIndex]="0" [pageSize]="paging?.pageSize || 5" [pageSizeOptions]="paging?.pageSizeOptions || [5, 10, 15, 20, 50, 100]">
+      </mat-paginator>
+      <div class="refresh-container" *ngIf="refresh">
+        <a class="link-refresh" (click)="refresh()">
+          <i class="fa fa-refresh" aria-hidden="true"></i>
+        </a>
+      </div>
+    </div>
+  </div>
+</ng-template>

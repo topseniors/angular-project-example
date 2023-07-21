@@ -1,0 +1,756 @@
+@import "../../../../styles/variables";
+@import "../../../../styles/effects.less";
+
+app-section.do-search-section {
+  display: block;
+  min-width: 1640px;
+
+  ::ng-deep .app-section {
+    .section-header {
+      display: none;
+    }
+  }
+}
+
+:host {
+  .search-top-bar {
+    background-color: @color-grey1;
+    padding-bottom: 0;
+
+    .search-string-field {
+      margin-left: 15px;
+      margin-right: 10px;
+      vertical-align: bottom;
+
+      &.Regular {
+        ::ng-deep .mat-input-wrapper {
+          .mat-input-flex {
+            .mat-input-infix {
+              .mat-input-element {
+                height: 25px;
+              }
+            }
+
+            .mat-input-suffix {
+              align-items: center;
+
+              .search-mode {
+                align-items: center;
+              }
+            }
+          }
+        }
+      }
+
+      &.DSL {
+        ::ng-deep .mat-input-wrapper {
+          .mat-input-flex {
+            .mat-input-infix {
+              height: 36.25px;
+
+              .mat-input-element {
+                height: 25px;
+              }
+              .dsl-search-code-mirror {
+                &.active {
+                  .CodeMirror {
+                    height: 200px;
+                    width: 445px;
+                    left: 0;
+                    top: 0;
+                    position: absolute;
+                    z-index: 2;
+                    box-shadow: 0 3px 1px -2px rgba(0,0,0,.2), 0 2px 2px 0 rgba(0,0,0,.14), 0 1px 5px 0 rgba(0,0,0,.12);
+                  }
+                }
+                .CodeMirror {
+                  height: 25px;
+                  width: 425px;
+                }
+              }
+            }
+
+            .mat-input-suffix {
+              align-items: flex-end;
+
+              .search-mode {
+                align-items: flex-end;
+              }
+            }
+          }
+        }
+      }
+
+      ::ng-deep .mat-input-wrapper {
+        padding-bottom: 0;
+
+        .mat-input-flex {
+          min-height: 36px;
+          background-color: @white;
+          box-shadow: 0 2px 1px -2px rgba(0,0,0,.2), 0 2px 2px 0 rgba(0,0,0,.14), 0 1px 2px 0 rgba(0,0,0,.12);
+
+          .mat-input-infix {
+            padding-left: 20px;
+            padding-right: 20px;
+            border-top: 0;
+            border-bottom: 0;
+            flex: 0 0 560px;
+
+            .mat-input-element {
+              min-height: 24px;
+            }
+
+            .mat-input-placeholder {
+              padding-left: 20px;
+              padding-right: 20px;
+              margin-top: 5px;
+            }
+          }
+
+          .mat-input-suffix {
+            position: absolute;
+            top: 0;
+            right: 0;
+            height: 100%;
+            color: rgba(0,0,0,.54);
+            display: flex;
+
+            .search-mode {
+              height: 100%;
+              padding: 0 15px;
+              position: relative;
+              display: flex;
+
+              &:after {
+                box-shadow: 3px 0 3px -3px @color-grey6 inset;
+                content: " ";
+                height: 100%;
+                position: absolute;
+                right: -3px;
+                top: 0;
+                width: 3px;
+              }
+
+              .mode-title {
+                position: relative;
+                line-height: 36px;
+                padding-right: 15px;
+                cursor: pointer;
+                display: block;
+                width: 80px;
+                text-align: right;
+
+                &:after {
+                  content: "\f0d7";
+                  font-family: FontAwesome;
+                  font-size: 14px;
+                  font-style: normal;
+                  font-weight: normal;
+                  color: @color-grey6;
+                  position: absolute;
+                  top: 0;
+                  right: 0;
+                  height: 36px;
+                }
+              }
+            }
+
+            .search-icon {
+              margin: 7px 10px 5px;
+              cursor: pointer;
+            }
+          }
+        }
+      }
+
+      ::ng-deep .mat-input-underline {
+        display: none;
+      }
+
+      ::ng-deep .mat-input-subscript-wrapper {
+        top: 100%;
+        padding-left: 20px;
+      }
+    }
+
+    .mat-raised-button.mat-primary.btn-search-filter {
+      background: @color-grey4;
+    }
+
+    .mat-raised-button.mat-warn.btn-save-search {
+      margin-left: 15px;
+    }
+
+    ::ng-deep .mat-tab-group-container {
+      display: flex;
+      justify-content: space-between;
+
+      .left-sub,
+      .right-sub {
+        display: flex;
+      }
+
+      ::ng-deep .mat-tab-group {
+        margin: 15px 0 0 15px;
+
+        .mat-tab-header {
+          border-bottom: 0;
+
+          .mat-tab-label {
+            color: @color-blue6;
+            font-size: 12px;
+            font-family: Nunito;
+            font-weight: normal;
+            opacity: 1;
+            min-width: 70px;
+            border-bottom: 10px solid transparent;
+
+            &.mat-tab-label-active {
+              border-bottom: 10px solid @color-red0;
+              color: @color-red0;
+            }
+          }
+
+          .mat-ink-bar {
+            display: none;
+          }
+        }
+      }
+      .mat-tab-more-label,
+      .manage-saved-searches {
+        font-size: 12px;
+        height: 48px;
+        border-bottom: 10px solid transparent;
+        min-width: 70px;
+        padding: 0 24px;
+        cursor: pointer;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        margin-top: 15px;
+      }
+
+      .mat-tab-more-label {
+        position: relative;
+        color: @color-blue6;
+
+        &:after {
+          content: "\f0d7";
+          font-family: FontAwesome;
+          font-style: normal;
+          font-weight: normal;
+          color: @color-blue6;
+          position: absolute;
+          top: 10px;
+          right: 5px;
+        }
+      }
+
+      .manage-saved-searches {
+        a {
+          text-decoration: none;
+          color: @color-blue6;
+        }
+      }
+    }
+  }
+
+  ::ng-deep super-table {
+    margin: 30px 69px 0;
+
+    mat-table.mat-table {
+      min-width: 1500px;
+
+      .mat-header-row {
+        .mat-header-cell {
+          position: relative;
+        }
+      }
+      .mat-row {
+        .mat-cell {
+          color: @color-grey8;
+          font-size: 12px;
+
+          &.mat-column-name {
+            font-weight: bold;
+          }
+        }
+      }
+
+      .mat-column-entityType,
+      .mat-column-actions {
+        flex: 0 0 48px;
+        -ms-flex: 0 0 28px;
+        justify-content: center !important;
+
+        img {
+          width: 28px;
+          height: 28px;
+        }
+
+        .mat-icon-button {
+          width: 28px;
+          height: 28px;
+          line-height: 28px;
+        }
+      }
+    }
+  }
+
+  .search-result-All {
+    ::ng-deep super-table {
+      .mat-column-className {
+        flex: 0 0 460px;
+        -ms-flex: 0 0 440px;
+
+        div {
+          max-width: 440px;
+        }
+      }
+
+      .mat-column-shortDescr {
+        flex: 1;
+
+        div {
+          max-width: 914px;
+        }
+      }
+
+      .mat-column-highlight {
+        flex: 1;
+
+        div {
+          max-width: 447px;
+        }
+      }
+    }
+  }
+
+  .search-result-ProductInstance {
+    ::ng-deep super-table {
+      .mat-column-shortDescr,
+      .mat-column-systemDescr,
+      .mat-column-model {
+        flex: 0 0 200px;
+        -ms-flex: 0 0 180px;
+
+        div {
+          max-width: 180px;
+        }
+      }
+
+      .mat-column-type,
+      .mat-column-name,
+      .mat-column-manufacturer {
+        flex: 0 0 180px;
+        -ms-flex: 0 0 160px;
+
+        div {
+          max-width: 160px;
+        }
+      }
+
+      .mat-column-description {
+        flex: 1;
+
+        div {
+          max-width: 234px;
+        }
+      }
+    }
+  }
+
+  .search-result-ComputerSystem {
+    ::ng-deep super-table {
+      .mat-column-shortDescr,
+      .mat-column-IPAddressList,
+      .mat-column-OSModel {
+        flex: 0 0 200px;
+        -ms-flex: 0 0 180px;
+
+        div {
+          max-width: 180px;
+        }
+      }
+
+      .mat-column-hostName,
+      .mat-column-VMName,
+      .mat-column-OSVersion {
+        flex: 0 0 180px;
+        -ms-flex: 0 0 160px;
+
+        div {
+          max-width: 160px;
+        }
+      }
+
+      .mat-column-lastScanDate {
+        flex: 1;
+
+        div {
+          max-width: 234px;
+        }
+      }
+    }
+  }
+
+  .search-result-Container {
+    ::ng-deep super-table {
+      .mat-column-shortDescr,
+      .mat-column-IPAddressList,
+      .mat-column-containerName {
+        flex: 0 0 200px;
+        -ms-flex: 0 0 180px;
+
+        div {
+          max-width: 180px;
+        }
+      }
+
+      .mat-column-systemDescr,
+      .mat-column-hostName,
+      .mat-column-containerTechnology {
+        flex: 0 0 180px;
+        -ms-flex: 0 0 160px;
+
+        div {
+          max-width: 160px;
+        }
+      }
+
+      .mat-column-lastScanDate {
+        flex: 1;
+
+        div {
+          max-width: 234px;
+        }
+      }
+    }
+  }
+
+  .search-result-SystemProcessList {
+    ::ng-deep super-table {
+      .mat-column-systemDescr {
+        flex: 0 0 460px;
+        -ms-flex: 0 0 440px;
+
+        div {
+          max-width: 440px;
+        }
+      }
+
+      .mat-column-processList {
+        flex: 1;
+
+        div {
+          max-width: 914px;
+        }
+      }
+
+      .mat-column-highlight {
+        flex: 1;
+
+        div {
+          max-width: 447px;
+        }
+      }
+    }
+  }
+
+  .search-result-PIGroup {
+    ::ng-deep super-table {
+      .mat-column-name,
+      .mat-column-shortDescr,
+      .mat-column-creationDate,
+      .mat-column-modificationDate {
+        flex: 0 0 200px;
+        -ms-flex: 0 0 180px;
+
+        div {
+          max-width: 180px;
+        }
+      }
+
+      .mat-column-serverCount,
+      .mat-column-piCount {
+        flex: 0 0 150px;
+        -ms-flex: 0 0 130px;
+        justify-content: flex-end !important;
+
+        div {
+          max-width: 130px;
+        }
+      }
+
+      .mat-column-description {
+        flex: 1;
+
+        div {
+          max-width: 274px;
+        }
+      }
+    }
+  }
+
+  .search-result-UnqualifiedPI {
+    ::ng-deep super-table {
+      .mat-column-shortDescr,
+      .mat-column-name {
+        flex: 0 0 200px;
+        -ms-flex: 0 0 180px;
+
+        div {
+          max-width: 180px;
+        }
+      }
+
+      .mat-column-creationDate,
+      .mat-column-modificationDate,
+      .mat-column-serverCount,
+      .mat-column-piCount,
+      .mat-column-upiCount {
+        flex: 0 0 150px;
+        -ms-flex: 0 0 130px;
+
+        div {
+          max-width: 130px;
+        }
+      }
+
+      .mat-column-serverCount,
+      .mat-column-piCount,
+      .mat-column-upiCount {
+        justify-content: flex-end !important;
+      }
+
+      .mat-column-systemDescr {
+        flex: 1;
+
+        div {
+          max-width: 224px;
+        }
+      }
+    }
+  }
+
+  .search-result-NetworkDevice,
+  .search-result-StorageDevice {
+    ::ng-deep super-table {
+      .mat-column-shortDescr,
+      .mat-column-hostName,
+      .mat-column-IPAddressList,
+      .mat-column-model,
+      .mat-column-manufacturer {
+        flex: 0 0 220px;
+        -ms-flex: 0 0 200px;
+
+        div {
+          max-width: 200px;
+        }
+      }
+
+      .mat-column-lastScanDate {
+        flex: 1;
+
+        div {
+          max-width: 274px;
+        }
+      }
+    }
+  }
+
+  .search-result-UnqualifiedPIGroup {
+    ::ng-deep super-table {
+      .mat-column-shortDescr,
+      .mat-column-creationDate,
+      .mat-column-modificationDate {
+        flex: 0 0 320px;
+        -ms-flex: 0 0 300px;
+
+        div {
+          max-width: 300px;
+        }
+      }
+
+      .mat-column-serverCount {
+        flex: 0 0 150px;
+        -ms-flex: 0 0 130px;
+        justify-content: flex-end !important;
+
+        div {
+          max-width: 130px;
+        }
+      }
+
+      .mat-column-description {
+        flex: 1;
+
+        div {
+          max-width: 264px;
+        }
+      }
+    }
+  }
+
+  .search-result-SWCluster {
+    ::ng-deep super-table {
+      .mat-column-shortDescr,
+      .mat-column-creationDate,
+      .mat-column-modificationDate {
+        flex: 0 0 250px;
+        -ms-flex: 0 0 230px;
+
+        div {
+          max-width: 230px;
+        }
+      }
+
+      .mat-column-serverCount,
+      .mat-column-piCount {
+        flex: 0 0 150px;
+        -ms-flex: 0 0 130px;
+        justify-content: flex-end !important;
+
+        div {
+          max-width: 130px;
+        }
+      }
+
+      .mat-column-description {
+        flex: 1;
+
+        div {
+          max-width: 324px;
+        }
+      }
+    }
+  }
+
+  .search-result-Application,
+  .search-result-Service {
+    ::ng-deep super-table {
+      .mat-column-name,
+      .mat-column-shortDescr {
+        flex: 0 0 300px;
+        -ms-flex: 0 0 280px;
+
+        div {
+          max-width: 280px;
+        }
+      }
+
+      .mat-column-serverCount,
+      .mat-column-piCount {
+        flex: 0 0 150px;
+        -ms-flex: 0 0 130px;
+        justify-content: flex-end !important;
+
+        div {
+          max-width: 130px;
+        }
+      }
+
+      .mat-column-description {
+        flex: 1;
+
+        div {
+          max-width: 474px;
+        }
+      }
+    }
+  }
+
+  .search-result-BusinessService {
+    ::ng-deep super-table {
+      .mat-column-name,
+      .mat-column-shortDescr {
+        flex: 0 0 450px;
+        -ms-flex: 0 0 430px;
+
+        div {
+          max-width: 430px;
+        }
+      }
+
+      .mat-column-description {
+        flex: 1;
+
+        div {
+          max-width: 474px;
+        }
+      }
+    }
+  }
+
+  .search-result-SystemProcessCxList {
+    ::ng-deep super-table {
+      .mat-column-systemDescr {
+        flex: 0 0 460px;
+        -ms-flex: 0 0 440px;
+
+        div {
+          max-width: 440px;
+        }
+      }
+
+      .mat-column-cxList {
+        flex: 1;
+
+        div {
+          max-width: 914px;
+        }
+      }
+
+      .mat-column-highlight {
+        flex: 1;
+
+        div {
+          max-width: 447px;
+        }
+      }
+    }
+  }
+
+  .search-result-container {
+    &.with-highlight {
+      .search-result-All {
+        ::ng-deep super-table {
+          .mat-column-shortDescr {
+            div {
+              max-width: 447px;
+            }
+          }
+        }
+      }
+      .search-result-SystemProcessList {
+        ::ng-deep super-table {
+          .mat-column-processList {
+            div {
+              max-width: 447px;
+            }
+          }
+        }
+      }
+      .search-result-SystemProcessCxList {
+        ::ng-deep super-table {
+          .mat-column-cxList {
+            div {
+              max-width: 447px;
+            }
+          }
+        }
+      }
+    }
+  }
+}
+
+::ng-deep em {
+  background: @color-grey1;
+  color: @color-red0;
+}
+
+@media (max-width: @xs_max) {
+  ::ng-deep .mat-table {
+    margin: 20px;
+  }
+}

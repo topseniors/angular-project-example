@@ -1,0 +1,68 @@
+<div class="back">
+  <b data-testid="back-to-all-scanjobs" (click)="back()">
+    <i class="fa fa-angle-left bold-font"></i>
+    <span>&nbsp;&nbsp;{{'DISCOVERY.SCAN_JOBS.BACK_TO_ALL_SCAN_JOBS' | translate}}</span>
+  </b>
+</div>
+<mat-card>
+  <app-section [sectionTitle]="scanJob.name" [subTitle]="scanJob.shortDescr" blueHeader="true">
+
+    <!-- Info Section -->
+    <div class="sub-info">
+      <span class="info" *ngFor="let info of infos">
+        <div class="name"> {{info.name | translate}}</div>
+        <div class="value" [matTooltip]="info.tooltip" matTooltipShowDelay="500">
+          {{info.value}}
+        </div>
+      </span>
+    </div>
+
+    <!-- Controls Section -->
+    <div class="controls">
+      <button mat-button *ngIf="configurable()" (click)="goToConfig()">
+        {{ 'DISCOVERY.SCAN_JOBS.CONFIGURE' | translate | uppercase }}
+      </button>
+
+      <button mat-icon-button class="app-table-actions-button" [matMenuTriggerFor]="appMenu" (click)="$event.stopPropagation()">
+        <mat-icon fontSet="fa" fontIcon="fa-ellipsis-v"></mat-icon>
+      </button>
+
+      <mat-menu #appMenu="matMenu">
+        <button *ngFor="let menuItem of menuItems"
+                (click)="menuItem.events.next()"
+                mat-menu-item>
+          {{ menuItem.title | translate | uppercase }}
+        </button>
+      </mat-menu>
+    </div>
+
+    <!-- Scan Status/Progress -->
+    <button mat-button
+      class="scan-progress"
+      (click)="performOperation()"
+      [disabled]="startDisabled()"
+      [ngClass]="{'can-start': canStart(), 'can-stop': canStop(), 'can-abort': canAbort()}"
+    >
+      <span class="scan-loader">
+        <span class="spinning">
+          <span class="spinning-tip"></span>
+        </span>
+        <span class="progress-label">{{scanJob.progress || '0'}}%</span>
+      </span>
+      <span class="scan-button" *ngIf="canStart()">{{'DISCOVERY.SCAN_JOBS.OPERATION_LABEL.START' | translate}}</span>
+      <span class="scan-button" *ngIf="canStop()">{{'DISCOVERY.SCAN_JOBS.OPERATION_LABEL.STOP' | translate}}</span>
+      <span class="scan-button" *ngIf="canAbort()">{{'DISCOVERY.SCAN_JOBS.OPERATION_LABEL.ABORT' | translate}}</span>
+    </button>
+
+    <!-- Data Table -->
+    <super-table
+      [refresh]="refresh"
+      [data]="polling$"
+      [columns]="columns"
+      [trackBy]="trackBy"
+      [rowDefs]="rowDefs"
+      linked
+    ></super-table>
+
+  </app-section>
+</mat-card>

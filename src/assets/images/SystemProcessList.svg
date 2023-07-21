@@ -1,0 +1,17 @@
+<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="32" height="32" viewBox="0 0 32 32">
+  <defs>
+    <rect id="-other-process--a" width="30.97" height="30.965" x=".743" y=".708" rx="15.483"/>
+  </defs>
+  <g fill="none" fill-rule="evenodd">
+    <use fill="#85243B" xlink:href="#-other-process--a"/>
+    <rect width="8" height="8" x="12" y="12" fill="#FFF" rx="2"/>
+    <polygon fill="#FFF" fill-rule="nonzero" points="21 15 21 14 24 14 24 15"/>
+    <polygon fill="#FFF" fill-rule="nonzero" points="21 18 21 17 24 17 24 18"/>
+    <polygon fill="#FFF" fill-rule="nonzero" points="8 15 8 14 11 14 11 15"/>
+    <polygon fill="#FFF" fill-rule="nonzero" points="8 18 8 17 11 17 11 18"/>
+    <polygon fill="#FFF" fill-rule="nonzero" points="16 23 16 22 19 22 19 23" transform="rotate(90 17.5 22.5)"/>
+    <polygon fill="#FFF" fill-rule="nonzero" points="13 23 13 22 16 22 16 23" transform="rotate(90 14.5 22.5)"/>
+    <polygon fill="#FFF" fill-rule="nonzero" points="16 10 16 9 19 9 19 10" transform="rotate(90 17.5 9.5)"/>
+    <polygon fill="#FFF" fill-rule="nonzero" points="13 10 13 9 16 9 16 10" transform="rotate(90 14.5 9.5)"/>
+  </g>
+</svg>

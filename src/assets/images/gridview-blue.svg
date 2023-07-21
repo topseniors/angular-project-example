@@ -1,0 +1,8 @@
+<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="17" height="17" viewBox="0 0 17 17">
+  <defs>
+    <path id="grid-view-a" d="M7,0 L11,0 L11,4 L7,4 L7,0 Z M13,0 L17,0 L17,4 L13,4 L13,0 Z M1,0 L5,0 L5,4 L1,4 L1,0 Z M7,6 L11,6 L11,10 L7,10 L7,6 Z M13,6 L17,6 L17,10 L13,10 L13,6 Z M1,6 L5,6 L5,10 L1,10 L1,6 Z M13,12 L17,12 L17,16 L13,16 L13,12 Z M7,12 L11,12 L11,16 L7,16 L7,12 Z M1,12 L5,12 L5,16 L1,16 L1,12 Z"/>
+  </defs>
+  <g fill="none" fill-rule="evenodd">
+    <use fill="#00374c" xlink:href="#grid-view-a"/>
+  </g>
+</svg>
